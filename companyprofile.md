@@ -1,55 +1,86 @@
-Interior Fit-Out Solutions
+# KMD Décor
 
+## Interior Fit-Out Solutions for Commercial Spaces
 
-Address  : #54, St.590, Sangkat Boeung Kok II, Khan Toul Kok, Phnom Penh, Cambodia
+KMD Décor creates modern, practical, and high-quality interiors for businesses and commercial environments. From material supply and installation to complete fit-out work, we help every space perform beautifully for the people who use it.
 
-Contact Number : (+855 ) 16 92 76 83   
+**Based in Phnom Penh, Cambodia**  
+#54, Street 590, Sangkat Boeung Kok II, Khan Toul Kork, Phnom Penh  
+[+855 16 927 683](tel:+85516927683)
 
-    KMD Decor is a professional decoration and fit-out company specializing in providing complete interior solutions for business and commercial sectors. We partner with companies, developers, retailers, restaurants, hotels, offices, and construction firms to deliver modern, functional, and high-quality decorative environments.
-	With a strong focus on the B2B market, KMD Decor understands the importance of brand image, project timelines, cost efficiency, and professional execution. Our team combines creative design expertise with practical project management to ensure every commercial space meets both aesthetic and operational goals.
+---
 
+## Your Commercial Fit-Out Partner
 
-Our Vision
-To become a trusted decoration and fit-out partner for businesses by delivering innovative design solutions, quality craftsmanship, and professional project execution.
-Our Mission
-To help businesses create attractive, functional, and inspiring commercial spaces that strengthen brand identity and improve customer experience.
+We work with companies, developers, retailers, restaurants, hotels, offices, and construction firms to deliver interiors that balance brand presence, daily operations, and long-term value.
 
-Our Services Supply & install :
-1. Ceiling Décor	
-    CL-01 Stretch ceiling with white paint 
-    CL-02 Stretch moisture ceiling with white paint 
-    CL-03 Reflect ceiling with white paint 
-    CL-04 Reflect eco block ceiling 
-    CL-05 Decore Reflect Ceiling with LED light 
-    CL-06 Decore Reflect eco block Ceiling with LED Light 
-    
+Our B2B approach puts project timelines, cost control, material quality, and dependable delivery at the centre of every engagement. Our design and technical teams work together to turn a clear brief into a finished commercial space.
 
-Our Services Supply & install :
-2.  Partition & Wall Décor 
-    - Door & Window 	- Back drop 	- Counter 	- Floor Carpet		
+## Vision
 
-Our Services Supply & install :
-3.  Interior Décor & Furniture
-    - Cabinet 	- Office Materials 	- Conference hall 
-    		
+To be a trusted decoration and fit-out partner for businesses, known for innovative design, quality craftsmanship, and professional project execution.
 
-Why Partner with KMD Décor
-Professional B2B Project Experience 
-Customized Solutions for Business Needs 
-Reliable Quality & Material Standards 
-On-Time Project Delivery 
-Competitive Pricing & Cost Control 
-Skilled Technical & Design Team 
-Long-Term Business Partnership Approach
+## Mission
 
+To help businesses create attractive, functional, and inspiring commercial spaces that strengthen brand identity and improve customer experience.
 
-Our Projects 
-(MEF)
-Location : Phnom penhScop : Finishing Décor 
-(MOJ)Location : Phnom penh
-Scop : Finishing Décor
-Commercia Building
-Location : Phnom penh
-Scop : Finishing Décor
+---
 
+## Services
 
+### 01 — Ceiling Décor
+
+Supply and installation for a refined, durable ceiling finish.
+
+- **CL-01** — Stretch ceiling with white paint
+- **CL-02** — Moisture-resistant stretch ceiling with white paint
+- **CL-03** — Reflect ceiling with white paint
+- **CL-04** — Reflect Eco Block ceiling
+- **CL-05** — Decorative reflect ceiling with LED lighting
+- **CL-06** — Decorative Reflect Eco Block ceiling with LED lighting
+
+### 02 — Partitions & Wall Décor
+
+Functional architectural elements tailored to your layout and brand.
+
+- Doors and windows
+- Feature backdrops
+- Counters
+- Floor carpeting
+
+### 03 — Interior Décor & Furniture
+
+Practical interior elements that support comfortable, productive spaces.
+
+- Cabinets
+- Office materials and fittings
+- Conference hall fit-outs
+
+---
+
+## Why Businesses Choose KMD Décor
+
+- Professional B2B project experience
+- Custom solutions for each business need
+- Reliable material and quality standards
+- Focused, on-time project delivery
+- Competitive pricing and cost control
+- Skilled technical and design team
+- A long-term partnership mindset
+
+---
+
+## Selected Projects
+
+| Project | Location | Scope |
+| --- | --- | --- |
+| Ministry of Economy and Finance (MEF) | Phnom Penh | Finishing décor |
+| Ministry of Justice (MOJ) | Phnom Penh | Finishing décor |
+| Commercial Building | Phnom Penh | Finishing décor |
+
+## Start Your Project
+
+Tell us about your commercial space, project requirements, and timeline. KMD Décor will help you shape a fit-out solution that is functional, considered, and ready to deliver.
+
+**Phone:** [+855 16 927 683](tel:+85516927683)  
+**Address:** #54, Street 590, Sangkat Boeung Kok II, Khan Toul Kork, Phnom Penh, Cambodia
