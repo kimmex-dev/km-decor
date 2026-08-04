@@ -14,11 +14,7 @@ import Link from "next/link";
 import { AlertCircle, ArrowRight, Heart, PackageCheck, RefreshCw, Search, ShieldCheck, ShoppingBag, Trash2 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 
-type SortOption = "recent" | "price-low" | "price-high" | "name";
-
-function formatMoney(value: number) {
-  return `$${value.toFixed(2)}`;
-}
+type SortOption = "recent" | "name";
 
 type WishlistContentProps = {
   products: ProductItem[];
@@ -64,8 +60,6 @@ export function WishlistContent({ products }: WishlistContentProps) {
       `${product.name} ${product.brand} ${product.category}`.toLowerCase().includes(query.trim().toLowerCase())
     );
 
-    if (sort === "price-low") return [...filtered].sort((a, b) => a.price - b.price);
-    if (sort === "price-high") return [...filtered].sort((a, b) => b.price - a.price);
     if (sort === "name") return [...filtered].sort((a, b) => a.name.localeCompare(b.name));
     return filtered;
   }, [query, savedIds, sort]);
@@ -126,8 +120,6 @@ export function WishlistContent({ products }: WishlistContentProps) {
         </div>
         <select aria-label="Sort saved products" className="select-field wishlist-sort" onChange={(event) => setSort(event.target.value as SortOption)} value={sort}>
           <option value="recent">{text("Recently saved", "បានរក្សាទុកថ្មីៗ")}</option>
-          <option value="price-low">{text("Price: low to high", "តម្លៃ៖ ទាបទៅខ្ពស់")}</option>
-          <option value="price-high">{text("Price: high to low", "តម្លៃ៖ ខ្ពស់ទៅទាប")}</option>
           <option value="name">{text("Name", "ឈ្មោះ")}</option>
         </select>
         <button className="wishlist-clear" onClick={() => {
@@ -173,7 +165,7 @@ export function WishlistContent({ products }: WishlistContentProps) {
                     </div>
                   ) : null}
                   <div className="wishlist-card-price">
-                    <div><strong>{formatMoney(product.price)}</strong><span>/ {product.unit}</span>{product.comparePrice ? <del>{formatMoney(product.comparePrice)}</del> : null}</div>
+                    <div><strong>{text("Price on request", "ស្នើសុំតម្លៃ")}</strong><span>/ {product.unit}</span></div>
                     <p><PackageCheck /> {product.leadTime}</p>
                   </div>
                   <div className="wishlist-card-actions">

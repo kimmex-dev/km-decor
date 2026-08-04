@@ -10,7 +10,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { useEffect, useMemo, useState } from "react";
 
-type SortMode = "Featured" | "Price: low to high" | "Price: high to low" | "Best rated";
+type SortMode = "Featured" | "Best rated";
 type ViewMode = "grid" | "list";
 type BuyingMode = "All products" | "Ready to order" | "Needs quote" | "Preorder or low stock";
 
@@ -22,7 +22,7 @@ type ProductCatalogProps = {
 };
 
 const productBatchSize = 9;
-const sortModes: SortMode[] = ["Featured", "Price: low to high", "Price: high to low", "Best rated"];
+const sortModes: SortMode[] = ["Featured", "Best rated"];
 const buyingModes: BuyingMode[] = ["All products", "Ready to order", "Needs quote", "Preorder or low stock"];
 
 export function ProductCatalog({ products, categories, brands, availability }: ProductCatalogProps) {
@@ -146,8 +146,6 @@ export function ProductCatalog({ products, categories, brands, availability }: P
         return matchesQuery && matchesCategory && matchesBrand && matchesAvailability && matchesBuyingMode;
       })
       .sort((a, b) => {
-        if (sort === "Price: low to high") return a.price - b.price;
-        if (sort === "Price: high to low") return b.price - a.price;
         if (sort === "Best rated") return b.rating - a.rating;
         return 0;
       });
@@ -555,8 +553,8 @@ function ProductListRow({ product }: { product: ProductItem }) {
       </div>
       <div className="grid gap-2 lg:min-w-40">
         <div className="text-left lg:text-right">
-          <div className="text-2xl font-semibold text-brand-red">${product.price.toFixed(2)}</div>
-          <div className="text-sm text-ink-700">/ {product.unit}</div>
+          <div className="text-sm font-semibold text-ink-700">Price on request</div>
+          <div className="text-xs text-ink-700">Per {product.unit}</div>
         </div>
         {needsQuote || product.stockStatus === "Low stock" ? (
           <Link className="action-commerce min-h-10 px-3 py-2 text-xs" href={primaryHref}>

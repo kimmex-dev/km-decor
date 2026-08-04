@@ -4,7 +4,6 @@ import { SiteFooter } from "@/components/home/site-footer";
 import { SiteHeader } from "@/components/home/site-header";
 import { ProductGallery } from "@/components/products/product-gallery";
 import { ProductInformation } from "@/components/products/product-information";
-import { RawStructuredData, StructuredData } from "@/components/structured-data";
 import { getCatalogProduct, getCatalogProducts } from "@/lib/api-catalog";
 import { products as fallbackProducts } from "@/lib/homepage-data";
 import {
@@ -67,28 +66,8 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
   const productSlug = product.href.replace("/products/", "");
   const advisorHref = `/contact?product=${encodeURIComponent(productSlug)}`;
   const galleryImages = product.galleryImages.length > 0 ? product.galleryImages : [product.imageUrl];
-  const savingPercent = product.comparePrice ? Math.round(((product.comparePrice - product.price) / product.comparePrice) * 100) : null;
   return (
     <main className="page-shell">
-      {product.structuredData ? <RawStructuredData data={product.structuredData} /> : <StructuredData
-        data={{
-          type: "product",
-          name: product.name,
-          description: product.descriptor,
-          image: product.imageUrl,
-          sku: product.sku,
-          brand: { "@type": "Brand", name: product.brand },
-          offers: {
-            "@type": "Offer",
-            price: product.price.toFixed(2),
-            priceCurrency: "USD",
-            availability: product.stockStatus === "In stock"
-              ? "https://schema.org/InStock"
-              : "https://schema.org/OutOfStock",
-            url: `https://kmdecor.com${product.href}`,
-          },
-        }}
-      />}
       <SiteHeader />
 
       <div className="border-b border-sand-400 bg-sand-50">
@@ -128,17 +107,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
             <p className="mt-4 max-w-xl text-base leading-7 text-ink-700">{product.descriptor}</p>
 
             <div className="mt-6 flex flex-wrap items-end justify-between gap-4 border-y border-sand-400 py-5">
-              <div>
-                {needsQuote ? <p className="mb-1 text-xs font-semibold uppercase tracking-[0.16em] text-ink-700">Reference price</p> : null}
-                <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
-                  <span className="text-4xl font-semibold tracking-tight text-brand-red">${product.price.toFixed(2)}</span>
-                  <span className="text-sm text-ink-700">per {product.unit}</span>
-                </div>
-                <div className="mt-1 flex items-center gap-2 text-sm">
-                  {product.comparePrice ? <span className="text-ink-700 line-through">${product.comparePrice.toFixed(2)}</span> : null}
-                  {savingPercent ? <span className="font-semibold text-brand-red">Save {savingPercent}%</span> : null}
-                </div>
-              </div>
+              <div><p className="text-xs font-semibold uppercase tracking-[0.16em] text-ink-700">Pricing</p><p className="mt-1 text-xl font-semibold text-brand-red">Request a quote</p><p className="mt-1 text-sm text-ink-700">Price confirmed for your required quantity.</p></div>
 
               <span className="inline-flex items-center gap-2 rounded-full border border-sand-400 bg-white px-3 py-2 text-xs font-semibold text-ink-900">
                 <span className={`h-2 w-2 rounded-full ${product.stockStatus === "In stock" ? "bg-emerald-500" : product.stockStatus === "Low stock" ? "bg-amber-500" : "bg-ink-700"}`} />

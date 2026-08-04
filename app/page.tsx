@@ -10,6 +10,8 @@ import { SiteHeader } from "@/components/home/site-header";
 import { StructuredData } from "@/components/structured-data";
 import { TrustHighlightsSection } from "@/components/home/trust-highlights-section";
 import { getHomepageContent } from "@/lib/api-home";
+import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 export const revalidate = 60;
 
@@ -17,7 +19,7 @@ export default async function Home() {
   const home = await getHomepageContent();
 
   return (
-    <main className="page-shell">
+    <main className="page-shell pb-16 lg:pb-0">
       <StructuredData
         data={{
           type: "organization",
@@ -42,6 +44,12 @@ export default async function Home() {
       <BrandsSection brands={home.brands} />
       <InquirySection />
       <SiteFooter />
+      <div className="fixed inset-x-0 bottom-0 z-30 border-t border-neutral-200 bg-white/95 p-3 backdrop-blur-md lg:hidden">
+        <Link className="flex min-h-11 w-full items-center justify-center gap-2 rounded-full bg-[#111827] px-5 py-3 text-xs font-semibold uppercase tracking-wider text-white transition hover:bg-[#991b1b]" href="#contact">
+          Request a quote
+          <ArrowRight className="h-3.5 w-3.5" />
+        </Link>
+      </div>
     </main>
   );
 }

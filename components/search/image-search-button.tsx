@@ -139,7 +139,7 @@ export function ImageSearchButton({ className = "", compact = false, label = "Se
                         <div>
                           <div className="text-xs font-semibold uppercase tracking-[0.14em] text-ink-700">{product.category}</div>
                           <div className="mt-1 font-semibold leading-5 text-ink-900">{product.name}</div>
-                          <div className="mt-1 text-sm text-ink-700">${product.price.toFixed(2)} / {product.unit}</div>
+                          <div className="mt-1 text-xs font-semibold uppercase tracking-wider text-ink-700">Price on request · {product.unit}</div>
                         </div>
                         <ArrowRight className="hidden h-4 w-4 text-brand-red sm:block" />
                       </a>

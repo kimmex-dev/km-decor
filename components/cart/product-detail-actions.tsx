@@ -19,7 +19,6 @@ export function ProductDetailActions({ advisorHref, needsQuote, product }: Produ
   const minimumQuantity = Math.max(1, Number.parseInt(product.moq, 10) || 1);
   const [quantity, setQuantity] = useState(minimumQuantity);
   const [added, setAdded] = useState(false);
-  const estimatedTotal = product.price * quantity;
   const requestHref = `${advisorHref}&quantity=${quantity}`;
 
   const updateQuantity = (nextQuantity: number) => {
@@ -74,11 +73,7 @@ export function ProductDetailActions({ advisorHref, needsQuote, product }: Produ
           <p className="mt-2 text-xs text-ink-700">Minimum order: {product.moq}</p>
         </div>
 
-        <div className="sm:text-right">
-          <p className="text-xs text-ink-700">{needsQuote ? "Reference subtotal" : "Estimated subtotal"}</p>
-          <p className="mt-1 text-2xl font-semibold text-ink-900">${estimatedTotal.toFixed(2)}</p>
-          <p className="text-xs text-ink-700">Delivery calculated separately</p>
-        </div>
+        <div className="sm:text-right"><p className="text-xs font-semibold uppercase tracking-[0.14em] text-ink-700">Pricing</p><p className="mt-1 text-lg font-semibold text-ink-900">Quote confirmed on review</p><p className="text-xs text-ink-700">Delivery calculated separately</p></div>
       </div>
 
       <div className="mt-5 grid gap-3 sm:grid-cols-2">

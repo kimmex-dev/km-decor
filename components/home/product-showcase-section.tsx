@@ -92,10 +92,7 @@ export async function ProductShowcaseSection({ products }: ProductShowcaseSectio
                 </div>
 
                 <div className="mt-4 border-t border-neutral-100 pt-3 flex items-center justify-between">
-                  <div>
-                    <span className="text-base font-bold text-black">${product.price.toFixed(2)}</span>
-                    <span className="text-[11px] text-neutral-500"> / {product.unit}</span>
-                  </div>
+                  <span className="text-[11px] font-semibold uppercase tracking-wider text-neutral-500">Price on request</span>
                   <Link className="bg-black text-white px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider hover:bg-neutral-800 transition" href={contactHref}>
                     Request Quote
                   </Link>

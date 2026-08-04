@@ -5,7 +5,7 @@ import Link from "next/link";
 import { SiteFooter } from "@/components/home/site-footer";
 import { SiteHeader } from "@/components/home/site-header";
 import { services } from "@/lib/homepage-data";
-import heroKmdAsset from "@/public/hero-kmd.jpeg";
+import heroKmdAsset from "@/public/hero-kmd.avif";
 
 export const metadata = {
   title: "About KMD Décor",

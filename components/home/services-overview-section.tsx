@@ -52,12 +52,17 @@ export function ServicesOverviewSection({ services }: ServicesOverviewSectionPro
                 {/* Clean Sub-Items */}
                 {service.items && service.items.length > 0 ? (
                   <ul className="mt-4 grid gap-2.5 border-t border-neutral-100 pt-4 text-xs text-neutral-600">
-                    {service.items.map((item) => (
+                    {service.items.slice(0, 3).map((item) => (
                       <li key={item} className="flex items-center gap-2">
                         <CheckCircle2 className="h-3.5 w-3.5 text-[#991b1b] shrink-0" />
                         <span className="font-medium text-neutral-700">{item}</span>
                       </li>
                     ))}
+                    {service.items.length > 3 ? (
+                      <li className="pt-1 text-[11px] font-semibold text-neutral-500">
+                        + {service.items.length - 3} more options in the full scope
+                      </li>
+                    ) : null}
                   </ul>
                 ) : null}
               </div>

@@ -170,7 +170,7 @@ export default function SearchPageClient() {
                           <span className="rounded-full bg-sand-100 px-2 py-1 text-xs font-semibold uppercase text-ink-700">
                             {result.type}
                           </span>
-                          {result.price !== undefined ? <span className="text-sm font-semibold text-brand-red">${Number(result.price).toFixed(2)}</span> : null}
+                          {result.price !== undefined ? <span className="text-xs font-semibold uppercase tracking-wider text-ink-700">Quote required</span> : null}
                         </div>
                         <h3 className="mt-3 font-serif text-xl leading-tight text-ink-900 transition group-hover:text-brand-red">{result.name}</h3>
                         <p className="mt-2 line-clamp-2 text-sm leading-6 text-ink-700">

@@ -2,7 +2,7 @@ import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { blurPlaceholder } from "@/lib/blur-placeholder";
 import Image from "next/image";
 import Link from "next/link";
-import heroKmdAsset from "@/public/hero-kmd.jpeg";
+import heroKmdAsset from "@/public/hero-kmd.avif";
 
 export function HeroSection() {
   return (
