@@ -1,6 +1,7 @@
 "use client";
 
 import { services } from "@/lib/homepage-data";
+import { ArrowRight, Phone, MapPin, MessageSquare, UploadCloud } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 
@@ -27,11 +28,11 @@ function InquirySectionWithParams() {
         ? "Photo search quote"
         : null;
   const defaultMessage = service
-    ? `I need a quote for ${service.title}. Project location, size, and preferred timeline:`
+    ? `I need a quotation for ${service.title}. Location & schedule:`
     : productId
-      ? `I need help with product ${productId}. Quantity, delivery location, and timeline:`
+      ? `I need material supply details for product ${productId}. Quantity & delivery:`
       : imageSearch
-        ? "I used photo search. I want KMD to recommend materials or service based on my photo. Project size/location:"
+        ? "I uploaded a photo. Please advise on ceiling or partition service:"
         : "";
 
   return <InquiryForm contextLabel={contextLabel} defaultMessage={defaultMessage} inquiryType={inquiryType} />;
@@ -47,90 +48,142 @@ function InquiryForm({
   inquiryType: string;
 }) {
   return (
-    <section id="contact" className="section-shell">
-      <div className="surface-card grid gap-8 p-8 lg:grid-cols-[0.8fr_1.2fr] lg:p-10">
+    <section id="contact" className="bg-white py-20 border-b border-neutral-100">
+      <div className="content-shell grid gap-12 lg:grid-cols-[0.8fr_1.2fr] items-start">
+        
+        {/* Left Column: Clean Contact Pills & Headquarters */}
         <div>
-          <p className="eyebrow">Quotation Request</p>
-          <h2 className="section-title">Send product needs, project details, or a material list.</h2>
-          <p className="section-copy mt-4">
-            Keep the first step simple. The team can follow up with availability, package options, delivery details,
-            and service recommendations.
+          <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-neutral-400 mb-2">
+            DIRECT INQUIRY
           </p>
-          <div className="mt-8 grid gap-3 text-sm text-ink-700 sm:grid-cols-2 lg:grid-cols-1">
-            <div className="rounded-lg border border-sand-400 bg-sand-50 p-4">Phone: +855 XX XXX XXX</div>
-            <div className="rounded-lg border border-sand-400 bg-sand-50 p-4">Email: hello@kimmexdecor.com</div>
-            <div className="rounded-lg border border-sand-400 bg-sand-50 p-4">Location: Phnom Penh, Cambodia</div>
+          <h2 className="font-serif text-3xl sm:text-4xl font-normal text-black tracking-tight leading-tight">
+            Start Your Fit-Out Project
+          </h2>
+          <p className="mt-4 text-xs md:text-sm text-neutral-500 leading-relaxed">
+            Send your BOQ material list or ceiling elevation drawings for an official quotation.
+          </p>
+
+          {/* Clean Pill Contacts */}
+          <div className="mt-8 flex flex-col gap-3">
+            <a
+              href="https://t.me/kmddecor"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-between p-4 rounded-xl border border-neutral-200 bg-neutral-50 hover:bg-black hover:text-white transition duration-200 group text-xs"
+            >
+              <div className="flex items-center gap-3">
+                <MessageSquare className="h-4 w-4 text-[#991b1b] group-hover:text-white" />
+                <span className="font-semibold text-black group-hover:text-white">Telegram: @kmddecor</span>
+              </div>
+              <ArrowRight className="h-3.5 w-3.5 text-neutral-400 group-hover:text-white" />
+            </a>
+
+            <a
+              href="tel:+85516927683"
+              className="flex items-center justify-between p-4 rounded-xl border border-neutral-200 bg-neutral-50 hover:bg-black hover:text-white transition duration-200 group text-xs"
+            >
+              <div className="flex items-center gap-3">
+                <Phone className="h-4 w-4 text-[#991b1b] group-hover:text-white" />
+                <span className="font-semibold text-black group-hover:text-white">Call: (+855) 16 92 76 83 / 087 777 560</span>
+              </div>
+              <ArrowRight className="h-3.5 w-3.5 text-neutral-400 group-hover:text-white" />
+            </a>
+
+            <div className="flex items-start gap-3 p-4 rounded-xl border border-neutral-100 bg-white text-xs">
+              <MapPin className="h-4 w-4 text-[#991b1b] shrink-0 mt-0.5" />
+              <div>
+                <strong className="block font-semibold text-black">Phnom Penh Headquarters</strong>
+                <span className="text-neutral-500 text-[11px]">#54, St. 590, Boeung Kok II, Toul Kork, Phnom Penh, Cambodia</span>
+              </div>
+            </div>
           </div>
         </div>
-        <form className="grid gap-4 md:grid-cols-2">
+
+        {/* Right Column: Pristine Single-Card BOQ Quotation Form */}
+        <form className="border border-neutral-200 bg-white p-6 sm:p-8 rounded-2xl shadow-sm grid gap-5">
           {contextLabel ? (
-            <div className="md:col-span-2 rounded-lg border border-brand-red/40 bg-brand-red/10 p-4">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-red">Request context</p>
-              <p className="mt-1 text-sm font-semibold text-ink-900">{contextLabel}</p>
+            <div className="border-b border-neutral-100 pb-3">
+              <p className="text-[10px] font-semibold uppercase tracking-wider text-neutral-400">Request Context</p>
+              <p className="mt-0.5 text-xs font-semibold text-black">{contextLabel}</p>
             </div>
           ) : null}
-          <label className="control-label">
-            Name
-            <input className="field" placeholder="Your name" type="text" />
-          </label>
-          <label className="control-label">
-            Phone
-            <input className="field" placeholder="+855..." type="tel" />
-          </label>
-          <label className="control-label md:col-span-2">
-            Location
-            <input className="field" placeholder="Project location or delivery area" type="text" />
-          </label>
-          <label className="control-label md:col-span-2">
-            Inquiry Type
-            <select className="select-field" defaultValue={inquiryType}>
-              <option value="service">Service consultation</option>
-              <option value="product">Product request</option>
-              <option value="project">Project support</option>
-              <option value="package">Project package quote</option>
-            </select>
-          </label>
-          <label className="control-label">
-            Estimated Budget
-            <select className="select-field" defaultValue="">
-              <option value="" disabled>
-                Select range
-              </option>
-              <option value="under-500">Under $500</option>
-              <option value="500-2000">$500 - $2,000</option>
-              <option value="2000-plus">$2,000+</option>
-              <option value="not-sure">Not sure yet</option>
-            </select>
-          </label>
-          <label className="control-label">
-            Timeline
-            <select className="select-field" defaultValue="">
-              <option value="" disabled>
-                Select timeline
-              </option>
-              <option value="urgent">Urgent</option>
-              <option value="this-month">This month</option>
-              <option value="planning">Planning stage</option>
-            </select>
-          </label>
-          <label className="control-label md:col-span-2">
-            Message
-            <textarea className="textarea-field" defaultValue={defaultMessage} placeholder="Tell us what materials, service, or package you need." />
-          </label>
-          <label className="control-label md:col-span-2">
-            Photo or BOQ
-            <span className="rounded-lg border border-dashed border-sand-400 bg-sand-50 p-4 text-sm text-ink-700">
-              <input accept="image/*,.pdf,.xls,.xlsx" className="block w-full text-sm file:mr-4 file:rounded-md file:border-0 file:bg-brand-red file:px-4 file:py-2 file:text-base sm:file:text-sm file:font-semibold file:text-white" type="file" />
-              <span className="mt-3 block text-xs leading-5">Attach a room photo, material sample, BOQ, drawing, or screenshot for faster recommendations.</span>
-            </span>
-          </label>
-          <div className="flex flex-col gap-3 md:col-span-2 md:flex-row md:items-center md:justify-between">
-            <p className="text-xs leading-5 text-ink-700">For photo search results, include room size, delivery area, and preferred contact method.</p>
-            <button className="action-commerce border-0" type="submit">
-              Send Quote Request
-            </button>
+
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div>
+              <label className="block text-xs font-semibold text-neutral-700 mb-1.5" htmlFor="inquiry-name">
+                Full Name *
+              </label>
+              <input
+                id="inquiry-name"
+                className="w-full rounded-xl border border-neutral-200 bg-neutral-50 px-3.5 py-2.5 text-xs text-black placeholder:text-neutral-400 focus:border-black focus:bg-white focus:outline-none transition"
+                placeholder="Your name or company"
+                type="text"
+                required
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold text-neutral-700 mb-1.5" htmlFor="inquiry-contact">
+                Phone / Telegram *
+              </label>
+              <input
+                id="inquiry-contact"
+                className="w-full rounded-xl border border-neutral-200 bg-neutral-50 px-3.5 py-2.5 text-xs text-black placeholder:text-neutral-400 focus:border-black focus:bg-white focus:outline-none transition"
+                placeholder="+855 16 92 76 83"
+                type="tel"
+                required
+              />
+            </div>
           </div>
+
+          <div>
+            <label className="block text-xs font-semibold text-neutral-700 mb-1.5" htmlFor="inquiry-type">
+              Inquiry Category
+            </label>
+            <select
+              id="inquiry-type"
+              className="w-full rounded-xl border border-neutral-200 bg-neutral-50 px-3.5 py-2.5 text-xs text-black focus:border-black focus:bg-white focus:outline-none transition"
+              defaultValue={inquiryType}
+            >
+              <option value="service">Supply & Install: Ceiling & Wall Partition Fit-Out</option>
+              <option value="product">Building Material Supply (Gypsum / C-Line)</option>
+              <option value="project">Landmark Project Consultation (MEF/MOJ)</option>
+              <option value="package">Custom BOQ Package Quotation</option>
+            </select>
+          </div>
+
+          <div>
+            <label className="block text-xs font-semibold text-neutral-700 mb-1.5" htmlFor="inquiry-message">
+              Project Scope / BOQ Details
+            </label>
+            <textarea
+              id="inquiry-message"
+              className="w-full rounded-xl border border-neutral-200 bg-neutral-50 px-3.5 py-2.5 text-xs text-black placeholder:text-neutral-400 focus:border-black focus:bg-white focus:outline-none transition"
+              defaultValue={defaultMessage}
+              placeholder="Describe ceiling codes (CL-01 to CL-06), partition dimensions, or material quantities."
+              rows={3}
+            />
+          </div>
+
+          <div>
+            <label className="block text-xs font-semibold text-neutral-700 mb-1.5" htmlFor="inquiry-file">
+              Attach BOQ / Floor Plan (Optional)
+            </label>
+            <div className="flex items-center gap-3 rounded-xl border border-neutral-200 bg-neutral-50 p-3 text-xs text-neutral-500">
+              <UploadCloud className="h-4 w-4 text-[#991b1b] shrink-0" />
+              <input id="inquiry-file" accept="image/*,.pdf,.xls,.xlsx" className="block w-full text-xs cursor-pointer text-neutral-600" type="file" />
+            </div>
+          </div>
+
+          <button
+            className="bg-black text-white px-8 py-3.5 text-xs font-semibold uppercase tracking-widest hover:bg-[#991b1b] transition duration-200 w-full flex items-center justify-center gap-2 rounded-full mt-2 shadow-sm"
+            type="submit"
+          >
+            Submit BOQ Request
+            <ArrowRight className="h-3.5 w-3.5" />
+          </button>
         </form>
+
       </div>
     </section>
   );

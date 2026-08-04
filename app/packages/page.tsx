@@ -168,10 +168,10 @@ export default function PackagesPage() {
                 <p className="promo-chip w-fit">Materials + Service Support</p>
                 <h2 className="font-serif text-3xl text-ink-900">{item.title}</h2>
                 <p className="mt-3 text-sm leading-7 text-ink-700">{item.summary}</p>
-                <div className="mt-4 text-lg font-semibold text-brand-red">From ${item.startingPrice.toFixed(2)}</div>
-                <p className="mt-1 text-xs text-ink-700">Starting reference only. Final pricing depends on quantity, delivery, and service scope.</p>
+                <div className="mt-4 text-xs font-semibold uppercase tracking-wider text-[#991b1b]">Custom BOQ Quotation</div>
+                <p className="mt-1 text-xs text-neutral-500">Final pricing depends on quantity, BOQ material specs, and project scope.</p>
                 <div className="mt-5 flex flex-wrap gap-2">
-                  {item.includes.map((include) => (
+                  {item.includes.map((include: string) => (
                     <span key={include} className="rounded-md border border-sand-400 bg-sand-100 px-2 py-1 text-xs text-ink-700">
                       {include}
                     </span>

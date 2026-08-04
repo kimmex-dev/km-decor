@@ -69,13 +69,7 @@ type ApiCollectionResponse<T> = {
 };
 
 export async function getCatalogBrands(): Promise<ApiBrand[]> {
-  try {
-    const response = await fetchJson<ApiCollectionResponse<ApiBrand>>("/brands");
-    return response.data.filter((b) => b.is_featured).slice(0, 8);
-  } catch (error) {
-    console.error("Failed to fetch brands:", error);
-    return [];
-  }
+  return [];
 }
 
 export function adaptBrand(brand: ApiBrand) {
@@ -90,13 +84,12 @@ export function adaptBrand(brand: ApiBrand) {
 }
 
 export async function getCatalogCategories(): Promise<ApiCategory[]> {
-  try {
-    const response = await fetchJson<ApiCollectionResponse<ApiCategory>>("/categories");
-    return response.data.filter((c) => c.is_featured);
-  } catch (error) {
-    console.error("Failed to fetch categories:", error);
-    return [];
-  }
+  return [
+    { id: "gypsum-board", name: "Gypsum Board", slug: "gypsum-board", description: "Ceiling and partition boards", type: "product", is_featured: true },
+    { id: "cline-frame", name: "Cline & Partition Frame", slug: "cline-frame", description: "Galvanized steel ceiling systems", type: "product", is_featured: true },
+    { id: "decor-materials", name: "Decor Materials", slug: "decor-materials", description: "MDF, WPC, plywood panels", type: "product", is_featured: true },
+    { id: "sanitary-ware", name: "Sanitary Ware", slug: "sanitary-ware", description: "Fixtures and bathroom fittings", type: "product", is_featured: true },
+  ];
 }
 
 export async function searchCatalog(query: string): Promise<SearchResult[]> {

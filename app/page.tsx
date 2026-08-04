@@ -1,6 +1,8 @@
+import { AboutPreviewSection } from "@/components/home/about-preview-section";
 import { BrandsSection } from "@/components/home/brands-section";
 import { FeaturedProjectsSection } from "@/components/home/featured-projects-section";
 import { HeroSection } from "@/components/home/hero-section";
+import { InquirySection } from "@/components/home/inquiry-section";
 import { ProductShowcaseSection } from "@/components/home/product-showcase-section";
 import { ServicesOverviewSection } from "@/components/home/services-overview-section";
 import { SiteFooter } from "@/components/home/site-footer";
@@ -19,10 +21,10 @@ export default async function Home() {
       <StructuredData
         data={{
           type: "organization",
-          name: "KM Decor",
+          name: "KMD Decor",
           url: "https://kmdecor.com",
           logo: "https://kmdecor.com/kmd-logo.png",
-          description: "Cambodia interior design and construction material supplier — premium products and professional interior services in Phnom Penh.",
+          description: "KMD Decor — Commercial Fit-Out & Interior Decoration Services in Phnom Penh, Cambodia.",
           address: {
             "@type": "PostalAddress",
             addressCountry: "KH",
@@ -33,10 +35,12 @@ export default async function Home() {
       <SiteHeader />
       <HeroSection />
       <ServicesOverviewSection services={home.services} />
-      <ProductShowcaseSection products={home.products} />
       <FeaturedProjectsSection projects={home.projects} />
+      <AboutPreviewSection />
+      <ProductShowcaseSection products={home.products} />
       <TrustHighlightsSection />
       <BrandsSection brands={home.brands} />
+      <InquirySection />
       <SiteFooter />
     </main>
   );

@@ -1,4 +1,6 @@
-import { ArrowRight } from "lucide-react";
+"use client";
+
+import { ArrowRight, MapPin } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import type { ProjectItem } from "@/lib/homepage-data";
@@ -10,61 +12,60 @@ type FeaturedProjectsSectionProps = {
 
 export function FeaturedProjectsSection({ projects }: FeaturedProjectsSectionProps) {
   return (
-    <section className="section-shell" id="portfolio">
-      <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
-        <div>
-          <p className="eyebrow">Selected Work</p>
-          <h2 className="section-title max-w-3xl">See how materials and services come together.</h2>
-          <p className="section-copy mt-4">
-            Browse project references across residential interiors, commercial fit-outs, and smart living upgrades.
-          </p>
+    <section className="bg-white py-20 border-b border-neutral-100" id="portfolio">
+      <div className="content-shell">
+        <div className="flex items-end justify-between mb-10">
+          <div>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-neutral-400 mb-2">
+              PORTFOLIO
+            </p>
+            <h2 className="font-serif text-3xl font-normal text-black leading-tight">
+              Landmark Projects
+            </h2>
+          </div>
+          <Link className="hidden sm:inline-flex items-center text-xs font-semibold uppercase tracking-widest text-black transition hover:text-[#991b1b]" href="/portfolio">
+            Full Portfolio
+            <ArrowRight className="ml-1.5 h-3.5 w-3.5" />
+          </Link>
         </div>
-        <Link className="action-secondary w-fit" href="/portfolio">
-          View Portfolio
-          <ArrowRight className="ml-2 h-4 w-4" />
-        </Link>
-      </div>
 
-      <div className="mt-10 grid gap-5 lg:grid-cols-3">
-        {projects.map((project, index) => (
-          <article
-            key={project.id}
-            className={`group relative overflow-hidden rounded-lg border border-sand-400 bg-ink-900 ${
-              index === 0 ? "min-h-[520px] lg:col-span-2" : "min-h-[360px]"
-            }`}
-          >
-            <Link className="absolute inset-0" href={project.href} aria-label={`View ${project.title}`}>
-              <Image
-                alt={project.title}
-                className="object-cover opacity-85 transition duration-500 group-hover:scale-105 group-hover:opacity-70"
-                fill
-                loading="lazy"
-                placeholder="blur"
-                blurDataURL={blurPlaceholder()}
-                sizes={index === 0 ? "(max-width: 1024px) 100vw, 66vw" : "(max-width: 1024px) 100vw, 33vw"}
-                src={project.imageUrl}
-              />
-            </Link>
-            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent" />
-            <div className="absolute inset-x-0 bottom-0 p-6 text-white md:p-8">
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/70">{project.projectType}</p>
-              <h3 className={`mt-2 font-serif leading-tight ${index === 0 ? "text-4xl md:text-5xl" : "text-3xl"}`}>
-                {project.title}
-              </h3>
-              <p className="mt-3 max-w-xl text-sm leading-6 text-white/80">{project.caption}</p>
-              <div className="mt-5 flex flex-wrap gap-2">
-                <Link className="project-card-action is-primary" href={project.href}>
-                  Case study
-                  <ArrowRight className="h-4 w-4" />
+        {/* Landmark Projects Showcase */}
+        <div className="grid gap-8 lg:grid-cols-3">
+          {projects.map((project) => (
+            <article key={project.id} className="group flex flex-col justify-between rounded-2xl border border-neutral-200/80 bg-white p-5 shadow-sm transition hover:shadow-md">
+              <div>
+                <Link className="relative block aspect-[16/10] overflow-hidden rounded-xl bg-neutral-100 mb-4" href={project.href}>
+                  <Image
+                    alt={project.title}
+                    className="object-cover transition duration-700 ease-out group-hover:scale-105"
+                    fill
+                    loading="lazy"
+                    placeholder="blur"
+                    blurDataURL={blurPlaceholder()}
+                    sizes="(max-width: 1024px) 100vw, 33vw"
+                    src={project.imageUrl}
+                  />
+                  <span className="absolute top-3 left-3 bg-black/80 text-white text-[10px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded-full backdrop-blur">
+                    {project.scope}
+                  </span>
                 </Link>
-                <Link className="project-card-action" href={`/contact?project=${encodeURIComponent(project.id)}#request-form`}>
-                  Use as reference
-                  <ArrowRight className="h-4 w-4" />
+                <div className="flex items-center gap-1.5 text-[11px] text-[#991b1b] font-medium mb-1">
+                  <MapPin className="h-3.5 w-3.5 shrink-0" />
+                  <span>{project.location}</span>
+                </div>
+                <h3 className="font-serif text-xl font-normal text-black group-hover:text-[#991b1b] transition leading-snug">
+                  <Link href={project.href}>{project.title}</Link>
+                </h3>
+              </div>
+
+              <div className="mt-6 border-t border-neutral-100 pt-3">
+                <Link className="inline-flex items-center text-xs font-semibold uppercase tracking-wider text-black hover:text-[#991b1b] transition" href="#contact">
+                  Quote Reference →
                 </Link>
               </div>
-            </div>
-          </article>
-        ))}
+            </article>
+          ))}
+        </div>
       </div>
     </section>
   );

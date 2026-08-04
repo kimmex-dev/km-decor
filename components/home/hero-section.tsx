@@ -1,49 +1,78 @@
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { blurPlaceholder } from "@/lib/blur-placeholder";
 import Image from "next/image";
 import Link from "next/link";
+import heroKmdAsset from "@/public/hero-kmd.jpeg";
 
 export function HeroSection() {
   return (
-    <section className="commerce-band">
-      <div className="content-shell grid gap-8 py-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:py-16">
-        <div className="max-w-2xl">
-          <p className="eyebrow">Materials. Interiors. Project support.</p>
-          <h1 className="font-serif text-5xl leading-[1.05] text-ink-900 md:text-6xl xl:text-7xl">
-            Build better interiors with the right products and team.
-          </h1>
-          <p className="mt-6 max-w-xl text-base leading-8 text-ink-700 md:text-lg">
-            Explore construction materials, interior decor services, and completed project references from Kimmex
-            Decor in Phnom Penh.
+    <section className="bg-white py-16 md:py-20 lg:py-24 border-b border-neutral-100">
+      <div className="content-shell grid gap-12 lg:grid-cols-2 lg:items-center">
+        
+        {/* Left Column: Spacious Typography & Proof Row */}
+        <div className="max-w-xl">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-neutral-400 mb-3">
+            KMD DECOR
           </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Link className="action-commerce" href="/products?mode=Ready%20to%20order#catalog">
-              Browse Products
-              <ArrowRight className="ml-2 h-4 w-4" />
+
+          <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-normal text-black leading-[1.15] tracking-tight">
+            Commercial Fit-Out & Interior Decor
+          </h1>
+
+          <p className="mt-4 text-sm md:text-base text-neutral-600 leading-relaxed">
+            Complete ceiling, partition, and interior solutions for commercial spaces in Phnom Penh.
+          </p>
+
+          {/* Clean Non-Redundant CTAs */}
+          <div className="mt-8 flex items-center gap-6">
+            <Link
+              className="bg-black text-white px-7 py-3.5 text-xs font-semibold uppercase tracking-widest hover:bg-[#991b1b] transition duration-200 rounded-full inline-flex items-center gap-2 shadow-sm"
+              href="#services"
+            >
+              <span>Explore Services</span>
+              <ArrowRight className="h-3.5 w-3.5" />
             </Link>
-            <Link className="action-secondary" href="/contact?topic=project-advice#request-form">
-              Request Advice
+
+            <Link
+              className="text-xs font-semibold uppercase tracking-wider text-black hover:text-[#991b1b] transition inline-flex items-center gap-1"
+              href="#portfolio"
+            >
+              <span>View Portfolio →</span>
             </Link>
           </div>
+
+          {/* Quiet Trust Proof Row */}
+          <div className="mt-10 border-t border-neutral-100 pt-6 flex flex-wrap items-center gap-6 text-xs text-neutral-500">
+            <div className="flex items-center gap-2">
+              <CheckCircle2 className="h-4 w-4 text-[#991b1b]" />
+              <span className="font-semibold text-black">30+ Commercial Fit-Outs</span>
+            </div>
+            <div className="h-3 w-px bg-neutral-200 hidden sm:block" />
+            <div className="font-medium text-neutral-700">100% On-Time Handover</div>
+            <div className="h-3 w-px bg-neutral-200 hidden sm:block" />
+            <div className="text-neutral-500">Phnom Penh, KH</div>
+          </div>
         </div>
-        <div className="relative min-h-[420px] overflow-hidden rounded-lg border border-sand-400 bg-sand-100 shadow-panel md:min-h-[560px]">
+
+        {/* Right Column: Architectural Photo Showcase with Glass Badge */}
+        <div className="relative aspect-[16/10] overflow-hidden rounded-2xl border border-neutral-200 bg-neutral-100 shadow-sm group">
           <Image
-            alt="Modern interior ceiling and living space"
-            className="absolute inset-0 h-full w-full object-cover"
-            src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=1600&q=85"
+            alt="KMD Decor Commercial Reception Fit-Out"
+            className="h-full w-full object-cover transition duration-700 group-hover:scale-102"
+            src={heroKmdAsset}
             fill
             priority
             placeholder="blur"
-            blurDataURL={blurPlaceholder(1600, 900)}
+            blurDataURL={blurPlaceholder(1600, 1000)}
             sizes="(max-width: 1024px) 100vw, 50vw"
           />
-          <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink-900/80 to-transparent p-6 pt-24 text-white md:p-8">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/75">One connected offering</p>
-            <p className="mt-2 max-w-lg font-serif text-2xl leading-tight md:text-3xl">
-              Products for the build. Services for the finish.
-            </p>
+
+          {/* Floating Subtle Glass Badge */}
+          <div className="absolute bottom-4 left-4 bg-black/60 backdrop-blur-md text-white px-3.5 py-2 rounded-xl border border-white/10 text-xs font-medium">
+            B2B Reception & Fit-Out Specialist
           </div>
         </div>
+
       </div>
     </section>
   );

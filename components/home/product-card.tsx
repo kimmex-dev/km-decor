@@ -90,10 +90,9 @@ export function ProductCard({ product, compact = false }: ProductCardProps) {
         <div className="mt-auto flex items-end justify-between gap-4 border-b border-sand-400 pb-4 pt-5">
           <div>
             <div className="flex items-baseline gap-2">
-              <span className="text-2xl font-semibold text-brand-red">${product.price.toFixed(2)}</span>
-              <span className="text-sm text-ink-700">/ {product.unit}</span>
+              <span className="text-xs font-semibold uppercase tracking-wider text-[#991b1b]">Contact for BOQ Quote</span>
             </div>
-            {product.comparePrice ? <div className="text-sm text-ink-700 line-through">${product.comparePrice.toFixed(2)}</div> : null}
+
           </div>
           <div className="text-right text-xs leading-5 text-ink-700">
             <div>MOQ: {product.moq}</div>

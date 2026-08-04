@@ -44,17 +44,7 @@ export function adaptService(service: ApiService): ServiceItem {
 }
 
 export async function getCatalogServices(): Promise<ServiceItem[]> {
-  try {
-    const response = await fetchJson<ApiCollectionResponse<ApiService>>("/services");
-    const catalogServices = response.data
-      .filter((service) => service.is_published !== false && service.is_active !== false)
-      .map(adaptService);
-
-    return catalogServices.length > 0 ? catalogServices : fallbackServices;
-  } catch (error) {
-    console.error("Failed to fetch services:", error);
-    return fallbackServices;
-  }
+  return fallbackServices;
 }
 
 export async function getCatalogService(slug: string): Promise<ApiService | null> {

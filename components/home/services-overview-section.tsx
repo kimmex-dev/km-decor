@@ -1,4 +1,4 @@
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import type { ServiceItem } from "@/lib/homepage-data";
@@ -10,62 +10,62 @@ type ServicesOverviewSectionProps = {
 
 export function ServicesOverviewSection({ services }: ServicesOverviewSectionProps) {
   return (
-    <section className="bg-sand-200/55" id="services">
-      <div className="section-shell">
-        <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+    <section className="bg-neutral-50/60 py-20 border-b border-neutral-100" id="services">
+      <div className="content-shell">
+        <div className="flex items-end justify-between mb-10">
           <div>
-            <p className="eyebrow">Service Showcase</p>
-            <h2 className="section-title max-w-3xl">Interior services from planning through finishing.</h2>
-            <p className="section-copy mt-4">
-              KMD connects material selection with practical interior solutions for homes, offices, and commercial spaces.
+            <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-neutral-400 mb-2">
+              SERVICES (SUPPLY & INSTALL)
             </p>
+            <h2 className="font-serif text-3xl sm:text-4xl font-normal text-black leading-tight tracking-tight">
+              Our Fit-Out Services
+            </h2>
           </div>
-          <Link className="action-primary w-fit" href="/services">
-            View All Services
-            <ArrowRight className="ml-2 h-4 w-4" />
+          <Link className="hidden sm:inline-flex items-center text-xs font-semibold uppercase tracking-widest text-black transition hover:text-[#991b1b]" href="/services">
+            All Services
+            <ArrowRight className="ml-1.5 h-3.5 w-3.5" />
           </Link>
         </div>
 
-        <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+        {/* 3-Column Clean Service Grid */}
+        <div className="grid gap-8 md:grid-cols-3">
           {services.map((service) => (
-            <article
-              key={service.id}
-              className="group overflow-hidden rounded-lg border border-sand-400 bg-white shadow-soft transition hover:-translate-y-1 hover:shadow-panel"
-            >
-              <Link className="relative block h-64 overflow-hidden bg-ink-900" href={service.href}>
-                <Image
-                  alt={service.title}
-                  className="object-cover opacity-85 transition duration-500 group-hover:scale-105 group-hover:opacity-70"
-                  fill
-                  loading="lazy"
-                  placeholder="blur"
-                  blurDataURL={blurPlaceholder()}
-                  sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 25vw"
-                  src={service.imageUrl}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent" />
-                <span className="absolute left-5 top-5 rounded-md bg-white/90 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-ink-900">
-                  KMD Service
-                </span>
-              </Link>
-              <div className="grid min-h-[250px] content-between gap-5 p-5">
-                <div>
-                  <h3 className="font-serif text-2xl leading-tight text-ink-900">
-                    <Link className="transition hover:text-brand-red" href={service.href}>
-                      {service.title}
-                    </Link>
-                  </h3>
-                  <p className="mt-3 text-sm leading-6 text-ink-700">{service.description}</p>
-                </div>
-                <div className="grid gap-2 border-t border-sand-400 pt-4">
-                  <Link className="action-commerce min-h-10 gap-2 px-3 py-2 text-xs" href={`/contact?service=${encodeURIComponent(service.id)}#request-form`}>
-                    Request quote
-                    <ArrowRight className="h-4 w-4" />
-                  </Link>
-                  <Link className="action-secondary min-h-10 px-3 py-2 text-xs" href={service.href}>
-                    View scope
-                  </Link>
-                </div>
+            <article key={service.id} className="group flex flex-col justify-between rounded-2xl border border-neutral-200/80 bg-white p-6 shadow-sm transition hover:shadow-md hover:border-neutral-300 relative overflow-hidden">
+              <div className="absolute top-0 left-0 right-0 h-1 bg-[#991b1b] opacity-0 group-hover:opacity-100 transition duration-300" />
+              <div>
+                <Link className="relative block aspect-[4/3] overflow-hidden rounded-xl bg-neutral-100 mb-5" href={service.href}>
+                  <Image
+                    alt={service.title}
+                    className="object-cover transition duration-700 ease-out group-hover:scale-105"
+                    fill
+                    loading="lazy"
+                    placeholder="blur"
+                    blurDataURL={blurPlaceholder()}
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    src={service.imageUrl}
+                  />
+                </Link>
+                <h3 className="font-serif text-xl font-normal text-black group-hover:text-[#991b1b] transition leading-snug">
+                  <Link href={service.href}>{service.title}</Link>
+                </h3>
+
+                {/* Clean Sub-Items */}
+                {service.items && service.items.length > 0 ? (
+                  <ul className="mt-4 grid gap-2.5 border-t border-neutral-100 pt-4 text-xs text-neutral-600">
+                    {service.items.map((item) => (
+                      <li key={item} className="flex items-center gap-2">
+                        <CheckCircle2 className="h-3.5 w-3.5 text-[#991b1b] shrink-0" />
+                        <span className="font-medium text-neutral-700">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
+              </div>
+
+              <div className="mt-6 border-t border-neutral-100 pt-4">
+                <Link className="inline-flex items-center text-xs font-semibold uppercase tracking-wider text-black transition group-hover:text-[#991b1b]" href={service.href}>
+                  Details →
+                </Link>
               </div>
             </article>
           ))}

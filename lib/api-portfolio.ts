@@ -91,6 +91,8 @@ export function adaptToProjectItem(project: ApiProject): ProjectItem {
   return {
     id: project.slug,
     title: project.title,
+    location: fallback?.location ?? "Phnom Penh, Cambodia",
+    scope: fallback?.scope ?? "Finishing Décor",
     projectType: project.focus ?? "Project",
     caption: plainOverview,
     href: `/portfolio/${project.slug}`,

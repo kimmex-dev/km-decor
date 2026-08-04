@@ -18,48 +18,48 @@
 }
 
 :root {
-  --background: #f7f4ee;
-  --surface: #fffdfc;
-  --surface-alt: #efe9e1;
-  --line: #ddd6cc;
-  --text: #20242b;
-  --text-muted: #62666f;
-  --accent: #0b1f4d;
-  --accent-hover: #16356f;
-  --brand-red: #d9232e;
-  --brand-blue: #0b1f4d;
-  --success: #2f7d57;
-  --focus-ring: color-mix(in srgb, var(--accent) 22%, transparent);
-  --shadow-soft: 0 12px 32px rgba(32, 36, 43, 0.08);
-  --shadow-panel: 0 20px 60px rgba(32, 36, 43, 0.14);
+  --background: #ffffff;
+  --surface: #ffffff;
+  --surface-alt: #fafafa;
+  --line: #e5e7eb;
+  --text: #09090b;
+  --text-muted: #71717a;
+  --accent: #09090b;
+  --accent-hover: #991b1b;
+  --brand-red: #991b1b;
+  --brand-blue: #09090b;
+  --success: #166534;
+  --focus-ring: rgba(9, 9, 11, 0.15);
+  --shadow-soft: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-panel: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
   --font-noto-sans-khmer: "Noto Sans Khmer", "Khmer OS System", Arial, Helvetica, sans-serif;
   --font-noto-serif-khmer: "Noto Serif Khmer", "Khmer OS Muol Light", Georgia, "Times New Roman", serif;
 }
 
 [data-theme="stone"] {
-  --background: #f7f4ee;
-  --surface: #fffdfc;
-  --surface-alt: #efe7dc;
-  --line: #d8cec2;
-  --text: #2f2a26;
-  --text-muted: #5f574f;
-  --accent: #8a6a4a;
-  --accent-hover: #a88662;
-  --success: #6f8a6a;
+  --background: #ffffff;
+  --surface: #ffffff;
+  --surface-alt: #fafafa;
+  --line: #e5e7eb;
+  --text: #09090b;
+  --text-muted: #71717a;
+  --accent: #09090b;
+  --accent-hover: #991b1b;
+  --success: #166534;
 }
 
 [data-theme="kmd"] {
-  --background: #f7f4ee;
-  --surface: #fffdfc;
-  --surface-alt: #efe9e1;
-  --line: #ddd6cc;
-  --text: #20242b;
-  --text-muted: #62666f;
-  --accent: #0b1f4d;
-  --accent-hover: #16356f;
-  --brand-red: #d9232e;
-  --brand-blue: #0b1f4d;
-  --success: #2f7d57;
+  --background: #ffffff;
+  --surface: #ffffff;
+  --surface-alt: #fafafa;
+  --line: #e5e7eb;
+  --text: #09090b;
+  --text-muted: #71717a;
+  --accent: #09090b;
+  --accent-hover: #991b1b;
+  --brand-red: #991b1b;
+  --brand-blue: #09090b;
+  --success: #166534;
 }
 
 [data-theme="sage"] {

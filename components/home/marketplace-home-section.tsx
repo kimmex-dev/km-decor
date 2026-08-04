@@ -116,9 +116,9 @@ export function MarketplaceHomeSection() {
                 <div className="p-5">
                   <h3 className="font-serif text-2xl text-ink-900">{item.title}</h3>
                   <p className="mt-2 text-sm leading-6 text-ink-700">{item.summary}</p>
-                  <div className="mt-4 text-sm font-semibold text-bronze-500">From ${item.startingPrice.toFixed(2)}</div>
+                  <div className="mt-4 text-xs font-semibold uppercase tracking-wider text-[#991b1b]">Custom BOQ Quotation</div>
                   <div className="mt-4 flex flex-wrap gap-2">
-                    {item.includes.map((include) => (
+                    {item.includes.map((include: string) => (
                       <span key={include} className="rounded-md border border-sand-400 bg-sand-100 px-2 py-1 text-xs text-ink-700">
                         {include}
                       </span>
