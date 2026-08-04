@@ -1,0 +1,86 @@
+import { CartContent } from "@/components/cart/cart-content";
+import { SiteFooter } from "@/components/home/site-footer";
+import { SiteHeader } from "@/components/home/site-header";
+import Link from "next/link";
+import { ArrowRight, CheckCircle2, PackageCheck, ShoppingCart } from "lucide-react";
+
+export const metadata = {
+  title: "Cart",
+  description: "Review your selected materials and quantities before proceeding to checkout.",
+};
+
+const cartSteps = ["Review materials", "Confirm quantities", "Prepare delivery details", "Submit order request"];
+
+export default function CartPage() {
+  return (
+    <main className="page-shell">
+      <SiteHeader />
+
+      <section className="commerce-band">
+        <div className="content-shell grid gap-7 py-8 md:py-10 lg:grid-cols-[minmax(0,1fr)_340px] lg:items-center xl:grid-cols-[minmax(0,1fr)_380px]">
+          <div>
+            <p className="eyebrow">Cart</p>
+            <h1 className="max-w-4xl font-serif text-4xl leading-tight text-ink-900 sm:text-5xl lg:text-6xl">
+              Review materials before checkout.
+            </h1>
+            <p className="section-copy mt-6">
+              KMD orders can be simple product purchases or quote-first project requests. Use the cart to prepare item
+              details, then move to checkout for delivery and confirmation steps.
+            </p>
+            <div className="cart-hero-actions mt-7 flex flex-wrap gap-3">
+              <Link className="action-commerce" href="/checkout">
+                Go to Checkout
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+              <Link className="action-secondary" href="/products">
+                Continue Shopping
+              </Link>
+            </div>
+          </div>
+
+          <aside className="surface-card p-5">
+            <div className="flex items-center gap-3">
+              <ShoppingCart className="h-6 w-6 text-brand-red" />
+              <div>
+                <p className="text-sm font-semibold text-ink-900">Cart status</p>
+                <p className="text-xs text-ink-700">Ready for order request flow</p>
+              </div>
+            </div>
+            <div className="mt-5 grid gap-2">
+              {cartSteps.map((step) => (
+                <div key={step} className="flex items-center gap-2 rounded-md border border-sand-400 bg-sand-50 p-3 text-sm font-semibold text-ink-900">
+                  <CheckCircle2 className="h-4 w-4 text-brand-red" />
+                  {step}
+                </div>
+              ))}
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section className="section-shell">
+        <CartContent />
+      </section>
+
+      <section className="section-shell pt-0">
+        <div className="surface-card grid gap-5 p-5 sm:p-6 md:grid-cols-[1fr_auto] md:items-center">
+          <div>
+            <div className="flex items-start gap-3 sm:items-center">
+              <PackageCheck className="h-5 w-5 text-brand-red" />
+              <h2 className="font-serif text-2xl text-ink-900 sm:text-3xl">Cart is saved on this device.</h2>
+            </div>
+            <p className="mt-3 text-sm leading-7 text-ink-700">
+              Items are stored locally in the browser. Customers can review quantities here, then send the order request
+              so KMD can confirm stock, delivery, and payment direction.
+            </p>
+          </div>
+          <Link className="action-commerce" href="/contact?type=order-request">
+            Send Order Request
+          </Link>
+        </div>
+      </section>
+
+      <SiteFooter />
+    </main>
+  );
+}

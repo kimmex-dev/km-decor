@@ -1,0 +1,3235 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-in {
+  animation: slide-in 0.3s ease-out;
+}
+
+:root {
+  --background: #f7f4ee;
+  --surface: #fffdfc;
+  --surface-alt: #efe9e1;
+  --line: #ddd6cc;
+  --text: #20242b;
+  --text-muted: #62666f;
+  --accent: #0b1f4d;
+  --accent-hover: #16356f;
+  --brand-red: #d9232e;
+  --brand-blue: #0b1f4d;
+  --success: #2f7d57;
+  --focus-ring: color-mix(in srgb, var(--accent) 22%, transparent);
+  --shadow-soft: 0 12px 32px rgba(32, 36, 43, 0.08);
+  --shadow-panel: 0 20px 60px rgba(32, 36, 43, 0.14);
+  --font-noto-sans-khmer: "Noto Sans Khmer", "Khmer OS System", Arial, Helvetica, sans-serif;
+  --font-noto-serif-khmer: "Noto Serif Khmer", "Khmer OS Muol Light", Georgia, "Times New Roman", serif;
+}
+
+[data-theme="stone"] {
+  --background: #f7f4ee;
+  --surface: #fffdfc;
+  --surface-alt: #efe7dc;
+  --line: #d8cec2;
+  --text: #2f2a26;
+  --text-muted: #5f574f;
+  --accent: #8a6a4a;
+  --accent-hover: #a88662;
+  --success: #6f8a6a;
+}
+
+[data-theme="kmd"] {
+  --background: #f7f4ee;
+  --surface: #fffdfc;
+  --surface-alt: #efe9e1;
+  --line: #ddd6cc;
+  --text: #20242b;
+  --text-muted: #62666f;
+  --accent: #0b1f4d;
+  --accent-hover: #16356f;
+  --brand-red: #d9232e;
+  --brand-blue: #0b1f4d;
+  --success: #2f7d57;
+}
+
+[data-theme="sage"] {
+  --background: #f4f7f0;
+  --surface: #fffef9;
+  --surface-alt: #e7eedf;
+  --line: #cbd8c4;
+  --text: #283027;
+  --text-muted: #586453;
+  --accent: #5f7f62;
+  --accent-hover: #6f936f;
+  --success: #4f8158;
+}
+
+[data-theme="sky"] {
+  --background: #f3f7f8;
+  --surface: #fffdf9;
+  --surface-alt: #e4eef2;
+  --line: #c7d6dc;
+  --text: #263039;
+  --text-muted: #53636d;
+  --accent: #426f92;
+  --accent-hover: #5684a8;
+  --success: #4f816d;
+}
+
+[data-theme="clay"] {
+  --background: #f8f2ed;
+  --surface: #fffdfa;
+  --surface-alt: #f0dfd3;
+  --line: #dcc8ba;
+  --text: #332a25;
+  --text-muted: #6a584f;
+  --accent: #a15f45;
+  --accent-hover: #b87356;
+  --success: #6f8253;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior: none;
+}
+
+body {
+  background: var(--background);
+  color: var(--text);
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+a, button, input, select, textarea {
+  -webkit-tap-highlight-color: transparent;
+}
+
+a, button {
+  touch-action: manipulation;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--focus-ring);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+html[data-language="km"] body {
+  font-family: var(--font-noto-sans-khmer), "Khmer OS System", Arial, sans-serif;
+}
+
+html[data-language="km"] .font-serif {
+  font-family: var(--font-noto-serif-khmer), "Khmer OS Muol Light", var(--font-noto-sans-khmer), sans-serif;
+  line-height: 1.55;
+}
+
+.language-menu {
+  @apply relative;
+}
+
+.language-menu-trigger {
+  @apply flex h-11 items-center gap-1.5 rounded-full px-3 text-xs font-semibold transition;
+  color: var(--text-muted);
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.language-menu-trigger:hover,
+.language-menu-trigger[aria-expanded="true"] {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--surface-alt);
+}
+
+.language-menu-trigger svg:first-child {
+  @apply h-4 w-4;
+}
+
+.language-menu-trigger svg:last-child {
+  @apply h-3.5 w-3.5 transition;
+}
+
+.language-menu-trigger svg:last-child.is-open {
+  transform: rotate(180deg);
+}
+
+.language-menu-popover {
+  @apply absolute right-0 top-[calc(100%+8px)] z-50 w-56 rounded-lg p-2;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-panel);
+}
+
+.language-menu-popover > p {
+  @apply px-3 pb-2 pt-1 text-[10px] font-semibold uppercase;
+  color: var(--text-muted);
+}
+
+.language-menu-popover > button,
+.language-panel-options > button {
+  @apply flex w-full items-center justify-between gap-3 rounded-md px-3 py-2.5 text-left transition;
+  color: var(--text);
+}
+
+.language-menu-popover > button:hover,
+.language-panel-options > button:hover {
+  background: var(--surface-alt);
+}
+
+.language-menu-popover > button.is-active,
+.language-panel-options > button.is-active {
+  background: var(--surface-alt);
+  color: var(--accent);
+}
+
+.language-menu-popover button span,
+.language-menu-popover button strong,
+.language-menu-popover button small,
+.language-panel-options button span,
+.language-panel-options button strong,
+.language-panel-options button small {
+  @apply block;
+}
+
+.language-menu-popover button strong,
+.language-panel-options button strong {
+  @apply text-sm;
+}
+
+.language-menu-popover button small,
+.language-panel-options button small {
+  @apply mt-0.5 text-[10px] font-semibold;
+  color: var(--text-muted);
+}
+
+.language-menu-popover button > svg,
+.language-panel-options button > svg {
+  @apply h-4 w-4 shrink-0;
+  color: var(--success);
+}
+
+.language-panel {
+  @apply grid gap-3;
+}
+
+.language-panel-label {
+  @apply flex items-center gap-3;
+}
+
+.language-panel-label > svg {
+  @apply h-5 w-5 shrink-0;
+  color: var(--accent);
+}
+
+.language-panel-label span,
+.language-panel-label strong,
+.language-panel-label small {
+  @apply block;
+}
+
+.language-panel-label strong {
+  @apply text-sm;
+  color: var(--text);
+}
+
+.language-panel-label small {
+  @apply mt-0.5 text-xs;
+  color: var(--text-muted);
+}
+
+.language-panel-options {
+  @apply grid grid-cols-2 gap-2;
+}
+
+.language-panel-options > button {
+  border: 1px solid var(--line);
+}
+
+.language-panel-options > button.is-active {
+  border-color: var(--accent);
+  box-shadow: inset 0 0 0 1px var(--accent);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.page-shell {
+  min-height: 100vh;
+}
+
+.section-shell {
+  @apply mx-auto max-w-screen-2xl px-4 py-16 md:px-6 lg:py-20 xl:px-10;
+}
+
+@media (max-width: 639px) {
+  .section-shell {
+    @apply py-10;
+  }
+}
+
+.commerce-band {
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--surface-alt) 70%, white) 0%, var(--background) 100%);
+  border-bottom: 1px solid var(--line);
+}
+
+.content-shell {
+  @apply mx-auto max-w-screen-2xl px-4 md:px-6 xl:px-10;
+}
+
+.eyebrow {
+  @apply mb-4 text-xs uppercase tracking-[0.32em];
+  color: var(--text-muted);
+}
+
+.section-title {
+  @apply font-serif text-3xl leading-tight md:text-5xl;
+  color: var(--text);
+}
+
+.section-copy {
+  @apply max-w-2xl text-base leading-7 md:text-lg;
+  color: var(--text-muted);
+}
+
+.rich-content {
+  max-width: none;
+  color: inherit;
+  line-height: 1.75;
+}
+
+.rich-content > *:first-child {
+  margin-top: 0;
+}
+
+.rich-content > *:last-child {
+  margin-bottom: 0;
+}
+
+.rich-content p {
+  margin: 0 0 1rem;
+}
+
+.rich-content h2,
+.rich-content h3,
+.rich-content h4 {
+  color: var(--text);
+  font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+  font-weight: 600;
+  line-height: 1.18;
+  margin: 1.6em 0 0.6em;
+}
+
+.rich-content h2 {
+  font-size: 1.65em;
+}
+
+.rich-content h3 {
+  font-size: 1.35em;
+}
+
+.rich-content h4 {
+  font-size: 1.15em;
+}
+
+.rich-content strong {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.rich-content a {
+  color: var(--brand-red);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.rich-content ul,
+.rich-content ol {
+  margin: 1rem 0;
+  padding-left: 1.35rem;
+}
+
+.rich-content ul {
+  list-style: disc;
+}
+
+.rich-content ol {
+  list-style: decimal;
+}
+
+.rich-content li {
+  margin: 0.35rem 0;
+  padding-left: 0.15rem;
+}
+
+.rich-content blockquote {
+  border-left: 3px solid var(--brand-red);
+  color: var(--text);
+  margin: 1.25rem 0;
+  padding: 0.15rem 0 0.15rem 1rem;
+}
+
+.rich-content code {
+  border-radius: 0.25rem;
+  background: var(--surface-alt);
+  color: var(--text);
+  font-size: 0.9em;
+  padding: 0.1rem 0.3rem;
+}
+
+.rich-content pre {
+  border: 1px solid var(--line);
+  border-radius: 0.5rem;
+  background: var(--surface-alt);
+  margin: 1rem 0;
+  overflow-x: auto;
+  padding: 1rem;
+}
+
+.rich-content pre code {
+  background: transparent;
+  padding: 0;
+}
+
+.rich-content table {
+  border-collapse: collapse;
+  margin: 1.25rem 0;
+  width: 100%;
+}
+
+.rich-content th,
+.rich-content td {
+  border: 1px solid var(--line);
+  padding: 0.65rem 0.75rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.rich-content th {
+  background: var(--surface-alt);
+  color: var(--text);
+  font-weight: 700;
+}
+
+.rich-content hr {
+  border: 0;
+  border-top: 1px solid var(--line);
+  margin: 1.5rem 0;
+}
+
+.rich-content :where(p, li, blockquote, td) {
+  overflow-wrap: anywhere;
+}
+
+.surface-card {
+  @apply rounded-lg;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-soft);
+}
+
+.action-primary {
+  @apply inline-flex min-h-11 items-center justify-center rounded-md px-5 py-3 text-sm font-semibold text-sand-50 transition;
+  background: var(--accent);
+}
+
+.action-commerce {
+  @apply inline-flex min-h-11 items-center justify-center rounded-md px-5 py-3 text-sm font-semibold text-white transition;
+  background: var(--brand-red, var(--accent));
+}
+
+.action-commerce:hover {
+  background: color-mix(in srgb, var(--brand-red, var(--accent)) 86%, black);
+}
+
+.promo-chip {
+  @apply inline-flex items-center rounded-md px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-white;
+  background: var(--brand-red, var(--accent));
+}
+
+.action-secondary {
+  @apply inline-flex min-h-11 items-center justify-center rounded-md px-5 py-3 text-sm font-semibold transition;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+}
+
+.action-primary:hover {
+  background: var(--accent-hover);
+}
+
+.action-secondary:hover {
+  border-color: var(--accent-hover);
+  color: var(--accent-hover);
+}
+
+.product-readiness {
+  position: absolute;
+  left: 0.75rem;
+  top: 0.75rem;
+  border-radius: 0.375rem;
+  padding: 0.4rem 0.65rem;
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.product-readiness.is-ready {
+  background: #247a4d;
+}
+
+.product-readiness.is-warning {
+  background: #9a5b12;
+}
+
+.product-readiness.is-quote {
+  background: var(--text);
+}
+
+.project-card-action {
+  display: inline-flex;
+  min-height: 2.5rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  border-radius: 0.375rem;
+  background: rgba(255, 255, 255, 0.12);
+  padding: 0.6rem 0.8rem;
+  color: white;
+  font-size: 0.78rem;
+  font-weight: 700;
+  transition:
+    background 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease;
+}
+
+.project-card-action:hover {
+  border-color: white;
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+.project-card-action.is-primary {
+  border-color: var(--brand-red);
+  background: var(--brand-red);
+}
+
+.project-card-action svg {
+  height: 1rem;
+  width: 1rem;
+}
+
+.contact-context-checklist {
+  border-top: 1px solid color-mix(in srgb, var(--brand-red) 18%, transparent);
+  padding-top: 0.85rem;
+}
+
+.contact-context-checklist p {
+  color: var(--brand-red);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.contact-context-checklist div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.65rem;
+}
+
+.contact-context-checklist span {
+  display: inline-flex;
+  min-height: 2rem;
+  align-items: center;
+  gap: 0.4rem;
+  border: 1px solid color-mix(in srgb, var(--brand-red) 18%, var(--line));
+  border-radius: 0.375rem;
+  background: var(--surface);
+  padding: 0.45rem 0.65rem;
+  color: var(--text);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.contact-context-checklist svg {
+  height: 0.9rem;
+  width: 0.9rem;
+  flex-shrink: 0;
+  color: var(--brand-red);
+}
+
+.resource-action {
+  @apply inline-flex min-h-9 items-center gap-1.5 rounded-md px-3 py-2 text-sm font-semibold transition;
+  border: 1px solid var(--line);
+  color: var(--accent);
+}
+
+.resource-action:hover {
+  border-color: var(--brand-red, var(--accent));
+  color: var(--brand-red, var(--accent));
+}
+
+.resource-action:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.control-label {
+  @apply grid gap-2 text-sm font-medium;
+  color: var(--text-muted);
+}
+
+.field,
+.select-field,
+.textarea-field {
+  @apply w-full rounded-md px-4 py-3 outline-none transition;
+  font-size: 1rem; /* 16px — prevents iOS Safari viewport zoom on focus */
+  background: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--text);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.field::placeholder,
+.textarea-field::placeholder {
+  color: color-mix(in srgb, var(--text-muted) 70%, transparent);
+}
+
+.field:focus,
+.select-field:focus,
+.textarea-field:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px var(--focus-ring);
+}
+
+.select-field {
+  appearance: none;
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--text-muted) 50%),
+    linear-gradient(135deg, var(--text-muted) 50%, transparent 50%);
+  background-position:
+    calc(100% - 18px) 50%,
+    calc(100% - 13px) 50%;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+  padding-right: 2.5rem;
+}
+
+.textarea-field {
+  min-height: 9rem;
+  resize: vertical;
+}
+
+/* ─── Form Field ──────────────────────────────────────────────────────────────
+   Unified input / select / textarea class used across all form pages.
+   font-size: 16px is the critical rule — iOS Safari zooms the viewport when
+   a focused input has font-size < 16px. Setting it here prevents that zoom
+   without disabling user-scalable, which would break accessibility.
+─────────────────────────────────────────────────────────────────────────────── */
+.form-field {
+  width: 100%;
+  border-radius: 0.5rem;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  padding: 0.625rem 1rem;        /* 10px 16px — comfortable tap target */
+  font-size: 1rem;               /* 16px — prevents iOS zoom on focus */
+  line-height: 1.5;
+  color: var(--text);
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.form-field::placeholder {
+  color: color-mix(in srgb, var(--text-muted) 65%, transparent);
+}
+
+.form-field:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--focus-ring);
+}
+
+.form-field.is-error {
+  border-color: #f87171;
+}
+
+.form-field.is-error:focus {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px color-mix(in srgb, #ef4444 18%, transparent);
+}
+
+.form-field:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Textarea variant */
+textarea.form-field {
+  resize: vertical;
+  min-height: 5rem;
+}
+
+.search-group {
+  @apply grid min-h-12 overflow-hidden rounded-lg;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  transition: border-color 150ms ease, box-shadow 150ms ease, background-color 150ms ease;
+}
+
+.search-group:focus-within {
+  border-color: var(--accent);
+  background: #ffffff;
+  box-shadow: 0 0 0 3px var(--focus-ring);
+}
+
+.search-group .field,
+.search-group .select-field {
+  border: 0;
+  box-shadow: none;
+}
+
+.search-group .field:focus,
+.search-group .select-field:focus {
+  box-shadow: none;
+}
+
+.search-group input:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+
+.header-tool-button {
+  @apply flex h-11 w-11 shrink-0 items-center justify-center rounded-full transition;
+  color: var(--text-muted);
+}
+
+.header-tool-button:hover,
+.header-tool-button.is-active {
+  color: var(--brand-red);
+  background: var(--surface-alt);
+}
+
+.header-signin-button,
+.header-register-button,
+.header-account-button {
+  @apply inline-flex h-11 shrink-0 items-center justify-center rounded-full text-sm font-semibold transition;
+}
+
+.header-auth-actions {
+  @apply items-center gap-2 rounded-full border p-1;
+  border-color: var(--line);
+  background: color-mix(in srgb, var(--surface) 88%, var(--surface-alt));
+}
+
+.header-signin-button {
+  @apply gap-2 px-2.5 pl-2;
+  color: var(--text);
+  min-width: 132px;
+}
+
+.header-signin-button:hover {
+  color: var(--brand-red);
+  background: var(--surface);
+  box-shadow: 0 8px 18px rgba(23, 19, 57, 0.08);
+}
+
+.header-signin-icon {
+  @apply grid h-8 w-8 shrink-0 place-items-center rounded-full;
+  color: var(--brand-red);
+  background: color-mix(in srgb, var(--brand-red) 9%, var(--surface));
+}
+
+.header-signin-copy {
+  @apply grid min-w-0 text-left leading-none;
+}
+
+.header-signin-copy span,
+.header-signin-copy small {
+  @apply block truncate;
+}
+
+.header-signin-copy span {
+  @apply text-sm font-semibold;
+}
+
+.header-signin-copy small {
+  @apply mt-0.5 text-[10px] font-medium;
+  color: var(--text-muted);
+}
+
+.header-register-button {
+  @apply px-4 text-white;
+  min-width: 138px;
+  background: var(--text);
+  box-shadow: 0 8px 18px rgba(23, 19, 57, 0.12);
+}
+
+.header-register-button:hover {
+  background: var(--brand-red);
+  box-shadow: 0 10px 22px rgba(237, 28, 36, 0.2);
+}
+
+.header-account-button {
+  @apply gap-2 border py-1 pl-1.5 pr-3;
+  min-width: 190px;
+  max-width: 244px;
+  border-color: var(--line);
+  color: var(--text);
+  background: var(--surface);
+}
+
+.header-account-button:hover,
+.header-account-button[aria-expanded="true"] {
+  border-color: color-mix(in srgb, var(--brand-red) 32%, var(--line));
+  background: color-mix(in srgb, var(--brand-red) 5%, var(--surface));
+}
+
+.header-account-button svg {
+  @apply shrink-0 transition;
+  color: var(--text-muted);
+}
+
+.header-account-button svg.is-open {
+  transform: rotate(180deg);
+  color: var(--brand-red);
+}
+
+.header-account-avatar {
+  @apply grid h-8 w-8 shrink-0 place-items-center rounded-full text-sm font-bold text-white;
+  background: var(--brand-red);
+}
+
+.header-account-menu {
+  @apply relative;
+}
+
+.header-account-popover {
+  @apply absolute right-0 top-[calc(100%+10px)] z-50 w-[270px] overflow-hidden rounded-lg border p-1.5;
+  border-color: var(--line);
+  background: var(--surface);
+  box-shadow: 0 18px 36px rgba(23, 19, 57, 0.16);
+}
+
+.header-account-summary {
+  @apply mb-1 flex items-center gap-3 rounded-md px-2.5 py-2.5;
+  background: var(--surface-alt);
+}
+
+.header-account-summary div {
+  @apply min-w-0;
+}
+
+.header-account-summary strong,
+.header-account-summary small {
+  @apply block truncate;
+}
+
+.header-account-summary strong {
+  @apply text-sm font-semibold;
+  color: var(--text);
+}
+
+.header-account-summary small {
+  @apply mt-0.5 text-xs;
+  color: var(--text-muted);
+}
+
+.header-account-popover a,
+.header-account-popover button {
+  @apply flex w-full items-center gap-2.5 rounded-md px-3 py-2.5 text-left text-sm font-semibold transition;
+  color: var(--text);
+}
+
+.header-account-popover a:hover,
+.header-account-popover button:hover {
+  background: color-mix(in srgb, var(--brand-red) 6%, var(--surface));
+  color: var(--brand-red);
+}
+
+.header-account-popover svg {
+  @apply shrink-0;
+  color: var(--text-muted);
+}
+
+.header-account-popover a:hover svg,
+.header-account-popover button:hover svg {
+  color: var(--brand-red);
+}
+
+.header-search-panel {
+  @apply border-t px-4 py-3 md:px-6 xl:px-10;
+  border-color: var(--line);
+  background: var(--surface);
+  box-shadow: 0 12px 24px rgba(32, 36, 43, 0.08);
+}
+
+.header-search-form {
+  @apply mx-auto grid min-h-12 max-w-3xl grid-cols-[24px_minmax(0,1fr)_auto_40px] items-center gap-2 rounded-lg px-3;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  transition: border-color 150ms ease, box-shadow 150ms ease, background-color 150ms ease;
+}
+
+.header-search-form:focus-within {
+  border-color: var(--accent);
+  background: #ffffff;
+  box-shadow: 0 0 0 3px var(--focus-ring);
+}
+
+.header-search-form > svg {
+  @apply h-4 w-4;
+  color: var(--text-muted);
+}
+
+.header-search-form input {
+  @apply min-w-0 bg-transparent py-3 outline-none;
+  font-size: 1rem; /* 16px — prevents iOS Safari viewport zoom on focus */
+  color: var(--text);
+}
+
+.header-search-form input:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+
+.header-search-form > button[type="submit"] {
+  @apply rounded-md px-4 py-2 text-sm font-semibold text-white;
+  background: var(--brand-red);
+}
+
+.header-search-close {
+  @apply grid h-9 w-9 place-items-center rounded-full transition;
+  color: var(--text-muted);
+}
+
+.header-search-close:hover {
+  color: var(--text);
+  background: var(--surface-alt);
+}
+
+.header-search-close svg {
+  @apply h-4 w-4;
+}
+
+.header-search-suggestions {
+  @apply mx-auto mt-3 flex max-w-3xl flex-wrap items-center gap-2 text-xs;
+  color: var(--text-muted);
+}
+
+.header-search-suggestions span {
+  @apply font-semibold uppercase tracking-[0.16em];
+}
+
+.header-search-suggestions a {
+  @apply rounded-full border px-3 py-1.5 font-semibold transition;
+  border-color: var(--line);
+  background: var(--surface-alt);
+  color: var(--text);
+}
+
+.header-search-suggestions a:hover {
+  border-color: var(--accent);
+  color: var(--brand-red);
+}
+
+@media (max-width: 520px) {
+  .header-search-form {
+    grid-template-columns: 20px minmax(0, 1fr) 36px;
+  }
+
+  .header-search-form > button[type="submit"] {
+    @apply hidden;
+  }
+}
+
+.filter-checkbox {
+  accent-color: var(--accent);
+  height: 1rem;
+  width: 1rem;
+}
+
+.mobile-filter-option {
+  @apply flex min-h-12 items-center gap-3 rounded-lg border px-3 py-2.5 text-sm font-medium transition;
+  border-color: var(--line);
+  background: var(--surface);
+  color: var(--text);
+}
+
+.mobile-filter-option:has(input:checked) {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 7%, var(--surface));
+  color: var(--accent);
+}
+
+.mobile-filter-option .filter-checkbox {
+  @apply h-5 w-5 shrink-0;
+}
+
+.panel-shadow {
+  box-shadow: var(--shadow-panel);
+}
+
+.mobile-drawer-link {
+  @apply grid min-h-12 w-full grid-cols-[20px_minmax(0,1fr)_18px] items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm font-semibold transition;
+  color: var(--text);
+}
+
+.mobile-drawer-link:hover {
+  background: var(--surface-alt);
+  color: var(--brand-red);
+}
+
+.mobile-drawer-link svg {
+  @apply h-4 w-4;
+}
+
+.mobile-drawer-link svg:last-child {
+  color: var(--text-muted);
+}
+
+.bg-bronze-500,
+.bg-bronze-600 {
+  background-color: var(--accent) !important;
+}
+
+.bg-brand-red {
+  background-color: var(--brand-red, var(--accent)) !important;
+}
+
+.text-brand-red {
+  color: var(--brand-red, var(--accent)) !important;
+}
+
+.text-bronze-500,
+.text-bronze-600 {
+  color: var(--accent) !important;
+}
+
+.border-bronze-500,
+.border-bronze-600 {
+  border-color: var(--accent) !important;
+}
+
+.hover\:bg-bronze-600:hover {
+  background-color: var(--accent-hover) !important;
+}
+
+.hover\:text-bronze-500:hover,
+.hover\:text-bronze-600:hover {
+  color: var(--accent-hover) !important;
+}
+
+.hover\:border-bronze-500:hover,
+.hover\:border-bronze-600:hover {
+  border-color: var(--accent-hover) !important;
+}
+
+.bg-sand-50 {
+  background-color: var(--surface) !important;
+}
+
+.bg-sand-100,
+.bg-sand-200 {
+  background-color: var(--surface-alt) !important;
+}
+
+.border-sand-400 {
+  border-color: var(--line) !important;
+}
+
+.text-ink-900 {
+  color: var(--text) !important;
+}
+
+.text-ink-700 {
+  color: var(--text-muted) !important;
+}
+
+.checkout-heading {
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+
+.checkout-trust-row {
+  @apply mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold;
+  color: var(--text-muted);
+}
+
+.checkout-trust-row span {
+  @apply inline-flex items-center gap-2;
+}
+
+.checkout-trust-row svg {
+  @apply h-4 w-4;
+  color: var(--success);
+}
+
+.checkout-section {
+  @apply py-8 lg:py-12;
+}
+
+.checkout-layout {
+  @apply grid gap-6 xl:grid-cols-[minmax(0,1fr)_360px] xl:items-start;
+}
+
+.checkout-panel,
+.checkout-summary,
+.checkout-success {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: var(--shadow-soft);
+}
+
+.checkout-progress {
+  @apply grid grid-cols-3 border-b;
+  border-color: var(--line);
+}
+
+.checkout-progress-step {
+  @apply flex min-w-0 items-center justify-center gap-2 px-2 py-4 text-left text-xs transition md:px-4 md:text-sm;
+  color: var(--text-muted);
+  border-right: 1px solid var(--line);
+}
+
+.checkout-progress-step:last-child {
+  border-right: 0;
+}
+
+.checkout-progress-step > span {
+  @apply flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs font-bold;
+  background: var(--surface-alt);
+}
+
+.checkout-progress-step strong {
+  @apply hidden font-semibold sm:block;
+}
+
+.checkout-progress-step.is-active {
+  color: var(--text);
+  box-shadow: inset 0 -3px 0 var(--brand-red);
+}
+
+.checkout-progress-step.is-active > span {
+  background: var(--brand-red);
+  color: white;
+}
+
+.checkout-progress-step.is-complete > span {
+  background: var(--success);
+  color: white;
+}
+
+.checkout-form-body {
+  @apply min-h-[480px] p-5 md:p-8;
+}
+
+.checkout-actions {
+  @apply flex items-center justify-between gap-3 border-t p-4 md:px-8 md:py-5;
+  border-color: var(--line);
+  background: color-mix(in srgb, var(--surface-alt) 45%, var(--surface));
+}
+
+.control-label > span:first-child {
+  @apply flex items-center justify-between gap-3;
+}
+
+.control-label em {
+  @apply text-[10px] font-semibold not-italic uppercase;
+  color: var(--brand-red);
+}
+
+.control-label.has-error .field,
+.control-label.has-error .textarea-field,
+.control-label.has-error .phone-field {
+  border-color: var(--brand-red);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--brand-red) 12%, transparent);
+}
+
+.phone-field {
+  @apply flex min-h-[46px] items-stretch overflow-hidden rounded-md transition;
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+
+.phone-field:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px var(--focus-ring);
+}
+
+.phone-country {
+  @apply flex shrink-0 items-center gap-2 border-r px-3 text-sm font-semibold;
+  border-color: var(--line);
+  background: var(--surface-alt);
+  color: var(--text);
+}
+
+.phone-country svg {
+  @apply h-4 w-4;
+  color: var(--accent);
+}
+
+.phone-field input {
+  @apply min-w-0 flex-1 bg-transparent px-3 py-3 text-sm font-semibold outline-none;
+  color: var(--text);
+}
+
+.phone-field input::placeholder {
+  color: color-mix(in srgb, var(--text-muted) 65%, transparent);
+}
+
+.phone-valid {
+  @apply mr-3 h-5 w-5 self-center;
+  color: var(--success);
+}
+
+.phone-help {
+  @apply text-xs font-normal leading-5;
+  color: var(--text-muted);
+}
+
+.phone-help.is-error {
+  color: var(--brand-red);
+}
+
+.field-error-summary {
+  @apply rounded-md px-4 py-3 text-sm font-semibold;
+  color: var(--brand-red);
+  background: color-mix(in srgb, var(--brand-red) 8%, var(--surface));
+  border: 1px solid color-mix(in srgb, var(--brand-red) 28%, transparent);
+}
+
+.option-grid {
+  @apply grid gap-3;
+}
+
+.checkout-option {
+  @apply relative flex min-h-[92px] items-center gap-3 rounded-md p-4 text-left transition;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--text);
+}
+
+.checkout-option:hover {
+  border-color: var(--accent);
+  background: var(--surface-alt);
+}
+
+.checkout-option.is-selected {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--surface-alt) 75%, white);
+  box-shadow: inset 0 0 0 1px var(--accent);
+}
+
+.checkout-option-icon {
+  @apply grid h-10 w-10 shrink-0 place-items-center rounded-md;
+  background: var(--surface-alt);
+  color: var(--accent);
+}
+
+.checkout-option-icon svg {
+  @apply h-5 w-5;
+}
+
+.checkout-option strong,
+.checkout-option small {
+  @apply block;
+}
+
+.checkout-option strong {
+  @apply text-sm;
+}
+
+.checkout-option small {
+  @apply mt-1 text-xs font-normal leading-4;
+  color: var(--text-muted);
+}
+
+.checkout-option-check {
+  @apply absolute right-3 top-3 h-4 w-4;
+  color: var(--success);
+}
+
+.checkout-note {
+  @apply flex items-start gap-3 rounded-md p-4 text-sm leading-6;
+  background: var(--surface-alt);
+  color: var(--text-muted);
+}
+
+.checkout-note svg {
+  @apply mt-0.5 shrink-0;
+  color: var(--success);
+}
+
+.review-grid {
+  @apply grid gap-3 md:grid-cols-2;
+}
+
+.review-block {
+  @apply rounded-md p-4;
+  border: 1px solid var(--line);
+}
+
+.review-block > div {
+  @apply flex items-center justify-between gap-3;
+}
+
+.review-block p {
+  @apply text-xs font-semibold uppercase;
+  color: var(--text-muted);
+}
+
+.review-block button {
+  @apply text-xs font-semibold underline;
+  color: var(--accent);
+}
+
+.review-block section {
+  @apply mt-3 grid gap-1 text-sm leading-6;
+}
+
+.review-block section span {
+  color: var(--text-muted);
+}
+
+.checkout-summary {
+  @apply p-5 xl:sticky xl:top-28;
+}
+
+.checkout-summary-items {
+  @apply my-5 grid max-h-[350px] gap-4 overflow-y-auto border-y py-5;
+  border-color: var(--line);
+}
+
+.checkout-summary-item {
+  @apply grid grid-cols-[52px_minmax(0,1fr)_auto] items-center gap-3;
+}
+
+.checkout-summary-item img {
+  @apply rounded-md object-cover;
+  height: 52px;
+  width: 52px;
+  border: 1px solid var(--line);
+}
+
+.checkout-summary-item strong,
+.checkout-summary-item span {
+  @apply block;
+}
+
+.checkout-summary-item strong {
+  @apply line-clamp-2 text-sm leading-5;
+}
+
+.checkout-summary-item span {
+  @apply mt-1 text-xs;
+  color: var(--text-muted);
+}
+
+.checkout-summary-item b {
+  @apply text-sm;
+}
+
+.checkout-total {
+  @apply flex items-center justify-between gap-4;
+}
+
+.checkout-total span {
+  @apply text-sm font-semibold;
+}
+
+.checkout-total strong {
+  @apply text-2xl;
+  color: var(--brand-red);
+}
+
+.checkout-summary-note {
+  @apply mt-4 flex items-start gap-2 rounded-md p-3 text-xs leading-5;
+  background: var(--surface-alt);
+  color: var(--text-muted);
+}
+
+.checkout-summary-note svg {
+  @apply mt-0.5 shrink-0;
+  color: var(--success);
+}
+
+.checkout-success {
+  @apply p-8 text-center md:p-14;
+}
+
+.checkout-success-icon {
+  @apply mx-auto mb-5 grid h-16 w-16 place-items-center rounded-full;
+  background: color-mix(in srgb, var(--success) 12%, var(--surface));
+  color: var(--success);
+}
+
+.checkout-success-icon svg {
+  @apply h-8 w-8;
+}
+
+@media (max-width: 640px) {
+  .checkout-form-body {
+    min-height: 0;
+  }
+
+  .checkout-actions .action-commerce,
+  .checkout-actions .action-secondary {
+    @apply min-w-0 flex-1 px-3;
+  }
+
+  .checkout-actions {
+    @apply sticky bottom-0 z-10 bg-white/95 backdrop-blur;
+  }
+
+  .checkout-trust-row {
+    @apply grid grid-cols-1 gap-2;
+  }
+
+  .checkout-option {
+    min-height: 78px;
+  }
+}
+
+.product-save-button {
+  @apply absolute right-3 top-3 z-10 grid h-10 w-10 place-items-center rounded-full bg-white/95 transition;
+  color: var(--text-muted);
+  border: 1px solid color-mix(in srgb, var(--line) 75%, transparent);
+  box-shadow: var(--shadow-soft);
+}
+
+.product-save-button:hover,
+.product-save-button.is-saved {
+  color: var(--brand-red);
+  transform: scale(1.04);
+}
+
+.product-save-button svg {
+  @apply h-5 w-5;
+}
+
+.wishlist-heading {
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+
+.wishlist-heading .content-shell {
+  @apply grid gap-7 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end;
+}
+
+.wishlist-heading-copy > p:last-child {
+  @apply mt-4 max-w-2xl text-base leading-7;
+  color: var(--text-muted);
+}
+
+.wishlist-benefits {
+  @apply grid gap-2 text-sm font-semibold sm:grid-cols-3 lg:grid-cols-1;
+  color: var(--text-muted);
+}
+
+.wishlist-benefits span {
+  @apply flex items-center gap-2;
+}
+
+.wishlist-benefits svg {
+  @apply h-4 w-4;
+  color: var(--success);
+}
+
+.wishlist-section {
+  @apply py-8 lg:py-12;
+}
+
+.wishlist-loading {
+  @apply h-72 animate-pulse rounded-lg;
+  background: var(--surface-alt);
+}
+
+.wishlist-empty {
+  @apply rounded-lg px-5 py-14 text-center md:py-20;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-soft);
+}
+
+.wishlist-empty > span {
+  @apply mx-auto mb-5 grid h-16 w-16 place-items-center rounded-full;
+  background: color-mix(in srgb, var(--brand-red) 9%, var(--surface));
+  color: var(--brand-red);
+}
+
+.wishlist-empty > span svg {
+  @apply h-7 w-7;
+}
+
+.wishlist-empty > p:last-of-type {
+  @apply mx-auto mt-3 max-w-lg text-sm leading-7;
+  color: var(--text-muted);
+}
+
+.wishlist-toolbar {
+  @apply grid gap-3 rounded-lg p-4 md:grid-cols-[minmax(260px,1fr)_220px_auto] md:items-center;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-soft);
+}
+
+@media (max-width: 900px) {
+  .wishlist-toolbar {
+    grid-template-columns: minmax(0, 1fr) 190px;
+  }
+
+  .wishlist-clear {
+    grid-column: 1 / -1;
+    @apply justify-self-end;
+  }
+}
+
+.wishlist-search {
+  @apply flex min-h-12 items-center gap-3 rounded-lg px-4;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  transition: border-color 150ms ease, box-shadow 150ms ease, background-color 150ms ease;
+}
+
+.wishlist-search:focus-within {
+  border-color: var(--accent);
+  background: #ffffff;
+  box-shadow: 0 0 0 3px var(--focus-ring);
+}
+
+.wishlist-search svg {
+  @apply h-4 w-4 shrink-0;
+  color: var(--text-muted);
+}
+
+.wishlist-search input {
+  @apply min-w-0 flex-1 bg-transparent py-3 outline-none;
+  font-size: 1rem;
+  color: var(--text);
+}
+
+.wishlist-search input:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+
+.wishlist-sort {
+  @apply min-h-11 py-2;
+}
+
+.wishlist-clear {
+  @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-md px-3 text-sm font-semibold transition;
+  color: var(--text-muted);
+}
+
+.wishlist-clear:hover {
+  color: var(--brand-red);
+  background: color-mix(in srgb, var(--brand-red) 7%, var(--surface));
+}
+
+.wishlist-clear svg {
+  @apply h-4 w-4;
+}
+
+.wishlist-result-row {
+  @apply my-6 flex flex-col gap-2 text-sm sm:flex-row sm:items-center sm:justify-between;
+  color: var(--text-muted);
+}
+
+.wishlist-result-row strong {
+  color: var(--text);
+}
+
+.wishlist-result-row a {
+  @apply inline-flex items-center gap-2 font-semibold;
+  color: var(--accent);
+}
+
+.wishlist-result-row svg {
+  @apply h-4 w-4;
+}
+
+.wishlist-grid {
+  @apply grid gap-5 xl:grid-cols-2;
+}
+
+.wishlist-card {
+  @apply grid overflow-hidden rounded-lg md:grid-cols-[220px_minmax(0,1fr)];
+  background: var(--surface);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-soft);
+}
+
+.wishlist-card-media {
+  @apply relative min-h-[230px] overflow-hidden;
+  background: var(--surface-alt);
+}
+
+.wishlist-card-media > a,
+.wishlist-card-media img {
+  @apply h-full w-full;
+}
+
+.wishlist-card-media img {
+  @apply object-cover transition duration-300;
+}
+
+.wishlist-card:hover .wishlist-card-media img {
+  transform: scale(1.03);
+}
+
+.wishlist-card-media > button {
+  @apply absolute right-3 top-3 grid h-10 w-10 place-items-center rounded-full bg-white transition;
+  color: var(--brand-red);
+  box-shadow: var(--shadow-soft);
+}
+
+.wishlist-card-media > button:hover {
+  transform: scale(1.05);
+}
+
+.wishlist-card-media > button svg {
+  @apply h-5 w-5;
+}
+
+.wishlist-stock {
+  @apply absolute bottom-3 left-3 rounded-md bg-white/95 px-2.5 py-1 text-xs font-semibold;
+  color: var(--brand-red);
+  box-shadow: var(--shadow-soft);
+}
+
+.wishlist-stock.is-available {
+  color: var(--success);
+}
+
+.wishlist-card-body {
+  @apply flex min-w-0 flex-col p-5;
+}
+
+.wishlist-card-meta {
+  @apply flex min-w-0 items-center justify-between gap-3 text-xs font-semibold uppercase;
+  color: var(--text-muted);
+}
+
+.wishlist-card-meta span {
+  @apply truncate text-right;
+}
+
+.wishlist-card-body h2 {
+  @apply mt-3 font-serif text-2xl leading-tight;
+  color: var(--text);
+}
+
+.wishlist-card-body h2 a:hover {
+  color: var(--brand-red);
+}
+
+.wishlist-description {
+  @apply mt-2 line-clamp-2 text-sm leading-6;
+  color: var(--text-muted);
+}
+
+.wishlist-specs {
+  @apply mt-3 flex flex-wrap gap-2;
+}
+
+.wishlist-specs span {
+  @apply rounded-md px-2 py-1 text-xs;
+  background: var(--surface-alt);
+  color: var(--text-muted);
+  border: 1px solid var(--line);
+}
+
+.wishlist-card-price {
+  @apply mt-5 flex items-end justify-between gap-3 border-t pt-4;
+  border-color: var(--line);
+}
+
+.wishlist-card-price > div {
+  @apply flex flex-wrap items-baseline gap-x-2;
+}
+
+.wishlist-card-price strong {
+  @apply text-xl;
+  color: var(--brand-red);
+}
+
+.wishlist-card-price span,
+.wishlist-card-price del,
+.wishlist-card-price p {
+  @apply text-xs;
+  color: var(--text-muted);
+}
+
+.wishlist-card-price del {
+  @apply basis-full;
+}
+
+.wishlist-card-price p {
+  @apply flex items-center gap-1 text-right;
+}
+
+.wishlist-card-price p svg {
+  @apply h-4 w-4;
+  color: var(--success);
+}
+
+.wishlist-card-actions {
+  @apply mt-4 grid grid-cols-2 gap-2;
+}
+
+.wishlist-card-actions .action-commerce,
+.wishlist-card-actions .action-secondary {
+  @apply min-h-10 px-3 py-2 text-xs;
+}
+
+.wishlist-card-actions svg {
+  @apply h-3.5 w-3.5;
+}
+
+.wishlist-remove {
+  @apply mt-3 inline-flex w-fit items-center gap-1.5 text-xs font-semibold transition;
+  color: var(--text-muted);
+}
+
+.wishlist-remove:hover {
+  color: var(--brand-red);
+}
+
+.wishlist-remove svg {
+  @apply h-3.5 w-3.5;
+}
+
+.wishlist-no-results {
+  @apply rounded-lg px-5 py-16 text-center;
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+
+.wishlist-no-results > svg {
+  @apply mx-auto h-7 w-7;
+  color: var(--text-muted);
+}
+
+.wishlist-no-results h2 {
+  @apply mt-4 font-serif text-2xl;
+}
+
+.wishlist-no-results button {
+  @apply mt-4 text-sm font-semibold underline;
+  color: var(--accent);
+}
+
+@media (max-width: 767px) {
+  .wishlist-toolbar {
+    grid-template-columns: 1fr;
+  }
+
+  .wishlist-clear {
+    grid-column: auto;
+    @apply w-full justify-center;
+  }
+
+  .wishlist-result-row a {
+    @apply w-fit;
+  }
+
+  .wishlist-card {
+    grid-template-columns: 1fr;
+  }
+
+  .wishlist-card-media {
+    min-height: 220px;
+    max-height: 280px;
+  }
+
+  .wishlist-card-actions {
+    @apply grid-cols-1;
+  }
+
+  .wishlist-card-actions .action-commerce,
+  .wishlist-card-actions .action-secondary {
+    @apply w-full;
+  }
+}
+
+.account-heading {
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+
+.account-heading .content-shell {
+  @apply grid gap-7 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end;
+}
+
+.account-trust {
+  @apply grid gap-2 text-sm font-semibold sm:grid-cols-3 lg:grid-cols-1;
+  color: var(--text-muted);
+}
+
+.account-trust span {
+  @apply flex items-center gap-2;
+}
+
+.account-trust svg {
+  @apply h-4 w-4;
+  color: var(--success);
+}
+
+.account-section {
+  @apply py-7 lg:py-10;
+}
+
+.account-loading {
+  @apply h-96 animate-pulse rounded-lg;
+  background: var(--surface-alt);
+}
+
+.account-layout {
+  @apply grid gap-6 lg:grid-cols-[260px_minmax(0,1fr)] lg:items-start;
+}
+
+.account-sidebar,
+.account-panel,
+.account-empty {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: var(--shadow-soft);
+}
+
+.account-sidebar {
+  @apply overflow-hidden lg:sticky lg:top-28;
+}
+
+.account-identity {
+  @apply flex items-center gap-3 border-b p-5;
+  border-color: var(--line);
+}
+
+.account-identity > span {
+  @apply grid h-11 w-11 shrink-0 place-items-center rounded-full text-lg font-bold text-white;
+  background: var(--accent);
+}
+
+.account-identity > span svg {
+  @apply h-5 w-5;
+}
+
+.account-identity div {
+  @apply min-w-0;
+}
+
+.account-identity strong,
+.account-identity small {
+  @apply block truncate;
+}
+
+.account-identity strong {
+  @apply text-sm;
+}
+
+.account-identity small {
+  @apply mt-1 text-xs;
+  color: var(--text-muted);
+}
+
+.account-sidebar nav {
+  @apply grid p-2;
+}
+
+.account-sidebar nav button {
+  @apply flex min-h-11 items-center gap-3 rounded-md px-3 text-left text-sm font-semibold transition;
+  color: var(--text-muted);
+}
+
+.account-sidebar nav button:hover {
+  background: var(--surface-alt);
+  color: var(--text);
+}
+
+.account-sidebar nav button.is-active {
+  background: var(--surface-alt);
+  color: var(--accent);
+}
+
+.account-sidebar nav button > svg:first-child {
+  @apply h-4 w-4 shrink-0;
+}
+
+.account-sidebar nav button > span {
+  @apply flex-1;
+}
+
+.account-sidebar nav button > svg:last-child {
+  @apply h-4 w-4;
+}
+
+.account-sidebar nav button b {
+  @apply grid h-5 min-w-5 place-items-center rounded-full px-1 text-[10px] text-white;
+  background: var(--brand-red);
+}
+
+.account-sidebar-links {
+  @apply grid border-y p-2;
+  border-color: var(--line);
+}
+
+.account-sidebar-links a {
+  @apply flex min-h-10 items-center gap-3 rounded-md px-3 text-sm transition;
+  color: var(--text-muted);
+}
+
+.account-sidebar-links a:hover {
+  color: var(--brand-red);
+}
+
+.account-sidebar-links svg {
+  @apply h-4 w-4;
+}
+
+.account-sidebar-links span {
+  @apply ml-auto text-xs font-semibold;
+}
+
+.account-local-note {
+  @apply p-4 text-xs leading-5;
+  color: var(--text-muted);
+  background: color-mix(in srgb, var(--surface-alt) 55%, var(--surface));
+}
+
+.account-main {
+  @apply min-w-0;
+}
+
+.account-view-heading {
+  @apply mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between;
+}
+
+.account-view-heading .eyebrow {
+  @apply mb-2;
+}
+
+.account-view-heading h2 {
+  @apply font-serif text-3xl leading-tight md:text-4xl;
+  color: var(--text);
+}
+
+.account-view-heading > div > span {
+  @apply mt-2 block text-sm;
+  color: var(--text-muted);
+}
+
+.account-view-heading svg,
+.account-next-step .action-commerce svg,
+.account-next-step .action-secondary svg {
+  @apply h-4 w-4;
+}
+
+.account-stat-grid {
+  @apply grid gap-3 md:grid-cols-3;
+}
+
+.account-stat {
+  @apply grid min-h-[128px] grid-cols-[42px_minmax(0,1fr)_18px] items-start gap-3 rounded-lg p-4 text-left transition;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-soft);
+}
+
+.account-stat:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.account-stat > span {
+  @apply grid h-10 w-10 place-items-center rounded-md;
+  background: var(--surface-alt);
+  color: var(--accent);
+}
+
+.account-stat > span svg,
+.account-stat > svg {
+  @apply h-5 w-5;
+}
+
+.account-stat > svg {
+  @apply mt-1;
+  color: var(--text-muted);
+}
+
+.account-stat p,
+.account-stat strong,
+.account-stat small {
+  @apply block;
+}
+
+.account-stat p {
+  @apply text-xs font-semibold uppercase;
+  color: var(--text-muted);
+}
+
+.account-stat strong {
+  @apply mt-2 text-lg;
+  color: var(--text);
+}
+
+.account-stat small {
+  @apply mt-1 text-xs leading-5;
+  color: var(--text-muted);
+}
+
+.account-panel {
+  @apply p-5 md:p-6;
+}
+
+.account-next-step {
+  @apply mt-5;
+  background: color-mix(in srgb, var(--surface-alt) 45%, var(--surface));
+}
+
+.account-panel-heading {
+  @apply flex items-start justify-between gap-4;
+}
+
+.account-panel-heading p {
+  @apply text-xs font-semibold uppercase;
+  color: var(--text-muted);
+}
+
+.account-panel-heading h3 {
+  @apply mt-1 font-serif text-2xl;
+  color: var(--text);
+}
+
+.account-panel-heading > svg {
+  @apply h-6 w-6 shrink-0;
+  color: var(--accent);
+}
+
+.account-next-step > p,
+.account-panel-copy,
+.account-support > p {
+  @apply mt-4 text-sm leading-6;
+  color: var(--text-muted);
+}
+
+.account-next-step > a {
+  @apply mt-5;
+}
+
+.account-bottom-grid {
+  @apply mt-5 grid gap-5 xl:grid-cols-2;
+}
+
+.account-request-line {
+  @apply mt-5 flex flex-wrap items-center justify-between gap-3 rounded-md p-3 text-xs;
+  background: var(--surface-alt);
+  color: var(--text-muted);
+}
+
+.account-request-line span,
+.account-request-line b {
+  @apply inline-flex items-center gap-2;
+}
+
+.account-request-line svg {
+  @apply h-4 w-4;
+}
+
+.account-request-line b {
+  color: var(--brand-red);
+}
+
+.account-text-action {
+  @apply mt-5 inline-flex items-center gap-2 text-sm font-semibold;
+  color: var(--accent);
+}
+
+.account-text-action svg {
+  @apply h-4 w-4;
+}
+
+.account-support > .eyebrow {
+  @apply mb-2;
+}
+
+.account-support h3 {
+  @apply font-serif text-2xl;
+}
+
+.account-support > div {
+  @apply mt-5 grid gap-2;
+}
+
+.account-support a {
+  @apply flex items-center gap-3 rounded-md p-3 text-sm font-semibold transition;
+  background: var(--surface-alt);
+}
+
+.account-support a:hover {
+  color: var(--brand-red);
+}
+
+.account-support a svg {
+  @apply h-4 w-4;
+  color: var(--accent);
+}
+
+.account-profile-form {
+  @apply max-w-4xl;
+}
+
+.account-profile-form > .grid {
+  @apply mt-7;
+}
+
+.account-profile-actions {
+  @apply mt-6 flex flex-wrap items-center gap-4 border-t pt-5;
+  border-color: var(--line);
+}
+
+.account-profile-actions button svg {
+  @apply h-4 w-4;
+}
+
+.account-profile-actions > span {
+  @apply inline-flex items-center gap-2 text-sm font-semibold;
+  color: var(--success);
+}
+
+.account-profile-actions > span svg {
+  @apply h-4 w-4;
+}
+
+.account-empty {
+  @apply px-5 py-16 text-center;
+}
+
+.account-empty > span {
+  @apply mx-auto grid h-14 w-14 place-items-center rounded-full;
+  background: var(--surface-alt);
+  color: var(--accent);
+}
+
+.account-empty > span svg {
+  @apply h-6 w-6;
+}
+
+.account-empty h3 {
+  @apply mt-5 font-serif text-3xl;
+}
+
+.account-empty p {
+  @apply mx-auto mb-6 mt-3 max-w-lg text-sm leading-6;
+  color: var(--text-muted);
+}
+
+.account-empty a svg {
+  @apply h-4 w-4;
+}
+
+.account-order-detail {
+  @apply overflow-hidden p-0;
+}
+
+.account-order-top {
+  @apply flex flex-col gap-4 border-b p-5 sm:flex-row sm:items-start sm:justify-between md:p-6;
+  border-color: var(--line);
+}
+
+.account-order-top span {
+  @apply text-xs font-semibold uppercase;
+  color: var(--text-muted);
+}
+
+.account-order-top h3 {
+  @apply mt-2 font-serif text-2xl;
+}
+
+.account-order-top p {
+  @apply mt-2 text-xs;
+  color: var(--text-muted);
+}
+
+.account-order-top > b {
+  @apply inline-flex w-fit items-center gap-2 rounded-md px-3 py-2 text-xs;
+  color: var(--brand-red);
+  background: color-mix(in srgb, var(--brand-red) 8%, var(--surface));
+}
+
+.account-order-top > b svg {
+  @apply h-4 w-4;
+}
+
+.account-order-progress {
+  @apply grid grid-cols-[auto_minmax(20px,1fr)_auto_minmax(20px,1fr)_auto] items-center gap-2 overflow-x-auto border-b p-5 text-xs font-semibold md:p-6;
+  border-color: var(--line);
+  color: var(--text-muted);
+}
+
+.account-order-progress span {
+  @apply flex min-w-max items-center gap-2;
+}
+
+.account-order-progress svg {
+  @apply h-4 w-4;
+}
+
+.account-order-progress i {
+  @apply h-px min-w-5;
+  background: var(--line);
+}
+
+.account-order-progress .is-done {
+  color: var(--success);
+}
+
+.account-order-progress .is-current {
+  color: var(--brand-red);
+}
+
+.account-order-columns {
+  @apply grid lg:grid-cols-2;
+}
+
+.account-order-columns > div {
+  @apply p-5 md:p-6;
+}
+
+.account-order-columns > div:first-child {
+  @apply border-b lg:border-b-0 lg:border-r;
+  border-color: var(--line);
+}
+
+.account-order-columns > div > p {
+  @apply mb-4 text-xs font-semibold uppercase;
+  color: var(--text-muted);
+}
+
+.account-order-item {
+  @apply grid grid-cols-[48px_minmax(0,1fr)_auto] items-center gap-3 border-b py-3 last:border-b-0;
+  border-color: var(--line);
+}
+
+.account-order-item img {
+  @apply h-12 w-12 rounded-md object-cover;
+  border: 1px solid var(--line);
+}
+
+.account-order-item strong,
+.account-order-item small {
+  @apply block;
+}
+
+.account-order-item strong {
+  @apply line-clamp-1 text-sm;
+}
+
+.account-order-item small {
+  @apply mt-1 text-xs;
+  color: var(--text-muted);
+}
+
+.account-order-item > b {
+  @apply text-sm;
+}
+
+.account-order-columns dl {
+  @apply grid gap-4;
+}
+
+.account-order-columns dl > div {
+  @apply grid gap-1;
+}
+
+.account-order-columns dt {
+  @apply flex items-center gap-2 text-xs font-semibold;
+  color: var(--text-muted);
+}
+
+.account-order-columns dt svg {
+  @apply h-4 w-4;
+  color: var(--accent);
+}
+
+.account-order-columns dd {
+  @apply ml-6 text-sm leading-6;
+}
+
+.account-muted {
+  @apply text-sm;
+  color: var(--text-muted);
+}
+
+.account-order-total {
+  @apply flex items-center justify-between gap-4 border-t px-5 py-5 md:px-6;
+  border-color: var(--line);
+  background: var(--surface-alt);
+}
+
+.account-order-total span {
+  @apply text-sm font-semibold;
+}
+
+.account-order-total small {
+  @apply mt-1 block text-xs font-normal;
+  color: var(--text-muted);
+}
+
+.account-order-total strong {
+  @apply text-2xl;
+  color: var(--brand-red);
+}
+
+@media (max-width: 1023px) {
+  .account-sidebar nav {
+    @apply grid-cols-3 gap-1;
+  }
+
+  .account-sidebar nav button {
+    @apply justify-center px-2 text-center;
+  }
+
+  .account-sidebar nav button > svg:last-child,
+  .account-sidebar nav button b {
+    @apply hidden;
+  }
+
+  .account-sidebar-links {
+    @apply grid-cols-2;
+  }
+
+  .account-local-note {
+    @apply hidden;
+  }
+}
+
+@media (max-width: 520px) {
+  .account-sidebar nav button {
+    @apply flex-col gap-1 py-2 text-[11px];
+  }
+
+  .account-stat-grid {
+    @apply grid-cols-1;
+  }
+
+  .account-order-progress {
+    grid-template-columns: 1fr;
+  }
+
+  .account-order-progress i {
+    @apply ml-2 h-4 w-px;
+  }
+}
+
+.account-workspace {
+  @apply grid gap-8 lg:grid-cols-[220px_minmax(0,1fr)] lg:items-start;
+}
+
+.account-rail {
+  @apply overflow-hidden rounded-lg lg:sticky lg:top-28;
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+
+.account-person {
+  @apply flex items-center gap-3 border-b p-4;
+  border-color: var(--line);
+}
+
+.account-person > span {
+  @apply grid h-10 w-10 shrink-0 place-items-center rounded-full text-base font-bold text-white;
+  background: var(--accent);
+}
+
+.account-person > span svg {
+  @apply h-5 w-5;
+}
+
+.account-person div {
+  @apply min-w-0;
+}
+
+.account-person strong,
+.account-person small {
+  @apply block truncate;
+}
+
+.account-person strong {
+  @apply text-sm;
+}
+
+.account-person small {
+  @apply mt-1 text-xs;
+  color: var(--text-muted);
+}
+
+.account-rail nav {
+  @apply grid gap-1 p-2;
+}
+
+.account-rail nav button,
+.account-rail-cart {
+  @apply flex min-h-11 items-center gap-3 rounded-md px-3 text-sm font-semibold transition;
+  color: var(--text-muted);
+}
+
+.account-rail nav button:hover,
+.account-rail-cart:hover {
+  color: var(--text);
+  background: var(--surface-alt);
+}
+
+.account-rail nav button.is-active {
+  color: var(--accent);
+  background: var(--surface-alt);
+  box-shadow: inset 3px 0 0 var(--brand-red);
+}
+
+.account-rail nav svg,
+.account-rail-cart svg {
+  @apply h-4 w-4 shrink-0;
+}
+
+.account-rail nav button > span,
+.account-rail-cart > span {
+  @apply flex-1;
+}
+
+.account-rail nav button b,
+.account-rail-cart b {
+  @apply grid h-5 min-w-5 place-items-center rounded-full px-1 text-[10px];
+  color: var(--accent);
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+
+.account-rail-cart {
+  @apply mx-2 mb-2 border-t;
+  border-color: var(--line);
+}
+
+.account-rail > p {
+  @apply border-t p-4 text-xs leading-5;
+  border-color: var(--line);
+  color: var(--text-muted);
+  background: color-mix(in srgb, var(--surface-alt) 45%, var(--surface));
+}
+
+.account-content {
+  @apply min-w-0;
+}
+
+.account-content-header {
+  @apply mb-6 flex flex-col gap-4 border-b pb-5 sm:flex-row sm:items-end sm:justify-between;
+  border-color: var(--line);
+}
+
+.account-content-header > div > p {
+  @apply text-xs font-semibold uppercase;
+  color: var(--brand-red);
+}
+
+.account-content-header h2 {
+  @apply mt-1 font-serif text-3xl leading-tight;
+  color: var(--text);
+}
+
+.account-content-header > div > span {
+  @apply mt-2 block text-sm leading-6;
+  color: var(--text-muted);
+}
+
+.account-content-header svg {
+  @apply h-4 w-4;
+}
+
+.account-focus {
+  @apply grid overflow-hidden rounded-lg md:grid-cols-[minmax(0,1fr)_auto];
+  color: white;
+  background: var(--accent);
+}
+
+.account-content-header .action-commerce,
+.account-content-header .action-secondary {
+  @apply shrink-0;
+}
+
+.account-focus-status {
+  @apply flex items-start gap-4 p-5 md:p-7;
+}
+
+.account-focus-status > span {
+  @apply grid h-11 w-11 shrink-0 place-items-center rounded-md bg-white/10;
+}
+
+.account-focus-status svg {
+  @apply h-5 w-5;
+}
+
+.account-focus-status p {
+  @apply text-xs font-semibold uppercase text-white/60;
+}
+
+.account-focus-status h3 {
+  @apply mt-2 font-serif text-2xl leading-snug text-white;
+}
+
+.account-focus-status small {
+  @apply mt-2 block text-sm leading-6 text-white/70;
+}
+
+.account-focus-action {
+  @apply flex items-stretch border-t border-white/15 md:border-l md:border-t-0;
+}
+
+.account-focus-action a,
+.account-focus-action button {
+  @apply flex min-w-48 flex-1 items-center justify-between gap-4 px-5 py-4 text-left text-sm font-semibold text-white transition md:px-6;
+}
+
+.account-focus-action a:hover,
+.account-focus-action button:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.account-focus-action svg {
+  @apply h-4 w-4;
+}
+
+.account-numbers {
+  @apply mt-5 grid overflow-hidden rounded-lg md:grid-cols-3;
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+
+.account-numbers > * {
+  @apply flex min-h-28 flex-col items-start justify-center border-b p-5 text-left transition last:border-b-0 md:border-b-0 md:border-r md:last:border-r-0;
+  border-color: var(--line);
+}
+
+.account-numbers > *:hover {
+  background: var(--surface-alt);
+}
+
+.account-numbers span,
+.account-numbers small {
+  @apply text-xs;
+  color: var(--text-muted);
+}
+
+.account-numbers span {
+  @apply font-semibold uppercase;
+}
+
+.account-numbers strong {
+  @apply mt-2 text-2xl;
+  color: var(--text);
+}
+
+.account-numbers small {
+  @apply mt-1;
+}
+
+.account-overview-grid {
+  @apply mt-5 grid gap-5 xl:grid-cols-[minmax(0,1.25fr)_minmax(280px,0.75fr)];
+}
+
+.account-activity,
+.account-contact-strip,
+.account-auth-sheet,
+.account-profile-sheet,
+.account-order-sheet,
+.account-api-orders,
+.account-saved-list {
+  @apply rounded-lg;
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+
+.account-section-title {
+  @apply flex items-start justify-between gap-4 border-b p-5;
+  border-color: var(--line);
+}
+
+.account-section-title p,
+.account-contact-strip p {
+  @apply text-xs font-semibold uppercase;
+  color: var(--text-muted);
+}
+
+.account-section-title h3,
+.account-contact-strip h3 {
+  @apply mt-1 font-serif text-xl;
+  color: var(--text);
+}
+
+.account-section-title svg {
+  @apply h-5 w-5;
+  color: var(--accent);
+}
+
+.account-activity-row {
+  @apply grid grid-cols-[minmax(0,1fr)_auto_36px] items-center gap-4 p-5;
+}
+
+.account-activity-row b,
+.account-activity-row span {
+  @apply block;
+}
+
+.account-activity-row b {
+  @apply text-sm;
+}
+
+.account-activity-row span {
+  @apply mt-1 text-xs;
+  color: var(--text-muted);
+}
+
+.account-activity-row > strong {
+  @apply text-sm;
+  color: var(--brand-red);
+}
+
+.account-activity-row > button {
+  @apply grid h-9 w-9 place-items-center rounded-full transition;
+  background: var(--surface-alt);
+  color: var(--accent);
+}
+
+.account-activity-row > button:hover {
+  background: var(--accent);
+  color: white;
+}
+
+.account-activity-row svg {
+  @apply h-4 w-4;
+}
+
+.account-empty-line {
+  @apply flex items-center gap-3 p-5 text-sm;
+  color: var(--text-muted);
+}
+
+.account-empty-line svg {
+  @apply h-4 w-4;
+  color: var(--success);
+}
+
+.account-contact-strip {
+  @apply p-5;
+}
+
+.account-contact-strip > div:first-child > span {
+  @apply mt-2 block text-sm leading-6;
+  color: var(--text-muted);
+}
+
+.account-contact-strip > div:last-child {
+  @apply mt-5 grid gap-2;
+}
+
+.account-contact-strip a {
+  @apply flex items-center gap-3 border-t pt-3 text-sm font-semibold transition;
+  border-color: var(--line);
+}
+
+.account-contact-strip a:hover {
+  color: var(--brand-red);
+}
+
+.account-contact-strip svg {
+  @apply h-4 w-4;
+  color: var(--accent);
+}
+
+.account-saved-list {
+  @apply overflow-hidden;
+}
+
+.account-saved-list article {
+  @apply grid items-center gap-4 border-b p-4 last:border-b-0 sm:grid-cols-[72px_minmax(0,1fr)_auto_auto];
+  border-color: var(--line);
+}
+
+.account-saved-list article > a {
+  @apply overflow-hidden rounded-md;
+}
+
+.account-saved-list img {
+  @apply h-16 w-full object-cover sm:w-16;
+}
+
+.account-saved-list article > div:nth-child(2) {
+  @apply min-w-0;
+}
+
+.account-saved-list p,
+.account-saved-list span,
+.account-saved-list small {
+  @apply text-xs;
+  color: var(--text-muted);
+}
+
+.account-saved-list h3 {
+  @apply mt-1 truncate font-serif text-lg;
+}
+
+.account-saved-list span {
+  @apply mt-1 block;
+}
+
+.account-saved-list article > strong {
+  @apply text-base;
+  color: var(--brand-red);
+}
+
+.account-saved-list article > strong small {
+  @apply ml-1 font-normal;
+}
+
+.account-saved-list .action-commerce,
+.account-saved-list .action-secondary {
+  @apply min-h-10 whitespace-nowrap px-3 py-2 text-xs;
+}
+
+.account-auth-sheet {
+  @apply mb-5 overflow-hidden;
+}
+
+.account-auth-status {
+  @apply flex flex-col gap-4 border-b p-5 md:flex-row md:items-center md:justify-between md:p-6;
+  border-color: var(--line);
+}
+
+.account-auth-status > span {
+  @apply grid h-11 w-11 shrink-0 place-items-center rounded-full;
+  background: var(--surface-alt);
+  color: var(--accent);
+}
+
+.account-auth-status svg {
+  @apply h-5 w-5;
+}
+
+.account-auth-status h3 {
+  @apply font-serif text-xl;
+}
+
+.account-auth-status p {
+  @apply mt-1 max-w-2xl text-sm leading-6;
+  color: var(--text-muted);
+}
+
+.account-auth-status .action-secondary {
+  @apply min-h-10 px-4 py-2 text-xs;
+}
+
+.account-auth-form {
+  @apply grid gap-4 p-5 md:grid-cols-2 md:p-6;
+}
+
+.account-auth-tabs {
+  @apply flex rounded-md p-1 md:col-span-2;
+  background: var(--surface-alt);
+}
+
+.account-auth-tabs button {
+  @apply flex-1 rounded px-3 py-2 text-sm font-semibold transition;
+  color: var(--text-muted);
+}
+
+.account-auth-tabs button.is-active {
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: 0 8px 20px rgba(16, 24, 40, 0.08);
+}
+
+.account-auth-form .action-commerce {
+  @apply self-end md:col-span-2;
+}
+
+.account-auth-message {
+  @apply border-t px-5 py-3 text-sm font-semibold md:px-6;
+  border-color: var(--line);
+  color: var(--accent);
+  background: color-mix(in srgb, var(--surface-alt) 55%, var(--surface));
+}
+
+.account-api-orders {
+  @apply overflow-hidden;
+}
+
+.account-api-orders article {
+  @apply border-b last:border-b-0;
+  border-color: var(--line);
+}
+
+.account-api-order-head,
+.account-api-order-foot {
+  @apply flex flex-col gap-3 p-5 sm:flex-row sm:items-start sm:justify-between md:px-6;
+}
+
+.account-api-order-head p {
+  @apply text-xs font-semibold uppercase;
+  color: var(--text-muted);
+}
+
+.account-api-order-head h3 {
+  @apply mt-1 font-serif text-xl;
+}
+
+.account-api-order-head span,
+.account-api-order-foot span,
+.account-api-order-items small,
+.account-api-order-items em {
+  @apply text-xs;
+  color: var(--text-muted);
+}
+
+.account-api-order-head b {
+  @apply inline-flex w-fit rounded-md px-3 py-2 text-xs capitalize;
+  color: var(--brand-red);
+  background: color-mix(in srgb, var(--brand-red) 8%, var(--surface));
+}
+
+.account-api-order-items {
+  @apply grid gap-2 border-y px-5 py-4 md:px-6;
+  border-color: var(--line);
+  background: var(--surface-alt);
+}
+
+.account-api-order-items span {
+  @apply flex items-center justify-between gap-4 text-sm;
+}
+
+.account-api-order-items strong {
+  @apply line-clamp-1;
+}
+
+.account-api-order-items em {
+  @apply not-italic;
+}
+
+.account-api-order-foot {
+  @apply items-start;
+}
+
+.account-api-order-foot strong {
+  @apply text-xl;
+  color: var(--brand-red);
+}
+
+.account-profile-sheet {
+  @apply max-w-4xl overflow-hidden;
+}
+
+.account-profile-intro {
+  @apply flex items-start gap-4 border-b p-5 md:p-6;
+  border-color: var(--line);
+}
+
+.account-profile-intro > span {
+  @apply grid h-11 w-11 shrink-0 place-items-center rounded-full;
+  background: var(--surface-alt);
+  color: var(--accent);
+}
+
+.account-profile-intro svg {
+  @apply h-5 w-5;
+}
+
+.account-profile-intro h3 {
+  @apply font-serif text-xl;
+}
+
+.account-profile-intro p {
+  @apply mt-1 text-sm leading-6;
+  color: var(--text-muted);
+}
+
+.account-profile-fields {
+  @apply grid gap-4 p-5 md:grid-cols-2 md:p-6;
+}
+
+.account-profile-save {
+  @apply flex flex-wrap items-center gap-4 border-t p-5 md:px-6;
+  border-color: var(--line);
+  background: color-mix(in srgb, var(--surface-alt) 45%, var(--surface));
+}
+
+.account-profile-save button svg,
+.account-profile-save span svg {
+  @apply h-4 w-4;
+}
+
+.account-profile-save span {
+  @apply inline-flex items-center gap-2 text-sm font-semibold;
+  color: var(--success);
+}
+
+.account-order-sheet {
+  @apply overflow-hidden;
+}
+
+.account-order-summary {
+  @apply flex flex-col gap-4 border-b p-5 sm:flex-row sm:items-start sm:justify-between md:p-6;
+  border-color: var(--line);
+}
+
+.account-order-summary p {
+  @apply text-xs font-semibold uppercase;
+  color: var(--text-muted);
+}
+
+.account-order-summary h3 {
+  @apply mt-2 font-serif text-2xl;
+}
+
+.account-order-summary span {
+  @apply mt-2 block text-xs;
+  color: var(--text-muted);
+}
+
+.account-order-summary > b {
+  @apply inline-flex w-fit items-center gap-2 rounded-md px-3 py-2 text-xs;
+  color: var(--brand-red);
+  background: color-mix(in srgb, var(--brand-red) 8%, var(--surface));
+}
+
+.account-order-summary svg,
+.account-order-timeline svg {
+  @apply h-4 w-4;
+}
+
+.account-order-timeline {
+  @apply grid grid-cols-[auto_minmax(20px,1fr)_auto_minmax(20px,1fr)_auto] items-center gap-2 overflow-x-auto border-b p-5 text-xs font-semibold md:p-6;
+  border-color: var(--line);
+  color: var(--text-muted);
+}
+
+.account-order-timeline span {
+  @apply flex min-w-max items-center gap-2;
+}
+
+.account-order-timeline i {
+  @apply h-px min-w-5;
+  background: var(--line);
+}
+
+.account-order-timeline .is-done {
+  color: var(--success);
+}
+
+.account-order-timeline .is-current {
+  color: var(--brand-red);
+}
+
+.account-order-body {
+  @apply grid lg:grid-cols-2;
+}
+
+.account-order-body > div,
+.account-order-body > dl {
+  @apply p-5 md:p-6;
+}
+
+.account-order-body > div {
+  @apply border-b lg:border-b-0 lg:border-r;
+  border-color: var(--line);
+}
+
+.account-order-body > div > p,
+.account-order-body > dl > p {
+  @apply mb-4 text-xs font-semibold uppercase;
+  color: var(--text-muted);
+}
+
+.account-order-product {
+  @apply grid grid-cols-[48px_minmax(0,1fr)_auto] items-center gap-3 border-b py-3 last:border-b-0;
+  border-color: var(--line);
+}
+
+.account-order-product img {
+  @apply h-12 w-12 rounded-md object-cover;
+}
+
+.account-order-product strong,
+.account-order-product small {
+  @apply block;
+}
+
+.account-order-product strong {
+  @apply line-clamp-1 text-sm;
+}
+
+.account-order-product small {
+  @apply mt-1 text-xs;
+  color: var(--text-muted);
+}
+
+.account-order-product > b {
+  @apply text-sm;
+}
+
+.account-order-body dl {
+  @apply grid content-start gap-4;
+}
+
+.account-order-body dl > div {
+  @apply grid gap-1;
+}
+
+.account-order-body dt {
+  @apply flex items-center gap-2 text-xs font-semibold;
+  color: var(--text-muted);
+}
+
+.account-order-body dt svg {
+  @apply h-4 w-4;
+  color: var(--accent);
+}
+
+.account-order-body dd {
+  @apply ml-6 text-sm leading-6;
+}
+
+.account-order-footer {
+  @apply flex items-center justify-between gap-4 border-t p-5 md:px-6;
+  border-color: var(--line);
+  background: var(--surface-alt);
+}
+
+.account-order-footer span {
+  @apply text-sm font-semibold;
+}
+
+.account-order-footer small {
+  @apply mt-1 block text-xs font-normal;
+  color: var(--text-muted);
+}
+
+.account-order-footer strong {
+  @apply text-2xl;
+  color: var(--brand-red);
+}
+
+@media (max-width: 1023px) {
+  .account-rail nav {
+    @apply grid-cols-4 overflow-x-auto;
+  }
+
+  .account-rail nav button {
+    @apply min-w-24 flex-col justify-center gap-1 px-2 py-2 text-center text-xs;
+  }
+
+  .account-rail > p {
+    @apply hidden;
+  }
+
+  .account-rail-cart {
+    @apply mx-2 mb-2 justify-center;
+  }
+
+  .account-content-header {
+    @apply items-start;
+  }
+}
+
+@media (max-width: 639px) {
+  .account-person {
+    @apply hidden;
+  }
+
+  .account-workspace {
+    @apply gap-5;
+  }
+
+  .account-section {
+    @apply py-5;
+  }
+
+  .account-content-header {
+    @apply pb-4;
+  }
+
+  .account-content-header .action-commerce,
+  .account-content-header .action-secondary {
+    @apply w-full;
+  }
+
+  .account-saved-list article {
+    grid-template-columns: 64px minmax(0, 1fr);
+  }
+
+  .account-saved-list article > strong,
+  .account-saved-list article > div:last-child {
+    grid-column: 2;
+  }
+
+  .account-activity-row {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .account-activity-row > button {
+    @apply hidden;
+  }
+
+  .account-order-timeline {
+    grid-template-columns: 1fr;
+  }
+
+  .account-order-timeline i {
+    @apply ml-2 h-4 w-px;
+  }
+
+  .account-focus-status {
+    @apply p-5;
+  }
+
+  .account-numbers > * {
+    min-height: 96px;
+  }
+
+  .account-order-footer {
+    @apply items-start;
+  }
+
+  .account-order-footer strong {
+    @apply text-xl;
+  }
+}
+
+@media (max-width: 480px) {
+  .cart-hero-actions {
+    @apply grid grid-cols-1;
+  }
+
+  .cart-hero-actions .action-commerce,
+  .cart-hero-actions .action-secondary {
+    @apply w-full;
+  }
+
+  .phone-country {
+    @apply px-2;
+  }
+
+  .checkout-progress-step {
+    @apply px-1;
+  }
+
+  .checkout-progress-step > span {
+    @apply h-6 w-6;
+  }
+
+  .account-order-product {
+    grid-template-columns: 44px minmax(0, 1fr);
+  }
+
+  .account-order-product > b {
+    grid-column: 2;
+  }
+}
+
+@media (max-width: 639px) {
+  .field,
+  .select-field,
+  .textarea-field,
+  .phone-field input,
+  .header-search-form input,
+  .wishlist-search input {
+    font-size: 16px !important;
+  }
+
+  .header-search-form {
+    font-size: 16px;
+  }
+}
+
+input[type="file"]::-webkit-file-upload-button {
+  font-size: 16px;
+}
+
+.overflow-y-auto,
+[role="dialog"] {
+  overscroll-behavior: contain;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(100%); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out both;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.35s ease-out both;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.3s ease-out both;
+}

@@ -1,0 +1,122 @@
+"use client";
+
+import { AddToCartButton } from "@/components/cart/add-to-cart-button";
+import type { ProductItem } from "@/lib/homepage-data";
+import { addCustomerWishlistItem, removeCustomerWishlistItem } from "@/lib/api-customer-storage";
+import { readWishlist, toggleWishlistProduct } from "@/lib/wishlist-store";
+import { blurPlaceholder } from "@/lib/blur-placeholder";
+import { Heart } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { reportError } from "@/lib/error-tracking";
+
+type ProductCardProps = {
+  product: ProductItem;
+  compact?: boolean;
+};
+
+export function ProductCard({ product, compact = false }: ProductCardProps) {
+  const [saved, setSaved] = useState(false);
+  const productSlug = product.href.replace("/products/", "");
+
+  useEffect(() => {
+    const sync = () => setSaved(readWishlist().includes(product.id));
+    sync();
+    window.addEventListener("kmd-wishlist-updated", sync);
+    return () => window.removeEventListener("kmd-wishlist-updated", sync);
+  }, [product.id]);
+
+  const needsQuote = product.quoteRecommended || product.stockStatus === "Preorder";
+  const primaryAction = product.stockStatus === "Low stock" ? "Check Availability" : needsQuote ? "Get Quote" : "Add to Cart";
+  const primaryHref = needsQuote || product.stockStatus === "Low stock" ? `/contact?product=${encodeURIComponent(productSlug)}#request-form` : "/cart";
+  const toggleSaved = () => {
+    const nextSaved = toggleWishlistProduct(product.id).includes(product.id);
+    setSaved(nextSaved);
+    const sync = nextSaved ? addCustomerWishlistItem : removeCustomerWishlistItem;
+    sync(product.id).catch(() => reportError("Wishlist sync failed", { component: "ProductCard", action: "toggleWishlist" }));
+  };
+
+  return (
+    <article className="surface-card group relative flex h-full flex-col overflow-hidden transition hover:-translate-y-1 hover:shadow-panel">
+      <Link className={`relative block overflow-hidden ${compact ? "h-48" : "h-56"}`} href={product.href}>
+        <Image
+          alt={product.name}
+          className="object-cover transition duration-300 group-hover:scale-105"
+          src={product.imageUrl}
+          fill
+          loading="lazy"
+          placeholder="blur"
+          blurDataURL={blurPlaceholder()}
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+        />
+        {product.badge ? (
+          <span className="absolute left-3 top-3 rounded-md bg-brand-red px-3 py-1 text-xs font-semibold text-white shadow-card z-10">
+            {product.badge}
+          </span>
+        ) : null}
+        <span className="absolute bottom-3 right-3 rounded-md bg-white/95 px-2.5 py-1 text-xs font-semibold text-ink-900 shadow-soft z-10">
+          {product.stockStatus}
+        </span>
+      </Link>
+      <button
+        aria-label={saved ? `Remove ${product.name} from wishlist` : `Save ${product.name} to wishlist`}
+        aria-pressed={saved}
+        className={`product-save-button ${saved ? "is-saved" : ""}`}
+        onClick={toggleSaved}
+        title={saved ? "Remove from wishlist" : "Save to wishlist"}
+        type="button"
+      >
+        <Heart fill={saved ? "currentColor" : "none"} />
+      </button>
+      <div className="flex flex-1 flex-col p-5">
+        <div className="flex items-center justify-between gap-3 text-xs uppercase tracking-[0.18em] text-ink-700">
+          <span>{product.brand}</span>
+          <span className="truncate">{product.category}</span>
+        </div>
+        <h3 className="mt-3 font-serif text-2xl leading-tight text-ink-900">
+          <Link className="transition hover:text-brand-red" href={product.href}>
+            {product.name}
+          </Link>
+        </h3>
+        <p className="mt-2 line-clamp-2 text-sm leading-6 text-ink-700">{product.descriptor}</p>
+        <div className="mt-4 flex flex-wrap gap-2">
+          {product.specs.slice(0, 2).map((spec) => (
+            <span key={spec} className="rounded-md border border-sand-400 bg-sand-100 px-2 py-1 text-xs text-ink-700">
+              {spec}
+            </span>
+          ))}
+        </div>
+        <div className="mt-auto flex items-end justify-between gap-4 border-b border-sand-400 pb-4 pt-5">
+          <div>
+            <div className="flex items-baseline gap-2">
+              <span className="text-2xl font-semibold text-brand-red">${product.price.toFixed(2)}</span>
+              <span className="text-sm text-ink-700">/ {product.unit}</span>
+            </div>
+            {product.comparePrice ? <div className="text-sm text-ink-700 line-through">${product.comparePrice.toFixed(2)}</div> : null}
+          </div>
+          <div className="text-right text-xs leading-5 text-ink-700">
+            <div>MOQ: {product.moq}</div>
+            <div>{product.leadTime}</div>
+          </div>
+        </div>
+        <div className="mt-5 grid grid-cols-2 gap-2">
+          {needsQuote || product.stockStatus === "Low stock" ? (
+            <Link className="action-commerce min-h-10 whitespace-nowrap px-3 py-2 text-xs" href={primaryHref}>
+              {primaryAction}
+            </Link>
+          ) : (
+            <AddToCartButton
+              className="action-commerce min-h-10 gap-1.5 whitespace-nowrap px-3 py-2 text-xs"
+              compact
+              product={product}
+            />
+          )}
+          <Link className="action-secondary min-h-10 whitespace-nowrap px-3 py-2 text-xs" href={product.href}>
+            View Details
+          </Link>
+        </div>
+      </div>
+    </article>
+  );
+}
