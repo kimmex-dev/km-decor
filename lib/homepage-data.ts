@@ -102,7 +102,7 @@ export const services: ServiceItem[] = [
   {
     id: "ceiling",
     title: "1. Ceiling Décor",
-    description: "Complete stretch and eco block ceiling systems with integrated LED lighting and moisture protection.",
+    description: "Certified stretch and reflect ceiling systems with white paint, eco block, and integrated LED lighting.",
     items: [
       "CL-01 Stretch ceiling with white paint",
       "CL-02 Stretch moisture ceiling with white paint",
@@ -117,12 +117,12 @@ export const services: ServiceItem[] = [
   {
     id: "partition",
     title: "2. Partition & Wall Décor",
-    description: "Custom doors, windows, feature backdrops, service counters, and heavy-duty commercial floor carpeting.",
+    description: "Complete commercial partition fit-out including doors, windows, backdrops, counters, and floor carpeting.",
     items: [
-      "Door & Window installation",
-      "Back drop design & framing",
-      "Counter & reception desks",
-      "Floor Carpet installation"
+      "Door & Window",
+      "Back drop",
+      "Counter",
+      "Floor Carpet"
     ],
     href: "/services/partition",
     imageUrl: "https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=1200&q=80"
@@ -130,11 +130,11 @@ export const services: ServiceItem[] = [
   {
     id: "furniture",
     title: "3. Interior Décor & Furniture",
-    description: "Custom cabinetry, modular office materials, and full conference hall interior fit-out solutions.",
+    description: "Interior decoration, custom cabinetry, office materials, and full conference hall solutions.",
     items: [
-      "Cabinet & storage solutions",
-      "Office Materials & modular desks",
-      "Conference hall fit-outs"
+      "Cabinet",
+      "Office Materials",
+      "Conference hall"
     ],
     href: "/services/furniture",
     imageUrl: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&w=1200&q=80"

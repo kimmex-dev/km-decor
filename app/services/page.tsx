@@ -9,7 +9,6 @@ import {
   projects,
   services
 } from "@/lib/homepage-data";
-import { serviceDetails } from "@/lib/service-data";
 import { motion } from "framer-motion";
 import {
   ArrowDown,
@@ -18,10 +17,14 @@ import {
   Check,
   CheckCircle2,
   ChevronRight,
+  Clock,
+  Coins,
   Compass,
   FileCheck2,
+  Handshake,
   MapPin,
   PhoneCall,
+  Ruler,
   ShieldCheck,
   Sparkles,
   Target
@@ -29,23 +32,6 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 
-const processSteps = [
-  {
-    num: "01",
-    title: "Share Your Commercial Space",
-    copy: "Send project drawings, floor plans, or site photos along with your target completion schedule."
-  },
-  {
-    num: "02",
-    title: "Technical Review & BOQ Scope",
-    copy: "Our engineering and design team assesses material specs, structural requirements, and site logistics."
-  },
-  {
-    num: "03",
-    title: "Receive Detailed Commercial Quotation",
-    copy: "Review a transparent BOQ proposal covering supply, fabrication, transport, and expert installation."
-  }
-];
 
 export default function ServicesPage() {
   return (
@@ -114,7 +100,6 @@ export default function ServicesPage() {
 
         <div className="space-y-16 lg:space-y-24">
           {services.map((service, index) => {
-            const detail = serviceDetails[service.id];
             const isEven = index % 2 === 0;
 
             return (
@@ -152,7 +137,7 @@ export default function ServicesPage() {
                       </h4>
                       {service.items && service.items.length > 0 && (
                         <div className="mt-4 space-y-2">
-                          {service.items.slice(0, 4).map((item) => (
+                          {service.items.slice(0, 6).map((item) => (
                             <div key={item} className="flex items-start gap-2.5 text-xs text-neutral-200 font-light">
                               <Check className="h-3.5 w-3.5 shrink-0 text-brand-accent stroke-[2.5] mt-0.5" />
                               <span>{item}</span>
@@ -185,16 +170,6 @@ export default function ServicesPage() {
                     {service.description}
                   </p>
 
-                  {/* 3 Quick Spec Badges */}
-                  {detail?.materials && (
-                    <div className="mt-4 flex flex-wrap gap-2">
-                      {detail.materials.slice(0, 3).map((mat) => (
-                        <span key={mat} className="rounded-full border border-neutral-200 bg-neutral-50 px-3 py-1 font-mono text-[11px] font-medium text-neutral-700">
-                          {mat}
-                        </span>
-                      ))}
-                    </div>
-                  )}
 
                   {/* Single Clear Primary Action Link */}
                   <div className="mt-6">
@@ -213,73 +188,49 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* Why Businesses Choose KMD Décor — KMD Brand Primary Deep Navy */}
-      <section className="bg-brand-primary text-white py-16 lg:py-24 relative overflow-hidden">
-        {/* Subtle Background Glow */}
-        <div className="absolute -top-40 -right-40 h-96 w-96 rounded-full bg-brand-accent/10 blur-3xl pointer-events-none" />
-        <div className="absolute -bottom-40 -left-40 h-96 w-96 rounded-full bg-white/5 blur-3xl pointer-events-none" />
-
-        <div className="relative mx-auto max-w-screen-2xl px-4 md:px-8">
+      {/* Why Partner with KMD Décor — Architectural Hairline Grid */}
+      <section className="bg-white py-16 lg:py-24 border-y border-neutral-200">
+        <div className="mx-auto max-w-screen-2xl px-4 md:px-8">
           <div className="mb-14 max-w-3xl">
-            <span className="text-xs font-mono font-bold uppercase tracking-widest text-brand-accent">
+            <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-brand-accent">
               KMD DÉCOR — B2B VALUE ADVANTAGE
             </span>
-            <h2 className="mt-3 font-serif text-3xl font-normal text-white sm:text-4xl md:text-5xl">
-              Why Businesses Choose KMD Décor
+            <h2 className="mt-2 font-serif text-3xl font-normal text-neutral-950 sm:text-4xl md:text-5xl">
+              Why Partner with KMD Décor
             </h2>
-            <p className="mt-4 text-base text-neutral-200 font-light leading-relaxed">
-              Our B2B approach puts project timelines, cost control, certified material quality, and dependable delivery at the center of every commercial engagement in Phnom Penh.
+            <p className="mt-3 text-xs sm:text-sm text-neutral-600 font-light leading-relaxed">
+              7 core capabilities engineered for dependable commercial fit-out execution in Phnom Penh.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {companyPartnershipStrengths.map((item) => (
-              <motion.div
-                key={item.num}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4 }}
-                className="group rounded-2xl border border-white/15 bg-white/5 p-6 sm:p-8 backdrop-blur-md hover:bg-white/10 hover:border-white/30 transition-all duration-300 shadow-lg"
-              >
-                <div className="flex items-center justify-between">
-                  <span className="font-mono text-xl font-bold text-brand-accent">{item.num}</span>
-                  <span className="h-2 w-2 rounded-full bg-brand-accent/60 group-hover:bg-brand-accent transition-colors" />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
+            {companyPartnershipStrengths.map((item, index) => {
+              const icons = [Building2, Target, ShieldCheck, Clock, Coins, Ruler, Handshake];
+              const IconComp = icons[index % icons.length];
+
+              return (
+                <div
+                  key={item.num}
+                  className="group border-t-2 border-neutral-200 pt-6 transition-colors duration-300 hover:border-brand-primary"
+                >
+                  <div className="flex items-center justify-between font-mono text-sm font-bold">
+                    <span className="text-brand-accent">{item.num}</span>
+                    <IconComp className="h-4.5 w-4.5 text-neutral-400 group-hover:text-brand-primary transition-colors duration-200" />
+                  </div>
+
+                  <h3 className="mt-4 font-serif text-lg font-normal text-neutral-950 leading-snug group-hover:text-brand-primary transition-colors duration-200">
+                    {item.title}
+                  </h3>
+                  <p className="mt-2 text-xs sm:text-sm text-neutral-600 font-light leading-relaxed">
+                    {item.desc}
+                  </p>
                 </div>
-                <h3 className="mt-4 font-serif text-xl text-white font-normal leading-snug">{item.title}</h3>
-                <p className="mt-2 text-xs sm:text-sm text-neutral-300 font-light leading-relaxed">{item.desc}</p>
-              </motion.div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* Simple 3-Step Project Process */}
-      <section className="mx-auto max-w-screen-2xl px-4 py-16 md:px-8 lg:py-24">
-        <div className="mb-14 text-center max-w-2xl mx-auto">
-          <span className="text-xs font-mono font-semibold uppercase tracking-widest text-brand-accent">
-            Simple Workflow
-          </span>
-          <h2 className="mt-2 font-serif text-3xl font-normal text-neutral-950 sm:text-4xl">
-            How Your Fit-Out Project Starts
-          </h2>
-          <p className="mt-3 text-sm text-neutral-600 font-light">
-            Clear information and transparent communication before construction begins.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {processSteps.map((step) => (
-            <div key={step.num} className="rounded-2xl border border-neutral-200 bg-white p-8 shadow-sm flex flex-col justify-between">
-              <div>
-                <span className="font-mono text-3xl font-bold text-brand-primary">{step.num}</span>
-                <h3 className="mt-4 font-serif text-xl font-normal text-neutral-950">{step.title}</h3>
-                <p className="mt-3 text-sm text-neutral-600 font-light leading-relaxed">{step.copy}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
 
       {/* Selected Projects Showcase */}
       <section className="bg-neutral-50 py-16 lg:py-24 border-t border-neutral-200">

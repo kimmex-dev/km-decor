@@ -24,8 +24,22 @@ export const serviceDetails: Record<string, ServiceDetail> = {
       "KMD Décor specializes in certified stretch ceiling installation (CL-01 Translucent, CL-02 Glossy, CL-03 Satin, CL-04 Matt, CL-05 Perforated, CL-06 Printed) and gypsum ceiling decoration. Supported by C-Line 4M steel framing and integrated LED lighting profiles, our ceiling systems deliver clean lines and high moisture resistance for commercial offices and landmark institutions in Phnom Penh.",
     photoCta: "Send Ceiling Drawings",
     quotePrep: ["Ceiling area or floor plan", "Approximate height & ceiling style", "Lighting profile requirements", "Supply-only or complete installation"],
-    scope: ["Stretch ceiling membrane installation (CL-01 to CL-06)", "C-Line 4M steel framing & profile fitting", "Integrated LED channel & acoustic coordination"],
-    materials: ["CL-01 Translucent Ceiling", "CL-02 Glossy Ceiling", "CL-03 Satin & CL-04 Matt", "C-Line 4M Steel Frame", "Gypsum Board"],
+    scope: [
+      "CL-01 Stretch ceiling with white paint",
+      "CL-02 Stretch moisture ceiling with white paint",
+      "CL-03 Reflect ceiling with white paint",
+      "CL-04 Reflect eco block ceiling",
+      "CL-05 Decore Reflect Ceiling with LED light",
+      "CL-06 Decore Reflect eco block Ceiling with LED Light"
+    ],
+    materials: [
+      "CL-01 Stretch ceiling with white paint",
+      "CL-02 Stretch moisture ceiling with white paint",
+      "CL-03 Reflect ceiling with white paint",
+      "CL-04 Reflect eco block ceiling",
+      "CL-05 Decore Reflect Ceiling with LED light",
+      "CL-06 Decore Reflect eco block Ceiling with LED Light"
+    ],
     cta: "Request Ceiling Quotation",
     bestFor: ["Commercial Offices & Towers", "Government Ministry Halls (MEF & MOJ)", "Corporate Meeting Rooms", "Retail & Hotel Showrooms"],
     visuals: [
@@ -53,21 +67,21 @@ export const serviceDetails: Record<string, ServiceDetail> = {
     faqs: [
       {
         question: "What stretch ceiling options are available?",
-        answer: "We supply and install CL-01 Translucent, CL-02 Glossy, CL-03 Satin, CL-04 Matt, CL-05 Perforated (acoustic), and CL-06 Printed stretch ceiling membranes."
+        answer: "We supply and install CL-01 to CL-06 stretch and reflect ceiling systems with white paint, eco block, and integrated LED light."
       },
       {
         question: "Do you supply both materials and installation?",
-        answer: "Yes. KMD Décor provides both wholesale material supply (C-Line 4M, boards, profiles) and complete on-site installation by our engineering team."
+        answer: "Yes. KMD Décor provides both wholesale material supply and complete on-site installation by our engineering team."
       }
     ]
   },
   partition: {
     overview:
-      "Our partition wall and framing service provides room division, acoustic isolation, and custom feature wall backdrops for commercial spaces in Phnom Penh. Utilizing galvanized C-Line steel framing, sound-control acoustic boards, and gypsum boards, we deliver certified wall systems for corporate headquarters and government offices.",
+      "Our partition wall and framing service provides room division, acoustic isolation, and custom feature wall backdrops for commercial spaces in Phnom Penh.",
     photoCta: "Send Partition Layout",
-    quotePrep: ["Wall layout or length & height", "Sound isolation requirement", "Finish & door requirements", "Site location & access"],
-    scope: ["C-Line steel framing structure", "Acoustic & gypsum board mounting", "Feature backdrop & partition finishing"],
-    materials: ["C-Line Steel Frame", "Acoustic Wall Board", "Gypsum Board", "Glass Partition Framing"],
+    quotePrep: ["Wall layout or length & height", "Door & window requirements", "Back drop & counter specifications", "Floor carpet area"],
+    scope: ["Door & Window", "Back drop", "Counter", "Floor Carpet"],
+    materials: ["Door & Window", "Back drop", "Counter", "Floor Carpet"],
     cta: "Request Partition Quotation",
     bestFor: ["Corporate Office Room Division", "Executive Suites & Meeting Rooms", "Government Ministry Partitions", "Commercial Retail Spaces"],
     visuals: [
@@ -87,29 +101,25 @@ export const serviceDetails: Record<string, ServiceDetail> = {
         imageUrl: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=900&q=80"
       }
     ],
-    quoteFactors: ["Partition wall length and height", "Acoustic insulation specification", "Framing type and delivery access in Phnom Penh"],
-    timeline: "Partition quotes are calculated after wall dimensions and acoustic requirements are confirmed.",
-    outcomes: ["Acoustic isolation & privacy", "Sturdy C-Line steel structure", "Clean commercial finish"],
-    deliverables: ["Steel framing calculations", "Board & insulation schedule", "On-site installation & finishing"],
+    quoteFactors: ["Partition wall length and height", "Door, window & backdrop specifications", "Delivery access in Phnom Penh"],
+    timeline: "Partition quotes are calculated after dimensions and material specifications are confirmed.",
+    outcomes: ["Certified partition & door installation", "Custom reception counters", "Commercial floor carpeting"],
+    deliverables: ["Material schedule", "BOQ calculation", "On-site installation & finishing"],
     relatedProductIds: ["partition-frame-stick", "acoustic-board", "gypsum-board", "installation-kit"],
     faqs: [
       {
-        question: "Can KMD Décor build soundproof meeting room partitions?",
-        answer: "Yes. We combine C-Line steel framing with acoustic board insulation to meet sound isolation requirements."
-      },
-      {
-        question: "What information is needed for a partition quote?",
-        answer: "Send wall length, height, floor layout photo/drawing, and site location in Phnom Penh."
+        question: "What partition & wall décor scope does KMD Décor cover?",
+        answer: "We supply and install doors & windows, back drops, reception counters, and commercial floor carpeting."
       }
     ]
   },
   furniture: {
     overview:
-      "KMD Décor manufactures and fits custom interior furniture, built-in office cabinetry, conference hall tables, reception counters, and executive storage units. We combine high-density MDF/WPC decor boards, durable veneers, and commercial hardware to craft practical, modern office interiors.",
+      "KMD Décor manufactures and fits custom interior furniture, built-in office cabinetry, office materials, and full conference hall interior fit-out solutions.",
     photoCta: "Send Cabinet Reference",
-    quotePrep: ["Furniture drawings or reference photo", "Approximate dimensions", "Decor board finish preference", "Hardware specifications"],
-    scope: ["Custom office cabinetry & counters", "Executive desk & conference tables", "Built-in shelving & storage units"],
-    materials: ["MDF / WPC Decor Boards", "Cabinetry Laminate", "Commercial Hardware & Fittings"],
+    quotePrep: ["Furniture drawings or reference photo", "Approximate dimensions", "Office material preferences"],
+    scope: ["Cabinet", "Office Materials", "Conference hall"],
+    materials: ["Cabinet", "Office Materials", "Conference hall"],
     cta: "Request Furniture Quotation",
     bestFor: ["Executive Office Suites", "Conference & Boardrooms", "Reception Counters & Displays", "Government & Corporate Fit-Outs"],
     visuals: [
