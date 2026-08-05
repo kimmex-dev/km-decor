@@ -1,79 +1,110 @@
-import { ArrowRight, CheckCircle2 } from "lucide-react";
+"use client";
+
+import { ArrowRight } from "lucide-react";
 import { blurPlaceholder } from "@/lib/blur-placeholder";
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "motion/react";
 import heroKmdAsset from "@/public/hero-kmd.avif";
 
 export function HeroSection() {
   return (
-    <section className="bg-white py-16 md:py-20 lg:py-24 border-b border-neutral-100">
-      <div className="content-shell grid gap-12 lg:grid-cols-2 lg:items-center">
-        
-        {/* Left Column: Spacious Typography & Proof Row */}
-        <div className="max-w-xl">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-neutral-400 mb-3">
-            KMD DECOR
-          </p>
+    <section className="relative w-full overflow-hidden bg-brand-primary text-white flex flex-col justify-between pt-20 pb-12 sm:pb-16 border-b border-brand-primary/80">
+      
+      {/* Background Architectural Image (Full Brightness, No Heavy Opacity Overlay) */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          alt="KMD Decor Commercial Fit-Out"
+          className="h-full w-full object-cover object-center"
+          src={heroKmdAsset}
+          fill
+          priority
+          placeholder="blur"
+          blurDataURL={blurPlaceholder(1920, 1080)}
+          sizes="100vw"
+        />
+        {/* Subtle Text Contrast Vignette Gradient (Left side only) */}
+        <div className="absolute inset-0 bg-gradient-to-r from-neutral-950/80 via-neutral-950/45 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/80 via-transparent to-transparent" />
+      </div>
 
-          <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-normal text-black leading-[1.15] tracking-tight">
-            Commercial Fit-Out & Interior Decor
-          </h1>
+      {/* Hero Body Content */}
+      <div className="content-shell relative z-10 py-10 lg:py-16">
+        <div className="max-w-3xl">
 
-          <p className="mt-4 text-sm md:text-base text-neutral-600 leading-relaxed">
-            Complete ceiling, partition, and interior solutions for commercial spaces in Phnom Penh.
-          </p>
+          {/* Headline with Motion Reveal */}
+          <motion.h1 
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="font-serif text-3xl sm:text-5xl lg:text-5xl font-normal text-white leading-[1.12] tracking-tight text-balance"
+          >
+            Commercial Fit-Out & Architectural Precision
+          </motion.h1>
 
-          {/* Clean Non-Redundant CTAs */}
-          <div className="mt-8 flex items-center gap-6">
+          {/* Supporting Paragraph */}
+          <motion.p 
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+            className="mt-4 text-sm sm:text-base lg:text-lg text-neutral-300 leading-relaxed font-light max-w-xl"
+          >
+            Complete stretch ceilings, gypsum partitions, custom wall décor, and full interior fit-out solutions for businesses, developers, and corporate headquarters.
+          </motion.p>
+
+          {/* Clean Dual CTAs */}
+          <motion.div 
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="mt-8 flex flex-wrap items-center gap-3"
+          >
             <Link
-              className="bg-black text-white px-7 py-3.5 text-xs font-semibold uppercase tracking-widest hover:bg-[#991b1b] transition duration-200 rounded-full inline-flex items-center gap-2 shadow-sm"
+              className="group inline-flex items-center gap-2.5 rounded-full bg-brand-accent px-6 py-3.5 text-xs font-semibold uppercase tracking-widest text-white shadow-md hover:bg-brand-accent-hover transition duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white motion-reduce:transition-none"
+              href="#contact"
+            >
+              <span>Request Commercial Quote</span>
+              <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transition-none" />
+            </Link>
+
+            <Link
+              className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-3.5 text-xs font-semibold uppercase tracking-widest text-white hover:bg-white/10 hover:border-white/40 transition duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white motion-reduce:transition-none"
               href="#services"
             >
               <span>Explore Services</span>
-              <ArrowRight className="h-3.5 w-3.5" />
             </Link>
+          </motion.div>
 
-            <Link
-              className="text-xs font-semibold uppercase tracking-wider text-black hover:text-[#991b1b] transition inline-flex items-center gap-1"
-              href="#portfolio"
-            >
-              <span>View Portfolio →</span>
-            </Link>
-          </div>
-
-          {/* Quiet Trust Proof Row */}
-          <div className="mt-10 border-t border-neutral-100 pt-6 flex flex-wrap items-center gap-6 text-xs text-neutral-500">
-            <div className="flex items-center gap-2">
-              <CheckCircle2 className="h-4 w-4 text-[#991b1b]" />
-              <span className="font-semibold text-black">30+ Commercial Fit-Outs</span>
-            </div>
-            <div className="h-3 w-px bg-neutral-200 hidden sm:block" />
-            <div className="font-medium text-neutral-700">100% On-Time Handover</div>
-            <div className="h-3 w-px bg-neutral-200 hidden sm:block" />
-            <div className="text-neutral-500">Phnom Penh, KH</div>
-          </div>
         </div>
-
-        {/* Right Column: Architectural Photo Showcase with Glass Badge */}
-        <div className="relative aspect-[16/10] overflow-hidden rounded-2xl border border-neutral-200 bg-neutral-100 shadow-sm group">
-          <Image
-            alt="KMD Decor Commercial Reception Fit-Out"
-            className="h-full w-full object-cover transition duration-700 group-hover:scale-102"
-            src={heroKmdAsset}
-            fill
-            priority
-            placeholder="blur"
-            blurDataURL={blurPlaceholder(1600, 1000)}
-            sizes="(max-width: 1024px) 100vw, 50vw"
-          />
-
-          {/* Floating Subtle Glass Badge */}
-          <div className="absolute bottom-4 left-4 bg-black/60 backdrop-blur-md text-white px-3.5 py-2 rounded-xl border border-white/10 text-xs font-medium">
-            B2B Reception & Fit-Out Specialist
-          </div>
-        </div>
-
       </div>
+
+      {/* Integrated Minimalist Statistics Bar */}
+      <motion.div 
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
+        className="content-shell relative z-10"
+      >
+        <div className="border-t border-white/20 pt-6 sm:pt-8 grid grid-cols-1 sm:grid-cols-3 gap-6 text-left">
+          
+          <div className="flex flex-col">
+            <span className="font-serif text-2xl sm:text-3xl font-bold text-white tracking-tight">30+</span>
+            <span className="text-xs text-neutral-300 font-light mt-1">Commercial Fit-Outs Delivered</span>
+          </div>
+
+          <div className="flex flex-col sm:border-l sm:border-white/20 sm:pl-6">
+            <span className="font-serif text-2xl sm:text-3xl font-bold text-white tracking-tight">100%</span>
+            <span className="text-xs text-neutral-300 font-light mt-1">On-Time Handover Guarantee</span>
+          </div>
+
+          <div className="flex flex-col sm:border-l sm:border-white/20 sm:pl-6">
+            <span className="font-serif text-2xl sm:text-3xl font-bold text-white tracking-tight">MEF & MOJ</span>
+            <span className="text-xs text-neutral-300 font-light mt-1">Finishing Décor Contractor</span>
+          </div>
+
+        </div>
+      </motion.div>
+
     </section>
   );
 }

@@ -74,12 +74,12 @@ export function LanguageSwitcher({ variant = "menu" }: { variant?: "menu" | "pan
   return (
     <button
       aria-label={text("Change language to Khmer", "ប្តូរទៅភាសាអង់គ្លេស")}
-      className="flex h-8 items-center gap-1.5 rounded-full border border-neutral-200 bg-neutral-50 px-3 text-xs font-semibold text-neutral-800 transition hover:bg-neutral-100 hover:border-neutral-300"
+      className="flex h-8 items-center gap-1.5 rounded-full border border-neutral-200 bg-neutral-100 px-3 text-xs font-semibold text-neutral-800 transition hover:bg-neutral-200 hover:border-neutral-300"
       onClick={toggleLanguage}
       title={text("Switch language", "ប្តូរភាសា")}
       type="button"
     >
-      <Globe2 className="h-3.5 w-3.5 text-[#991b1b]" />
+      <Globe2 className="h-3.5 w-3.5 text-brand-accent" />
       <span>{language === "en" ? "EN" : "ខ្មែរ"}</span>
     </button>
   );

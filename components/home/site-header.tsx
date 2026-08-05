@@ -50,6 +50,7 @@ export function SiteHeader() {
   const [cartOpen, setCartOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [cartCount, setCartCount] = useState(0);
+  const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
   const closeCart = useCallback(() => setCartOpen(false), []);
   const accountMenuRef = useRef<HTMLDivElement>(null);
@@ -70,6 +71,12 @@ export function SiteHeader() {
 
   useEffect(() => {
     setMounted(true);
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   useEffect(() => {
@@ -162,14 +169,14 @@ export function SiteHeader() {
 
   return (
     <>
-      {/* Pristine Single-Bar Sticky Header */}
-      <header className="sticky top-0 z-40 border-b border-neutral-100 bg-white/95 backdrop-blur-md">
+      {/* Pristine Modern Sticky Header */}
+      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-neutral-200/80 shadow-sm text-neutral-900 transition-all duration-300">
         <div className="mx-auto flex h-16 max-w-screen-2xl items-center justify-between px-4 md:px-8">
           
           {/* Brand Logo */}
-          <Link className="group flex items-center gap-3 shrink-0" href="/" aria-label="KMD Decor Home">
+          <Link className="group flex items-center gap-3 shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent rounded-lg" href="/" aria-label="KMD Decor Home">
             <Image alt="KMD Decor logo" className="h-8 w-auto object-contain transition group-hover:opacity-80" priority src={kmdLogo} width={32} height={32} />
-            <span className="font-serif text-xl font-bold text-[#111827] tracking-tight">{text("KMD Decor", "KMD តុបតែង")}</span>
+            <span className="font-serif text-xl font-bold text-neutral-950 tracking-tight">{text("KMD Decor", "KMD តុបតែង")}</span>
           </Link>
 
           {/* Clean Center Navigation Links */}
@@ -181,163 +188,46 @@ export function SiteHeader() {
                 <Link
                   key={item.href}
                   aria-current={isActive ? "page" : undefined}
-                  className={`text-sm font-medium transition relative py-1 ${
+                  className={`text-sm font-medium transition relative py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent rounded-sm ${
                     isActive
-                      ? "text-[#111827] font-semibold"
-                      : "text-neutral-600 hover:text-[#111827]"
+                      ? "text-brand-accent font-bold"
+                      : "text-neutral-700 hover:text-neutral-950"
                   }`}
                   href={item.href}
                 >
                   {text(item.label, khmerNav[item.label] || item.label)}
                   {isActive && (
-                    <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#991b1b]" />
+                    <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-brand-accent" />
                   )}
                 </Link>
               );
             })}
           </nav>
 
-          {/* Right Action Controls */}
           <div className="flex items-center gap-3 shrink-0">
-            
-            {/* Language Switcher */}
             <div className="hidden sm:block">
               <LanguageSwitcher />
             </div>
 
-            {/* Search Trigger */}
-            <button
-              ref={mobileMenuButtonRef}
-              aria-expanded={searchOpen}
-              aria-label={text("Search products", "ស្វែងរកផលិតផល")}
-              className={`p-2 text-neutral-600 hover:text-[#111827] transition rounded-full hover:bg-neutral-100 ${searchOpen ? "text-[#111827] bg-neutral-100" : ""}`}
-              onClick={() => {
-                setMobileMenuOpen(false);
-                setSearchOpen((current) => !current);
-              }}
-              title={text("Search", "ស្វែងរក")}
-              type="button"
-            >
-              <Search size={18} strokeWidth={2} />
-            </button>
-
-            {/* User Account */}
-            {mounted && isAuthenticated ? (
-              <div className="relative hidden lg:block" ref={accountMenuRef}>
-                <button
-                  aria-expanded={accountMenuOpen}
-                  aria-haspopup="menu"
-                  aria-label={text("Open account menu", "បើកម៉ឺនុយគណនី")}
-                  className="flex items-center gap-2 p-1.5 rounded-full hover:bg-neutral-100 text-xs font-semibold text-[#111827] transition"
-                  onClick={() => {
-                    setSearchOpen(false);
-                    setAccountMenuOpen((current) => !current);
-                  }}
-                  type="button"
-                >
-                  <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#111827] text-white text-xs font-bold">{userInitial}</span>
-                  <ChevronDown className={`h-3.5 w-3.5 text-neutral-500 transition ${accountMenuOpen ? "rotate-180" : ""}`} />
-                </button>
-                {accountMenuOpen ? (
-                  <div className="absolute right-0 mt-2 w-48 rounded-xl border border-neutral-200 bg-white p-2 shadow-lg z-50 text-xs" role="menu">
-                    <div className="p-2 border-b border-neutral-100 mb-1">
-                      <strong className="block font-semibold text-[#111827]">{user?.name || text("Customer", "អតិថិជន")}</strong>
-                      <small className="text-neutral-500 truncate block">{user?.email}</small>
-                    </div>
-                    <Link className="flex items-center gap-2 px-3 py-2 rounded-lg text-neutral-700 hover:bg-neutral-50 hover:text-[#111827] transition" href="/account" onClick={() => setAccountMenuOpen(false)} role="menuitem">
-                      <UserRound size={15} />
-                      <span>{text("Account dashboard", "ផ្ទាំងគណនី")}</span>
-                    </Link>
-                    <Link className="flex items-center gap-2 px-3 py-2 rounded-lg text-neutral-700 hover:bg-neutral-50 hover:text-[#111827] transition" href="/orders" onClick={() => setAccountMenuOpen(false)} role="menuitem">
-                      <PackageCheck size={15} />
-                      <span>{text("Orders", "ការបញ្ជាទិញ")}</span>
-                    </Link>
-                    <button className="flex w-full items-center gap-2 px-3 py-2 rounded-lg text-red-600 hover:bg-red-50 transition text-left mt-1" onClick={handleSignOut} role="menuitem" type="button">
-                      <LogOut size={15} />
-                      <span>{text("Sign out", "ចាកចេញ")}</span>
-                    </button>
-                  </div>
-                ) : null}
-              </div>
-            ) : null}
-
-            {/* Shopping Cart Drawer Trigger */}
-            <button
-              aria-label={cartCount > 0 ? text(`Cart with ${cartCount} items`, `កន្ត្រកមានទំនិញ ${cartCount} មុខ`) : text("Cart", "កន្ត្រក")}
-              aria-expanded={cartOpen}
-              aria-haspopup="dialog"
-              className="relative p-2 text-neutral-600 hover:text-[#111827] transition rounded-full hover:bg-neutral-100"
-              onClick={() => {
-                setMobileMenuOpen(false);
-                setCartOpen(true);
-              }}
-              title={text("Cart", "កន្ត្រក")}
-              type="button"
-            >
-              <ShoppingBag size={18} strokeWidth={2} />
-              {mounted && cartCount > 0 ? (
-                <span className="absolute right-0 top-0 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#991b1b] text-[9px] font-bold text-white px-1">
-                  {cartCount > 99 ? "99+" : cartCount}
-                </span>
-              ) : null}
-            </button>
-
-            {/* Sleek CTA Button */}
             <Link
-              className="bg-[#111827] text-white px-5 py-2 text-xs font-semibold uppercase tracking-wider rounded-full hover:bg-[#991b1b] transition duration-200 hidden sm:inline-flex items-center gap-1.5 ml-1"
+              className="bg-brand-accent text-white px-5 py-2 text-xs font-semibold uppercase tracking-wider rounded-full hover:bg-brand-accent-hover transition-all duration-200 hidden sm:inline-flex items-center gap-1.5 ml-1 shadow-sm"
               href="#contact"
             >
               <span>Request Quote</span>
               <ArrowRight className="h-3.5 w-3.5" />
             </Link>
 
-            {/* Mobile Navigation Menu Toggle */}
             <button
               aria-expanded={mobileMenuOpen}
               aria-label={text("Open navigation", "បើកម៉ឺនុយ")}
-              className="flex h-9 w-9 items-center justify-center rounded-full border border-neutral-200 text-[#111827] transition hover:bg-neutral-100 lg:hidden"
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-neutral-200 text-neutral-900 transition hover:bg-neutral-100 lg:hidden"
               onClick={() => setMobileMenuOpen(true)}
               type="button"
             >
               <Menu size={19} strokeWidth={2} />
             </button>
-
           </div>
         </div>
-
-        {/* Apple/Vercel Command Search Overlay */}
-        {searchOpen ? (
-          <div className="border-t border-neutral-100 bg-white py-4 px-6 shadow-sm">
-            <div className="max-w-2xl mx-auto">
-              <form action="/search" className="flex items-center gap-3 border-b border-[#111827] pb-2.5">
-                <Search className="h-4.5 w-4.5 text-[#111827] shrink-0" />
-                <label className="sr-only" htmlFor="header-product-search">{text("Search KMD Decor", "ស្វែងរក KMD Decor")}</label>
-                <input
-                  autoFocus
-                  className="w-full bg-transparent text-sm text-[#111827] placeholder:text-neutral-400 focus:outline-none focus:ring-0 border-none p-0"
-                  id="header-product-search"
-                  name="q"
-                  placeholder={text("Search products, services, or materials...", "ស្វែងរកផលិតផល សេវាកម្ម ឬសម្ភារៈ...")}
-                  type="search"
-                />
-                <button className="text-xs font-semibold uppercase tracking-widest text-[#111827] hover:text-[#991b1b] transition shrink-0" type="submit">
-                  {text("Search", "ស្វែងរក")}
-                </button>
-                <button aria-label={text("Close search", "បិទការស្វែងរក")} className="p-1 text-neutral-400 hover:text-[#111827] transition" onClick={() => setSearchOpen(false)} type="button">
-                  <X size={18} />
-                </button>
-              </form>
-              <div className="flex flex-wrap items-center gap-2.5 mt-3 text-xs text-neutral-400">
-                <span className="font-medium text-neutral-500">{text("Popular:", "ពេញនិយម:")}</span>
-                {searchSuggestions.map((suggestion) => (
-                  <Link key={suggestion} className="px-2.5 py-1 rounded-full bg-neutral-100 text-neutral-700 hover:bg-[#111827] hover:text-white transition text-[11px]" href={`/search?q=${encodeURIComponent(suggestion)}`} onClick={() => setSearchOpen(false)}>
-                    {suggestion}
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </div>
-        ) : null}
       </header>
 
       {/* Mobile Drawer */}

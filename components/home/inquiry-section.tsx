@@ -118,30 +118,30 @@ function InquiryForm({
               href="https://t.me/kmddecor"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-between p-4 rounded-xl border border-neutral-200 bg-neutral-50 hover:bg-black hover:text-white transition duration-200 group text-xs"
+              className="flex items-center justify-between p-4 rounded-xl border border-neutral-200 bg-neutral-50 hover:bg-brand-primary hover:text-white transition duration-200 group text-xs"
             >
               <div className="flex items-center gap-3">
-                <MessageSquare className="h-4 w-4 text-[#991b1b] group-hover:text-white" />
-                <span className="font-semibold text-black group-hover:text-white">Telegram: @kmddecor</span>
+                <MessageSquare className="h-4 w-4 text-brand-accent group-hover:text-white" />
+                <span className="font-semibold text-neutral-900 group-hover:text-white">Telegram: @kmddecor</span>
               </div>
               <ArrowRight className="h-3.5 w-3.5 text-neutral-400 group-hover:text-white" />
             </a>
 
             <a
               href="tel:+85516927683"
-              className="flex items-center justify-between p-4 rounded-xl border border-neutral-200 bg-neutral-50 hover:bg-black hover:text-white transition duration-200 group text-xs"
+              className="flex items-center justify-between p-4 rounded-xl border border-neutral-200 bg-neutral-50 hover:bg-brand-primary hover:text-white transition duration-200 group text-xs"
             >
               <div className="flex items-center gap-3">
-                <Phone className="h-4 w-4 text-[#991b1b] group-hover:text-white" />
-                <span className="font-semibold text-black group-hover:text-white">Call: (+855) 16 92 76 83 / 087 777 560</span>
+                <Phone className="h-4 w-4 text-brand-accent group-hover:text-white" />
+                <span className="font-semibold text-neutral-900 group-hover:text-white">Call: (+855) 16 92 76 83 / 087 777 560</span>
               </div>
               <ArrowRight className="h-3.5 w-3.5 text-neutral-400 group-hover:text-white" />
             </a>
 
             <div className="flex items-start gap-3 p-4 rounded-xl border border-neutral-100 bg-white text-xs">
-              <MapPin className="h-4 w-4 text-[#991b1b] shrink-0 mt-0.5" />
+              <MapPin className="h-4 w-4 text-brand-accent shrink-0 mt-0.5" />
               <div>
-                <strong className="block font-semibold text-black">Phnom Penh Headquarters</strong>
+                <strong className="block font-semibold text-neutral-900">Phnom Penh Headquarters</strong>
                 <span className="text-neutral-500 text-[11px]">#54, St. 590, Boeung Kok II, Toul Kork, Phnom Penh, Cambodia</span>
               </div>
             </div>
@@ -153,7 +153,7 @@ function InquiryForm({
           {contextLabel ? (
             <div className="border-b border-neutral-100 pb-3">
               <p className="text-[10px] font-semibold uppercase tracking-wider text-neutral-400">Request Context</p>
-              <p className="mt-0.5 text-xs font-semibold text-black">{contextLabel}</p>
+              <p className="mt-0.5 text-xs font-semibold text-neutral-900">{contextLabel}</p>
             </div>
           ) : null}
 
@@ -164,7 +164,7 @@ function InquiryForm({
               </label>
               <input
                 id="inquiry-name"
-                className="w-full rounded-xl border border-neutral-200 bg-neutral-50 px-3.5 py-2.5 text-xs text-black placeholder:text-neutral-400 focus:border-black focus:bg-white focus:outline-none transition"
+                className="w-full rounded-xl border border-neutral-200 bg-neutral-50 px-3.5 py-2.5 text-xs text-neutral-900 placeholder:text-neutral-400 focus:border-brand-primary focus:bg-white focus:outline-none transition"
                 name="name"
                 placeholder="Your name or company"
                 type="text"
@@ -178,7 +178,7 @@ function InquiryForm({
               </label>
               <input
                 id="inquiry-contact"
-                className="w-full rounded-xl border border-neutral-200 bg-neutral-50 px-3.5 py-2.5 text-xs text-black placeholder:text-neutral-400 focus:border-black focus:bg-white focus:outline-none transition"
+                className="w-full rounded-xl border border-neutral-200 bg-neutral-50 px-3.5 py-2.5 text-xs text-neutral-900 placeholder:text-neutral-400 focus:border-brand-primary focus:bg-white focus:outline-none transition"
                 name="phone"
                 placeholder="+855 16 92 76 83"
                 type="tel"
@@ -193,7 +193,7 @@ function InquiryForm({
             </label>
             <select
               id="inquiry-type"
-              className="w-full rounded-xl border border-neutral-200 bg-neutral-50 px-3.5 py-2.5 text-xs text-black focus:border-black focus:bg-white focus:outline-none transition"
+              className="w-full rounded-xl border border-neutral-200 bg-neutral-50 px-3.5 py-2.5 text-xs text-neutral-900 focus:border-brand-primary focus:bg-white focus:outline-none transition"
               defaultValue={inquiryType}
               name="requestType"
             >
@@ -210,7 +210,7 @@ function InquiryForm({
             </label>
             <textarea
               id="inquiry-message"
-              className="w-full rounded-xl border border-neutral-200 bg-neutral-50 px-3.5 py-2.5 text-xs text-black placeholder:text-neutral-400 focus:border-black focus:bg-white focus:outline-none transition"
+              className="w-full rounded-xl border border-neutral-200 bg-neutral-50 px-3.5 py-2.5 text-xs text-neutral-900 placeholder:text-neutral-400 focus:border-brand-primary focus:bg-white focus:outline-none transition"
               defaultValue={defaultMessage}
               name="message"
               placeholder="Describe ceiling codes (CL-01 to CL-06), partition dimensions, or material quantities."
@@ -223,7 +223,7 @@ function InquiryForm({
               Reference file / BOQ (Optional)
             </label>
             <div className="flex items-center gap-3 rounded-xl border border-neutral-200 bg-neutral-50 p-3 text-xs text-neutral-500">
-              <UploadCloud className="h-4 w-4 text-[#991b1b] shrink-0" />
+              <UploadCloud className="h-4 w-4 text-brand-accent shrink-0" />
               <input id="inquiry-file" accept="image/*,.pdf,.xls,.xlsx" className="block w-full text-xs cursor-pointer text-neutral-600" multiple name="attachments" type="file" />
             </div>
             <p className="mt-2 text-[11px] leading-5 text-neutral-500">File names are included with your request. Send the full document by Telegram if the team asks for it.</p>
@@ -232,7 +232,7 @@ function InquiryForm({
           {error ? <p className="rounded-lg bg-red-50 px-3 py-2 text-xs font-medium text-red-700" role="alert">{error}</p> : null}
 
           <button
-            className="bg-black text-white px-8 py-3.5 text-xs font-semibold uppercase tracking-widest hover:bg-[#991b1b] transition duration-200 w-full flex items-center justify-center gap-2 rounded-full mt-2 shadow-sm disabled:cursor-not-allowed disabled:opacity-60"
+            className="bg-brand-accent text-white px-8 py-3.5 text-xs font-semibold uppercase tracking-widest hover:bg-brand-accent-hover transition duration-200 w-full flex items-center justify-center gap-2 rounded-full mt-2 shadow-md disabled:cursor-not-allowed disabled:opacity-60"
             disabled={isSubmitting}
             type="submit"
           >

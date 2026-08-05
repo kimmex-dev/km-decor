@@ -33,8 +33,8 @@ export function SiteFooter() {
   return (
     <footer className="border-t border-neutral-100 bg-white pt-12 pb-16">
       <div className="content-shell">
-        {/* Anvogue Promotional Banner */}
-        <div className="bg-black text-white p-8 md:p-12 rounded-3xl mb-16 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+        {/* Fast Track Quotation Banner */}
+        <div className="bg-brand-primary text-white p-8 md:p-12 rounded-3xl mb-16 flex flex-col md:flex-row md:items-center md:justify-between gap-6 shadow-xl">
           <div className="max-w-xl">
             <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-white/60 mb-2 block">
               FAST TRACK B2B QUOTATION
