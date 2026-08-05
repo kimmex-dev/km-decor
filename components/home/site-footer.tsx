@@ -14,8 +14,8 @@ const exploreLinks = [
 
 const b2bLinks = [
   { label: "Contact Us", href: "/contact" },
-  { label: "Request Quote", href: "/contact" },
-  { label: "Our Services", href: "/services" }
+  { label: "Our Services", href: "/services" },
+  { label: "Portfolio", href: "/portfolio" }
 ];
 
 const khmerFooterLinks: Record<string, string> = {
@@ -24,7 +24,6 @@ const khmerFooterLinks: Record<string, string> = {
   Portfolio: "ស្នាដៃ",
   About: "អំពីយើង",
   "Contact Us": "ទំនាក់ទំនង",
-  "Request Quote": "ស្នើសុំតម្លៃ",
   "Our Services": "សេវាកម្មរបស់យើង"
 };
 
@@ -85,7 +84,7 @@ function FooterLinks({ links, title }: { links: Array<{ label: string; href: str
       <h2 className="text-[11px] font-semibold uppercase tracking-[0.2em] text-neutral-400">{title}</h2>
       <nav className="mt-4 grid gap-2.5 text-xs text-neutral-500" aria-label={`${title} links`}>
         {links.map((link) => (
-          <a key={link.href} className="w-fit transition hover:text-black" href={link.href}>
+          <a key={`${title}-${link.label}-${link.href}`} className="w-fit transition hover:text-black" href={link.href}>
             {link.label}
           </a>
         ))}

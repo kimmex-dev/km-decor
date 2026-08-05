@@ -1,6 +1,7 @@
 import { SiteFooter } from "@/components/home/site-footer";
 import { SiteHeader } from "@/components/home/site-header";
-import { ArrowRight, Check, MapPin, Phone } from "lucide-react";
+import { FadeInMotion } from "@/components/ui/fade-in-motion";
+import { ArrowRight, Check } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import heroKmdAsset from "@/public/hero-kmd.avif";
@@ -51,7 +52,7 @@ export default function AboutPage() {
       {/* Pristine Light Header */}
       <section className="bg-neutral-50/80 border-b border-neutral-200 py-10 md:py-14">
         <div className="mx-auto max-w-screen-2xl px-4 md:px-8">
-          <div className="max-w-3xl">
+          <FadeInMotion className="max-w-3xl">
             <p className="text-[10px] font-mono font-bold uppercase tracking-widest text-brand-accent mb-2">
               ABOUT KMD DÉCOR
             </p>
@@ -61,14 +62,14 @@ export default function AboutPage() {
             <p className="mt-3 text-xs sm:text-sm text-neutral-500 font-light leading-relaxed max-w-2xl">
               KMD Décor creates modern, practical, and high-quality interiors for businesses across Phnom Penh. From material supply to complete fit-out work, we help every commercial space perform beautifully.
             </p>
-          </div>
+          </FadeInMotion>
         </div>
       </section>
 
       {/* Overview & Image Banner */}
       <section className="mx-auto max-w-screen-2xl px-4 py-12 md:px-8">
         <div className="grid gap-10 lg:grid-cols-[1fr_1fr] lg:items-center">
-          <div>
+          <FadeInMotion delay={0.1}>
             <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-brand-accent">
               COMMERCIAL FIT-OUT PARTNER
             </span>
@@ -87,36 +88,36 @@ export default function AboutPage() {
                 </div>
               ))}
             </div>
-          </div>
+          </FadeInMotion>
 
-          <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-neutral-100 border border-neutral-200 shadow-xs">
+          <FadeInMotion delay={0.2} className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-neutral-100 border border-neutral-200 shadow-xs">
             <Image
               alt="KMD Decor Commercial Interior Fit-Out Showcase"
               src={heroKmdAsset}
               fill
-              className="object-cover"
+              className="object-cover transition-transform duration-700 hover:scale-105"
               sizes="(max-width: 1024px) 100vw, 50vw"
               priority
             />
-          </div>
+          </FadeInMotion>
         </div>
       </section>
 
       {/* Core Services Section */}
       <section className="border-t border-neutral-200 bg-neutral-50/60 py-12 md:py-14">
         <div className="mx-auto max-w-screen-2xl px-4 md:px-8">
-          <div className="max-w-xl mb-8">
+          <FadeInMotion className="max-w-xl mb-8">
             <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-brand-accent">
               OUR CAPABILITIES
             </span>
             <h2 className="mt-1 font-serif text-2xl sm:text-3xl font-normal text-neutral-950 tracking-tight">
               Services & Scope
             </h2>
-          </div>
+          </FadeInMotion>
 
           <div className="grid gap-6 md:grid-cols-3">
-            {serviceHighlights.map((s) => (
-              <div key={s.num} className="rounded-2xl border border-neutral-200 bg-white p-6 shadow-xs flex flex-col justify-between">
+            {serviceHighlights.map((s, idx) => (
+              <FadeInMotion key={s.num} delay={idx * 0.1} className="rounded-2xl border border-neutral-200 bg-white p-6 shadow-xs flex flex-col justify-between transition-all duration-300 hover:shadow-md">
                 <div>
                   <span className="font-mono text-xs font-bold text-brand-accent">{s.num}</span>
                   <h3 className="mt-2 font-serif text-xl font-normal text-neutral-950">{s.title}</h3>
@@ -126,7 +127,7 @@ export default function AboutPage() {
                   <span>View Details</span>
                   <ArrowRight className="h-3.5 w-3.5" />
                 </Link>
-              </div>
+              </FadeInMotion>
             ))}
           </div>
         </div>
@@ -134,32 +135,32 @@ export default function AboutPage() {
 
       {/* Selected Projects */}
       <section className="mx-auto max-w-screen-2xl px-4 py-12 md:px-8">
-        <div className="max-w-xl mb-8">
+        <FadeInMotion className="max-w-xl mb-8">
           <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-brand-accent">
             PROJECT REFERENCES
           </span>
           <h2 className="mt-1 font-serif text-2xl sm:text-3xl font-normal text-neutral-950 tracking-tight">
             Selected Landmarks
           </h2>
-        </div>
+        </FadeInMotion>
 
         <div className="grid gap-6 sm:grid-cols-3">
-          {selectedProjects.map((p) => (
-            <div key={p.acronym} className="rounded-2xl border border-neutral-200 bg-white p-6 shadow-xs">
+          {selectedProjects.map((p, idx) => (
+            <FadeInMotion key={p.acronym} delay={idx * 0.1} className="rounded-2xl border border-neutral-200 bg-white p-6 shadow-xs transition-all duration-300 hover:shadow-md">
               <div className="flex items-center justify-between font-mono text-xs mb-3">
                 <span className="font-bold text-brand-accent">{p.acronym}</span>
                 <span className="text-neutral-400">Phnom Penh</span>
               </div>
               <h3 className="font-serif text-lg font-normal text-neutral-950">{p.name}</h3>
               <p className="mt-1 text-xs text-neutral-500 font-light">{p.scope}</p>
-            </div>
+            </FadeInMotion>
           ))}
         </div>
       </section>
 
       {/* Studio Location Banner */}
       <section className="mx-auto max-w-screen-2xl px-4 pb-12 md:px-8">
-        <div className="rounded-2xl border border-neutral-200 bg-neutral-50 p-6 md:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+        <FadeInMotion className="rounded-2xl border border-neutral-200 bg-neutral-50 p-6 md:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
           <div>
             <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-brand-accent">STUDIO & WAREHOUSE</span>
             <h3 className="mt-1 font-serif text-xl sm:text-2xl font-normal text-neutral-950">#54, St. 590, Toul Kork, Phnom Penh</h3>
@@ -175,7 +176,7 @@ export default function AboutPage() {
             <span>Contact Studio</span>
             <ArrowRight className="h-3.5 w-3.5" />
           </Link>
-        </div>
+        </FadeInMotion>
       </section>
 
       <SiteFooter />

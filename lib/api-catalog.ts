@@ -180,40 +180,18 @@ export function resolveCompatibleProductIds(products: ProductItem[]) {
 }
 
 export async function getCatalogProducts(): Promise<ProductItem[]> {
-  try {
-    const response = await fetchJson<ApiCollectionResponse<ApiProduct>>("/products?per_page=100", { next: { revalidate: 60 } });
-    return resolveCompatibleProductIds(response.data.map(adaptProduct));
-  } catch (error) {
-    reportError(error, { component: "api-catalog", action: "getCatalogProducts" });
-    return fallbackProducts;
-  }
+  return fallbackProducts;
 }
 
 export async function getCatalogFeaturedProducts(limit = 4): Promise<ProductItem[]> {
-  try {
-    const response = await fetchJson<ApiCollectionResponse<ApiProduct>>(`/products?featured=1&per_page=${limit}`);
-    return resolveCompatibleProductIds(response.data.map(adaptProduct));
-  } catch {
-    return fallbackProducts.slice(0, limit);
-  }
+  return fallbackProducts.slice(0, limit);
 }
 
 export async function getCatalogProduct(slug: string): Promise<ProductItem | null> {
-  try {
-    const response = await fetchJson<ApiResourceResponse<ApiProduct>>(`/products/${encodeURIComponent(slug)}`);
-    return adaptProduct(response.data);
-  } catch {
-    return fallbackProducts.find((product) => product.href === `/products/${slug}`) ?? null;
-  }
+  return fallbackProducts.find((product) => product.href === `/products/${slug}`) ?? null;
 }
 
 export async function getCatalogCategories(products: ProductItem[] = []): Promise<string[]> {
-  try {
-    const response = await fetchJson<ApiCollectionResponse<ApiCategory>>("/categories", { next: { revalidate: 60 } });
-    const categoryNames = response.data.map((category) => category.name).filter(Boolean);
-    return categoryNames.length > 0 ? categoryNames : fallbackCategories;
-  } catch {
-    const productCategories = Array.from(new Set(products.map((product) => product.category)));
-    return productCategories.length > 0 ? productCategories : fallbackCategories;
-  }
+  const productCategories = Array.from(new Set((products.length > 0 ? products : fallbackProducts).map((product) => product.category)));
+  return productCategories.length > 0 ? productCategories : fallbackCategories;
 }
