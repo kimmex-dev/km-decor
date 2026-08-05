@@ -176,7 +176,7 @@ export function SiteHeader() {
           {/* Brand Logo */}
           <Link className="group flex items-center gap-3 shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent rounded-lg" href="/" aria-label="KMD Decor Home">
             <Image alt="KMD Decor logo" className="h-8 w-auto object-contain transition group-hover:opacity-80" priority src={kmdLogo} width={32} height={32} />
-            <span className="font-serif text-xl font-bold text-neutral-950 tracking-tight">{text("KMD Decor", "KMD តុបតែង")}</span>
+            <span className="font-serif text-xl font-bold text-neutral-950 tracking-tight">{text("Decor", "តុបតែង")}</span>
           </Link>
 
           {/* Clean Center Navigation Links */}
@@ -211,7 +211,7 @@ export function SiteHeader() {
 
             <Link
               className="bg-brand-accent text-white px-5 py-2 text-xs font-semibold uppercase tracking-wider rounded-full hover:bg-brand-accent-hover transition-all duration-200 hidden sm:inline-flex items-center gap-1.5 ml-1 shadow-sm"
-              href="#contact"
+              href="/contact"
             >
               <span>Request Quote</span>
               <ArrowRight className="h-3.5 w-3.5" />

@@ -1,119 +1,62 @@
 "use client";
 
-import { AddToCartButton } from "@/components/cart/add-to-cart-button";
 import type { ProductItem } from "@/lib/homepage-data";
-import { addCustomerWishlistItem, removeCustomerWishlistItem } from "@/lib/api-customer-storage";
-import { readWishlist, toggleWishlistProduct } from "@/lib/wishlist-store";
-import { blurPlaceholder } from "@/lib/blur-placeholder";
-import { Heart } from "lucide-react";
+import { Eye } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { reportError } from "@/lib/error-tracking";
 
 type ProductCardProps = {
   product: ProductItem;
   compact?: boolean;
+  onOpenQuickView?: (product: ProductItem) => void;
 };
 
-export function ProductCard({ product, compact = false }: ProductCardProps) {
-  const [saved, setSaved] = useState(false);
-  const productSlug = product.href.replace("/products/", "");
-
-  useEffect(() => {
-    const sync = () => setSaved(readWishlist().includes(product.id));
-    sync();
-    window.addEventListener("kmd-wishlist-updated", sync);
-    return () => window.removeEventListener("kmd-wishlist-updated", sync);
-  }, [product.id]);
-
-  const needsQuote = product.quoteRecommended || product.stockStatus === "Preorder";
-  const primaryAction = product.stockStatus === "Low stock" ? "Check Availability" : needsQuote ? "Get Quote" : "Add to Cart";
-  const primaryHref = needsQuote || product.stockStatus === "Low stock" ? `/contact?product=${encodeURIComponent(productSlug)}#request-form` : "/cart";
-  const toggleSaved = () => {
-    const nextSaved = toggleWishlistProduct(product.id).includes(product.id);
-    setSaved(nextSaved);
-    const sync = nextSaved ? addCustomerWishlistItem : removeCustomerWishlistItem;
-    sync(product.id).catch(() => reportError("Wishlist sync failed", { component: "ProductCard", action: "toggleWishlist" }));
-  };
-
+export function ProductCard({ product, compact = false, onOpenQuickView }: ProductCardProps) {
   return (
-    <article className="surface-card group relative flex h-full flex-col overflow-hidden transition hover:-translate-y-1 hover:shadow-panel">
-      <Link className={`relative block overflow-hidden ${compact ? "h-48" : "h-56"}`} href={product.href}>
+    <article className="group relative flex flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-white p-3 shadow-sm transition-all duration-300 hover:border-neutral-300 hover:shadow-md">
+      {/* Visual Image Container */}
+      <div 
+        className={`relative block overflow-hidden rounded-xl bg-neutral-100 cursor-pointer ${compact ? "h-44" : "h-52"}`}
+        onClick={() => onOpenQuickView?.(product)}
+      >
         <Image
           alt={product.name}
-          className="object-cover transition duration-300 group-hover:scale-105"
+          className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
           src={product.imageUrl}
           fill
           loading="lazy"
-          placeholder="blur"
-          blurDataURL={blurPlaceholder()}
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
         />
-        {product.badge ? (
-          <span className="absolute left-3 top-3 rounded-md bg-brand-red px-3 py-1 text-xs font-semibold text-white shadow-card z-10">
-            {product.badge}
-          </span>
-        ) : null}
-        <span className="absolute bottom-3 right-3 rounded-md bg-white/95 px-2.5 py-1 text-xs font-semibold text-ink-900 shadow-soft z-10">
-          {product.stockStatus}
+        <span className="absolute top-3 left-3 rounded-full bg-neutral-950/80 px-2.5 py-1 text-[10px] font-mono font-bold uppercase tracking-wider text-white backdrop-blur-md z-10">
+          {product.category}
         </span>
-      </Link>
-      <button
-        aria-label={saved ? `Remove ${product.name} from wishlist` : `Save ${product.name} to wishlist`}
-        aria-pressed={saved}
-        className={`product-save-button ${saved ? "is-saved" : ""}`}
-        onClick={toggleSaved}
-        title={saved ? "Remove from wishlist" : "Save to wishlist"}
-        type="button"
-      >
-        <Heart fill={saved ? "currentColor" : "none"} />
-      </button>
-      <div className="flex flex-1 flex-col p-5">
-        <div className="flex items-center justify-between gap-3 text-xs uppercase tracking-[0.18em] text-ink-700">
-          <span>{product.brand}</span>
-          <span className="truncate">{product.category}</span>
-        </div>
-        <h3 className="mt-3 font-serif text-2xl leading-tight text-ink-900">
-          <Link className="transition hover:text-brand-red" href={product.href}>
-            {product.name}
-          </Link>
-        </h3>
-        <p className="mt-2 line-clamp-2 text-sm leading-6 text-ink-700">{product.descriptor}</p>
-        <div className="mt-4 flex flex-wrap gap-2">
-          {product.specs.slice(0, 2).map((spec) => (
-            <span key={spec} className="rounded-md border border-sand-400 bg-sand-100 px-2 py-1 text-xs text-ink-700">
-              {spec}
-            </span>
-          ))}
-        </div>
-        <div className="mt-auto flex items-end justify-between gap-4 border-b border-sand-400 pb-4 pt-5">
-          <div>
-            <div className="flex items-baseline gap-2">
-              <span className="text-xs font-semibold uppercase tracking-wider text-[#991b1b]">Contact for BOQ Quote</span>
-            </div>
 
-          </div>
-          <div className="text-right text-xs leading-5 text-ink-700">
-            <div>MOQ: {product.moq}</div>
-            <div>{product.leadTime}</div>
-          </div>
+        {/* Quick Specs Hover Overlay */}
+        <div className="absolute inset-0 bg-neutral-950/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+          <span className="bg-white/90 backdrop-blur-md text-neutral-950 px-3.5 py-1.5 rounded-full text-xs font-semibold flex items-center gap-1.5 shadow-sm transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
+            <Eye className="h-3.5 w-3.5 text-brand-accent" />
+            <span>Quick Specs</span>
+          </span>
         </div>
-        <div className="mt-5 grid grid-cols-2 gap-2">
-          {needsQuote || product.stockStatus === "Low stock" ? (
-            <Link className="action-commerce min-h-10 whitespace-nowrap px-3 py-2 text-xs" href={primaryHref}>
-              {primaryAction}
-            </Link>
-          ) : (
-            <AddToCartButton
-              className="action-commerce min-h-10 gap-1.5 whitespace-nowrap px-3 py-2 text-xs"
-              compact
-              product={product}
-            />
-          )}
-          <Link className="action-secondary min-h-10 whitespace-nowrap px-3 py-2 text-xs" href={product.href}>
-            View Details
-          </Link>
+      </div>
+
+      {/* Tiny Clean Info Only (No Button) */}
+      <div className="pt-3 pb-1 px-1">
+        <h3 className="font-serif text-base font-normal text-neutral-950 truncate leading-snug">
+          <button 
+            onClick={() => onOpenQuickView?.(product)} 
+            type="button" 
+            className="text-left transition hover:text-brand-accent truncate block w-full"
+          >
+            {product.name}
+          </button>
+        </h3>
+        
+        <div className="mt-1 flex items-center justify-between font-mono text-[11px] text-neutral-500">
+          <span>MOQ: {product.moq}</span>
+          <span className="font-bold text-neutral-900">
+            {product.price ? `$${product.price.toFixed(2)}` : "Supply Rate"}
+          </span>
         </div>
       </div>
     </article>

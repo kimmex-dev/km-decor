@@ -36,14 +36,13 @@ test.describe('KMD Decor Construction Landing Page', () => {
     }
   });
 
-  test('contact CTA link scrolls to or opens inquiry section', async ({ page }) => {
+  test('contact CTA link navigates to contact page', async ({ page }) => {
     await page.goto('/');
-    const ctaButton = page.locator('a[href="#contact"]').first();
+    const ctaButton = page.locator('a[href="/contact"]').first();
     if (await ctaButton.isVisible()) {
       await ctaButton.click();
-      await page.waitForTimeout(300);
-      const inquirySection = page.locator('#contact');
-      await expect(inquirySection).toBeVisible();
+      await page.waitForURL(/\/contact/);
+      expect(page.url()).toContain('/contact');
     }
   });
 });

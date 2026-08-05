@@ -12,10 +12,10 @@ const exploreLinks = [
   { label: "About", href: "/about" }
 ];
 
-const customerLinks = [
-  { label: "Account & Orders", href: "/account" },
-  { label: "Wishlist", href: "/wishlist" },
-  { label: "Shopping Cart", href: "/cart" }
+const b2bLinks = [
+  { label: "Contact Us", href: "/contact" },
+  { label: "Request Quote", href: "/contact" },
+  { label: "Our Services", href: "/services" }
 ];
 
 const khmerFooterLinks: Record<string, string> = {
@@ -23,9 +23,9 @@ const khmerFooterLinks: Record<string, string> = {
   Services: "សេវាកម្ម",
   Portfolio: "ស្នាដៃ",
   About: "អំពីយើង",
-  "Account & Orders": "គណនី និងការបញ្ជាទិញ",
-  Wishlist: "បញ្ជីចំណូលចិត្ត",
-  "Shopping Cart": "កន្ត្រកទិញទំនិញ"
+  "Contact Us": "ទំនាក់ទំនង",
+  "Request Quote": "ស្នើសុំតម្លៃ",
+  "Our Services": "សេវាកម្មរបស់យើង"
 };
 
 export function SiteFooter() {
@@ -33,35 +33,13 @@ export function SiteFooter() {
   return (
     <footer className="border-t border-neutral-100 bg-white pt-12 pb-16">
       <div className="content-shell">
-        {/* Fast Track Quotation Banner */}
-        <div className="bg-brand-primary text-white p-8 md:p-12 rounded-3xl mb-16 flex flex-col md:flex-row md:items-center md:justify-between gap-6 shadow-xl">
-          <div className="max-w-xl">
-            <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-white/60 mb-2 block">
-              FAST TRACK B2B QUOTATION
-            </span>
-            <h3 className="font-serif text-2xl md:text-3xl font-normal leading-tight">
-              Get Priority BOQ Material Pricing
-            </h3>
-            <p className="mt-2 text-xs text-white/80 leading-relaxed">
-              Have a floor plan or ceiling material list? Connect directly with our engineering team on Telegram for an instant quote.
-            </p>
-          </div>
-          <a
-            href="https://t.me/kmddecor"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-white text-black px-6 py-3.5 rounded-full text-xs font-semibold uppercase tracking-widest hover:bg-neutral-200 transition duration-200 inline-flex items-center justify-center gap-2 shrink-0"
-          >
-            <MessageSquare className="h-4 w-4" />
-            Instant Telegram Quote
-          </a>
-        </div>
+
 
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-[1.2fr_0.8fr_1fr]">
           <div>
             <a className="inline-flex items-center gap-3" href="/">
-              <Image alt="KMD Decor logo" className="h-9 w-auto object-contain" loading="lazy" src={kmdLogo} width={36} height={36} />
-              <span className="font-serif text-2xl font-bold text-black">{text("KMD Decor", "KMD តុបតែង")}</span>
+              <Image alt="Decor logo" className="h-9 w-auto object-contain" loading="lazy" src={kmdLogo} width={36} height={36} />
+              <span className="font-serif text-2xl font-bold text-black">{text("Decor", "តុបតែង")}</span>
             </a>
             <p className="mt-4 max-w-md text-xs leading-relaxed text-neutral-500">
               {text("Commercial decoration, interior fit-out services, and building material supply for business spaces in Phnom Penh, Cambodia.", "សេវាកម្មតុបតែងពាណិជ្ជកម្ម ការតុបតែងផ្ទៃក្នុង និងការផ្គត់ផ្គង់សម្ភារៈសំណង់សម្រាប់អាជីវកម្មនៅភ្នំពេញ។")}
@@ -74,7 +52,7 @@ export function SiteFooter() {
 
           <div className="grid grid-cols-2 gap-6">
             <FooterLinks links={exploreLinks.map((link) => ({ ...link, label: text(link.label, khmerFooterLinks[link.label] || link.label) }))} title={text("Explore", "ស្វែងយល់")} />
-            <FooterLinks links={customerLinks.map((link) => ({ ...link, label: text(link.label, khmerFooterLinks[link.label] || link.label) }))} title={text("Customer", "អតិថិជន")} />
+            <FooterLinks links={b2bLinks.map((link) => ({ ...link, label: text(link.label, khmerFooterLinks[link.label] || link.label) }))} title={text("Quick Links", "តំណភ្ជាប់")} />
           </div>
 
           <div>

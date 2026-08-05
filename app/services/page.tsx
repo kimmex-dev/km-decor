@@ -1,249 +1,348 @@
+"use client";
+
 import { SiteFooter } from "@/components/home/site-footer";
 import { SiteHeader } from "@/components/home/site-header";
-import { services } from "@/lib/homepage-data";
+import {
+  companyMission,
+  companyPartnershipStrengths,
+  companyVision,
+  projects,
+  services
+} from "@/lib/homepage-data";
 import { serviceDetails } from "@/lib/service-data";
+import { motion } from "framer-motion";
 import {
   ArrowDown,
   ArrowRight,
-  Camera,
+  Building2,
   Check,
-  ClipboardCheck,
-  Layers3,
-  Ruler,
+  CheckCircle2,
+  ChevronRight,
+  Compass,
+  FileCheck2,
+  MapPin,
+  PhoneCall,
   ShieldCheck,
   Sparkles,
-  Wrench
+  Target
 } from "lucide-react";
-
-export const metadata = {
-  title: "Services",
-  description: "Explore KM Decor's interior design and construction services — from finished ceilings and partitions to built-in furniture and smart access solutions.",
-};
+import Image from "next/image";
+import Link from "next/link";
 
 const processSteps = [
   {
-    Icon: Camera,
-    title: "Share your space",
-    copy: "Send clear photos, a drawing, or a reference showing the result you want."
+    num: "01",
+    title: "Share Your Commercial Space",
+    copy: "Send project drawings, floor plans, or site photos along with your target completion schedule."
   },
   {
-    Icon: Ruler,
-    title: "Define the requirement",
-    copy: "Confirm approximate dimensions, project location, timing, and installation needs."
+    num: "02",
+    title: "Technical Review & BOQ Scope",
+    copy: "Our engineering and design team assesses material specs, structural requirements, and site logistics."
   },
   {
-    Icon: ClipboardCheck,
-    title: "Receive a clear proposal",
-    copy: "Review the recommended service, suitable materials, scope, and quotation direction."
-  }
-];
-
-const strengths = [
-  {
-    Icon: Layers3,
-    title: "Multi-brand materials",
-    copy: "Select products around the project requirement, finish, budget, and availability."
-  },
-  {
-    Icon: Wrench,
-    title: "Technical coordination",
-    copy: "Connect material selection with practical installation and site conditions."
-  },
-  {
-    Icon: ShieldCheck,
-    title: "Safety-minded planning",
-    copy: "Review the system, access, and application before confirming the work."
-  },
-  {
-    Icon: Sparkles,
-    title: "Custom interior direction",
-    copy: "Adapt ceiling, wall, furniture, and smart features to the space."
+    num: "03",
+    title: "Receive Detailed Commercial Quotation",
+    copy: "Review a transparent BOQ proposal covering supply, fabrication, transport, and expert installation."
   }
 ];
 
 export default function ServicesPage() {
   return (
-    <main className="page-shell">
+    <main className="min-h-screen bg-white text-neutral-900 selection:bg-brand-accent selection:text-white">
       <SiteHeader />
 
-      <section className="relative isolate min-h-[520px] overflow-hidden bg-ink-900 md:min-h-[620px]">
+      {/* Pristine Minimalist Hero Section */}
+      <section className="relative isolate min-h-[480px] overflow-hidden bg-brand-primary text-white md:min-h-[540px] flex items-center border-b border-brand-primary/80">
+
+        {/* Background Architectural Photo */}
         <img
-          alt="Modern interior finished with coordinated ceiling, lighting, and furniture"
-          className="absolute inset-0 h-full w-full object-cover"
+          alt="Modern commercial interior fit-out project by KMD Decor"
+          className="absolute inset-0 h-full w-full object-cover object-center"
           src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=2000&q=85"
         />
-        <div className="absolute inset-0 bg-black/55" />
-        <div className="content-shell relative flex min-h-[520px] items-end py-12 text-white md:min-h-[620px] md:py-16">
-          <div className="max-w-4xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/70">KMD Interior Services</p>
-            <h1 className="mt-4 max-w-4xl font-serif text-4xl leading-[1.06] sm:text-5xl md:text-6xl lg:text-7xl">
-              Interior services shaped around your space.
-            </h1>
-            <p className="mt-5 max-w-2xl text-base leading-7 text-white/80 md:text-lg md:leading-8">
-              From finished ceilings and partition systems to built-in furniture and smart access, KMD connects design
-              direction, suitable materials, and practical project support.
+
+        {/* Subtle Text Contrast Vignette Gradient */}
+        <div className="absolute inset-0 bg-gradient-to-r from-neutral-950/80 via-neutral-950/45 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/80 via-transparent to-transparent" />
+
+        <div className="mx-auto flex max-w-screen-2xl items-center px-4 py-16 text-white md:px-8 relative z-10 w-full">
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="max-w-3xl"
+          >
+            {/* Top Eyebrow */}
+            <p className="text-xs font-mono font-semibold uppercase tracking-widest text-brand-accent mb-4">
+              KMD DÉCOR — B2B COMMERCIAL SERVICES
             </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <a className="action-commerce justify-center" href="/contact">
-                Discuss Your Project
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </a>
-              <a className="inline-flex min-h-11 items-center justify-center gap-2 border border-white/45 px-5 text-sm font-semibold text-white transition hover:border-white hover:bg-white hover:text-ink-900" href="#services">
-                Explore Services
+
+            {/* Headline */}
+            <h1 className="font-serif text-4xl font-normal leading-[1.12] sm:text-5xl md:text-6xl text-white tracking-tight">
+              Interior Fit-Out & Architectural Services
+            </h1>
+
+            {/* Description */}
+            <p className="mt-4 text-base sm:text-lg font-light leading-relaxed text-neutral-300 max-w-2xl">
+              From material supply and installation to complete fit-out work, KMD Décor creates modern, practical, and high-quality commercial interiors across Phnom Penh, Cambodia.
+            </p>
+
+            {/* Clean Single CTA */}
+            <div className="mt-8 flex items-center">
+              <a
+                className="bg-brand-accent text-white px-7 py-3.5 text-xs font-semibold uppercase tracking-wider rounded-full hover:bg-brand-accent-hover transition-all duration-200 inline-flex items-center gap-2 shadow-md"
+                href="#services-list"
+              >
+                <span>Explore Services</span>
                 <ArrowDown className="h-4 w-4" />
               </a>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      <nav aria-label="Service categories" className="border-b border-sand-400 bg-white" id="services">
-        <div className="content-shell flex snap-x gap-1 overflow-x-auto py-3">
+      {/* Sticky Quick-Nav Bar */}
+      <nav aria-label="Service categories" className="sticky top-16 z-30 border-b border-neutral-200 bg-white/95 backdrop-blur-md shadow-sm" id="services-list">
+        <div className="mx-auto flex max-w-screen-2xl snap-x gap-2 overflow-x-auto px-4 py-3 md:px-8">
           {services.map((service, index) => (
             <a
               key={service.id}
-              className="flex min-h-11 shrink-0 snap-start items-center gap-3 px-4 text-sm font-semibold text-ink-700 transition hover:bg-sand-100 hover:text-brand-red"
+              className="flex min-h-10 shrink-0 snap-start items-center gap-2.5 rounded-full border border-neutral-200 bg-neutral-50 px-4 text-xs font-semibold text-neutral-800 transition hover:border-brand-accent hover:bg-brand-accent hover:text-white"
               href={`#${service.id}`}
             >
-              <span className="text-[10px] text-ink-700/65">0{index + 1}</span>
-              {service.title}
+              <span className="font-mono text-[11px] opacity-70">0{index + 1}</span>
+              <span>{service.title.replace(/^\d+\.\s*/, "")}</span>
             </a>
           ))}
         </div>
       </nav>
 
-      <section className="content-shell py-12 lg:py-20">
-        <div className="mb-10 grid gap-4 border-b border-sand-400 pb-8 lg:grid-cols-[0.7fr_1.3fr] lg:items-end">
+      {/* Services Overview Section */}
+      <section className="mx-auto max-w-screen-2xl px-4 py-16 md:px-8 lg:py-24">
+        <div className="mb-14 border-b border-neutral-200 pb-8 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
           <div>
-            <p className="eyebrow">What We Do</p>
-            <h2 className="font-serif text-4xl leading-tight text-ink-900 md:text-5xl">One team. Four interior capabilities.</h2>
+            <span className="text-xs font-mono font-semibold uppercase tracking-widest text-brand-accent">
+              Core Capabilities
+            </span>
+            <h2 className="mt-2 font-serif text-3xl font-normal text-neutral-950 sm:text-4xl md:text-5xl">
+              Commercial Interior Services
+            </h2>
           </div>
-          <p className="max-w-2xl text-sm leading-7 text-ink-700 lg:justify-self-end md:text-base">
-            Start with the space and result you need. KMD will help identify the appropriate service, material system,
-            and next step for residential or commercial work.
+          <p className="max-w-md text-sm text-neutral-600 font-light leading-relaxed">
+            Every engagement puts project timelines, cost control, material quality, and dependable B2B delivery at the center of execution.
           </p>
         </div>
 
-        <div>
+        <div className="space-y-16 lg:space-y-24">
           {services.map((service, index) => {
             const detail = serviceDetails[service.id];
-            const imageFirst = index % 2 === 0;
+            const isEven = index % 2 === 0;
 
             return (
-              <article
+              <motion.article
                 key={service.id}
-                className="grid scroll-mt-28 gap-0 border-b border-sand-400 py-9 first:pt-0 last:border-b-0 last:pb-0 lg:grid-cols-2 lg:items-stretch lg:py-14"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                className="scroll-mt-32 grid gap-8 lg:grid-cols-12 lg:items-center"
                 id={service.id}
               >
-                <a
-                  aria-label={`View ${service.title}`}
-                  className={`group relative min-h-[280px] overflow-hidden bg-sand-200 sm:min-h-[380px] lg:min-h-[470px] ${imageFirst ? "lg:order-1" : "lg:order-2"}`}
-                  href={service.href}
-                >
+                {/* Visual Image Container */}
+                <div className={`relative min-h-[320px] sm:min-h-[400px] lg:min-h-[460px] overflow-hidden rounded-2xl border border-neutral-200 shadow-md group lg:col-span-6 ${isEven ? "lg:order-1" : "lg:order-2"}`}>
                   <img
                     alt={service.title}
-                    className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-[1.03]"
+                    className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
                     loading="lazy"
                     src={service.imageUrl}
                   />
-                  <span className="absolute bottom-4 left-4 bg-white px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-ink-900">
-                    Service 0{index + 1}
+                  <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/70 via-transparent to-transparent" />
+                  <span className="absolute bottom-6 left-6 rounded-full bg-brand-primary px-3.5 py-1.5 font-mono text-xs font-bold uppercase tracking-wider text-white shadow-md">
+                    0{index + 1} — SERVICE CATEGORY
                   </span>
-                </a>
+                </div>
 
-                <div className={`flex flex-col justify-center bg-sand-100 p-6 sm:p-9 lg:p-12 xl:p-16 ${imageFirst ? "lg:order-2" : "lg:order-1"}`}>
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-red">{service.title}</p>
-                  <h2 className="mt-4 font-serif text-3xl leading-tight text-ink-900 sm:text-4xl">
-                    {detail?.outcomes[0] ?? "Designed for a better interior result."}
-                  </h2>
-                  <p className="mt-5 text-sm leading-7 text-ink-700 md:text-base">{service.description}</p>
+                {/* Content Container */}
+                <div className={`flex flex-col justify-center lg:col-span-6 ${isEven ? "lg:order-2" : "lg:order-1"}`}>
+                  <span className="text-xs font-mono font-semibold uppercase tracking-widest text-brand-accent">
+                    Supply & Installation
+                  </span>
+                  <h3 className="mt-3 font-serif text-3xl font-normal text-neutral-950 sm:text-4xl leading-tight">
+                    {service.title.replace(/^\d+\.\s*/, "")}
+                  </h3>
+                  <p className="mt-4 text-base text-neutral-600 font-light leading-relaxed">
+                    {service.description}
+                  </p>
 
-                  <div className="mt-7 grid gap-3 border-y border-sand-400 py-6">
-                    {(detail?.scope ?? []).slice(0, 3).map((item) => (
-                      <div key={item} className="flex items-start gap-3 text-sm font-medium text-ink-900">
-                        <Check className="mt-0.5 h-4 w-4 shrink-0 text-brand-red" strokeWidth={2.4} />
-                        <span>{item}</span>
+                  {/* List of Specific Items from companyprofile.md */}
+                  {service.items && service.items.length > 0 && (
+                    <div className="mt-6 rounded-xl border border-neutral-200 bg-neutral-50/80 p-5 space-y-3">
+                      <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-neutral-900 mb-2">
+                        Available Specifications & Scope
+                      </h4>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs text-neutral-700">
+                        {service.items.map((item) => (
+                          <div key={item} className="flex items-start gap-2">
+                            <Check className="h-4 w-4 shrink-0 text-brand-accent mt-0.5" strokeWidth={2.5} />
+                            <span className="font-medium text-neutral-800">{item}</span>
+                          </div>
+                        ))}
                       </div>
-                    ))}
-                  </div>
+                    </div>
+                  )}
 
-                  <div className="mt-7 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                    <a className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-brand-red" href={service.href}>
-                      View Service Details
-                      <ArrowRight className="h-4 w-4" />
-                    </a>
-                    <span className="text-xs text-ink-700">{detail?.timeline}</span>
+                  {/* Action Link */}
+                  <div className="mt-8 flex items-center gap-4">
+                    <Link
+                      className="bg-brand-accent text-white px-6 py-3 text-xs font-semibold uppercase tracking-wider rounded-full hover:bg-brand-accent-hover transition-all duration-200 inline-flex items-center gap-2 shadow-sm"
+                      href={`/contact?service=${encodeURIComponent(service.id)}`}
+                    >
+                      <span>Inquire About {service.id === "ceiling" ? "Ceilings" : service.id === "partition" ? "Partitions" : "Furniture"}</span>
+                      <ArrowRight className="h-3.5 w-3.5" />
+                    </Link>
                   </div>
                 </div>
-              </article>
+              </motion.article>
             );
           })}
         </div>
       </section>
 
-      <section className="border-y border-sand-400 bg-sand-200/55">
-        <div className="section-shell">
-          <div className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:items-start">
-            <div className="lg:sticky lg:top-28">
-              <p className="eyebrow">How It Starts</p>
-              <h2 className="section-title">Clear information before construction begins.</h2>
-              <p className="mt-4 max-w-md text-sm leading-7 text-ink-700">
-                Detailed drawings help, but they are not required for the first conversation. Photos and approximate
-                measurements are enough to begin.
-              </p>
-              <a className="mt-6 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-brand-red" href="/contact">
-                Prepare a Consultation
-                <ArrowRight className="h-4 w-4" />
-              </a>
-            </div>
+      {/* Why Businesses Choose KMD Décor (7 Strength Highlights) */}
+      <section className="bg-neutral-900 text-white py-16 lg:py-24">
+        <div className="mx-auto max-w-screen-2xl px-4 md:px-8">
+          <div className="mb-14 max-w-3xl">
+            <span className="text-xs font-mono font-semibold uppercase tracking-widest text-brand-accent">
+              B2B Value Advantage
+            </span>
+            <h2 className="mt-3 font-serif text-3xl font-normal text-white sm:text-4xl md:text-5xl">
+              Why Businesses Choose KMD Décor
+            </h2>
+            <p className="mt-4 text-base text-neutral-300 font-light leading-relaxed">
+              Our B2B approach puts project timelines, cost control, material quality, and dependable delivery at the center of every engagement.
+            </p>
+          </div>
 
-            <ol className="border-t border-sand-400">
-              {processSteps.map(({ Icon, copy, title }, index) => (
-                <li key={title} className="grid gap-4 border-b border-sand-400 py-7 sm:grid-cols-[64px_1fr] sm:py-9">
-                  <div className="flex items-center justify-between sm:block">
-                    <span className="text-xs font-semibold text-ink-700">0{index + 1}</span>
-                    <Icon className="h-5 w-5 text-brand-red sm:mt-5" />
-                  </div>
-                  <div>
-                    <h3 className="font-serif text-2xl text-ink-900 md:text-3xl">{title}</h3>
-                    <p className="mt-2 max-w-xl text-sm leading-7 text-ink-700">{copy}</p>
-                  </div>
-                </li>
-              ))}
-            </ol>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {companyPartnershipStrengths.map((item) => (
+              <motion.div
+                key={item.num}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+                className="rounded-2xl border border-white/15 bg-white/5 p-6 sm:p-8 backdrop-blur-sm hover:border-white/30 transition duration-300"
+              >
+                <span className="font-mono text-xl font-bold text-brand-accent">{item.num}</span>
+                <h3 className="mt-3 font-serif text-xl text-white font-normal">{item.title}</h3>
+                <p className="mt-2 text-sm text-neutral-300 font-light leading-relaxed">{item.desc}</p>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
 
-      <section className="content-shell py-12 lg:py-20">
-        <div className="mb-8 max-w-2xl">
-          <p className="eyebrow">Why KMD</p>
-          <h2 className="section-title">Design decisions supported by practical experience.</h2>
+      {/* Simple 3-Step Project Process */}
+      <section className="mx-auto max-w-screen-2xl px-4 py-16 md:px-8 lg:py-24">
+        <div className="mb-14 text-center max-w-2xl mx-auto">
+          <span className="text-xs font-mono font-semibold uppercase tracking-widest text-brand-accent">
+            Simple Workflow
+          </span>
+          <h2 className="mt-2 font-serif text-3xl font-normal text-neutral-950 sm:text-4xl">
+            How Your Fit-Out Project Starts
+          </h2>
+          <p className="mt-3 text-sm text-neutral-600 font-light">
+            Clear information and transparent communication before construction begins.
+          </p>
         </div>
-        <div className="grid border-l border-t border-sand-400 sm:grid-cols-2 lg:grid-cols-4">
-          {strengths.map(({ Icon, copy, title }) => (
-            <div key={title} className="border-b border-r border-sand-400 p-6 lg:min-h-[250px] lg:p-7">
-              <Icon className="h-5 w-5 text-brand-red" />
-              <h3 className="mt-8 font-serif text-2xl text-ink-900">{title}</h3>
-              <p className="mt-3 text-sm leading-6 text-ink-700">{copy}</p>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {processSteps.map((step) => (
+            <div key={step.num} className="rounded-2xl border border-neutral-200 bg-white p-8 shadow-sm flex flex-col justify-between">
+              <div>
+                <span className="font-mono text-3xl font-bold text-brand-primary">{step.num}</span>
+                <h3 className="mt-4 font-serif text-xl font-normal text-neutral-950">{step.title}</h3>
+                <p className="mt-3 text-sm text-neutral-600 font-light leading-relaxed">{step.copy}</p>
+              </div>
             </div>
           ))}
         </div>
       </section>
 
-      <section className="bg-ink-900 text-white">
-        <div className="content-shell grid gap-7 py-12 md:py-16 lg:grid-cols-[1fr_auto] lg:items-center">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/60">Start With Your Space</p>
-            <h2 className="mt-3 max-w-3xl font-serif text-4xl leading-tight md:text-5xl">Have an interior project in mind?</h2>
-            <p className="mt-4 max-w-2xl text-sm leading-7 text-white/70 md:text-base">
-              Send your contact details, location, project requirement, preferred appointment time, and any available photos.
-            </p>
+      {/* Selected Projects Showcase */}
+      <section className="bg-neutral-50 py-16 lg:py-24 border-t border-neutral-200">
+        <div className="mx-auto max-w-screen-2xl px-4 md:px-8">
+          <div className="mb-12 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+            <div>
+              <span className="text-xs font-mono font-semibold uppercase tracking-widest text-brand-accent">
+                Proven Track Record
+              </span>
+              <h2 className="mt-2 font-serif text-3xl font-normal text-neutral-950 sm:text-4xl">
+                Selected Project Showcase
+              </h2>
+            </div>
+            <Link
+              className="text-xs font-semibold uppercase tracking-wider text-brand-accent hover:text-brand-accent-hover inline-flex items-center gap-1.5"
+              href="/portfolio"
+            >
+              <span>View Full Portfolio</span>
+              <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
           </div>
-          <a className="action-commerce w-full justify-center whitespace-nowrap sm:w-fit" href="/contact">
-            Start a Consultation
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </a>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {projects.map((project) => (
+              <div key={project.id} className="group overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm hover:shadow-md transition duration-300">
+                <div className="relative h-48 overflow-hidden">
+                  <img
+                    alt={project.title}
+                    className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                    src={project.imageUrl}
+                  />
+                  <span className="absolute top-4 left-4 rounded-full bg-brand-primary/90 backdrop-blur-sm px-3 py-1 text-[11px] font-semibold text-white">
+                    {project.scope}
+                  </span>
+                </div>
+                <div className="p-6">
+                  <h3 className="font-serif text-xl text-neutral-950 font-normal">{project.title}</h3>
+                  <p className="mt-1 text-xs text-neutral-500 font-mono">{project.location}</p>
+                  <p className="mt-3 text-xs text-neutral-600 leading-relaxed font-light">{project.caption}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Bottom Consultation CTA Banner */}
+      <section className="bg-brand-primary text-white py-16 lg:py-20 border-t border-white/10">
+        <div className="mx-auto max-w-screen-2xl px-4 md:px-8 text-center max-w-3xl">
+          <span className="text-xs font-mono font-semibold uppercase tracking-widest text-brand-accent">
+            Get Started Today
+          </span>
+          <h2 className="mt-4 font-serif text-3xl font-normal sm:text-4xl md:text-5xl text-white">
+            Start Your Commercial Fit-Out Project
+          </h2>
+          <p className="mt-4 text-base text-neutral-200 font-light leading-relaxed">
+            Tell us about your commercial space, project requirements, and timeline. KMD Décor will help you shape a fit-out solution that is functional, considered, and ready to deliver.
+          </p>
+          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Link
+              className="bg-brand-accent text-white px-8 py-4 text-xs font-semibold uppercase tracking-wider rounded-full hover:bg-brand-accent-hover transition-all duration-200 inline-flex items-center gap-2 shadow-lg w-full sm:w-auto justify-center"
+              href="/contact"
+            >
+              <span>Request BOQ Quotation</span>
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+            <a
+              className="border border-white/30 text-white px-6 py-4 text-xs font-semibold uppercase tracking-wider rounded-full hover:bg-white/10 transition-all duration-200 inline-flex items-center gap-2 w-full sm:w-auto justify-center"
+              href="tel:+85516927683"
+            >
+              <PhoneCall className="h-4 w-4 text-brand-accent" />
+              <span>+855 16 927 683</span>
+            </a>
+          </div>
         </div>
       </section>
 

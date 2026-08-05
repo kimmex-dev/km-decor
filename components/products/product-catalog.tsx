@@ -1,18 +1,11 @@
 "use client";
 
-import { AddToCartButton } from "@/components/cart/add-to-cart-button";
 import { ProductCard } from "@/components/home/product-card";
-import { migrateCatalogStorage } from "@/lib/catalog-storage-migration";
 import type { ProductItem } from "@/lib/homepage-data";
-import { Grid3X3, List, RotateCcw, Search, SlidersHorizontal, X } from "lucide-react";
+import { ArrowUpRight, CheckCircle2, Search, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import type { ReactNode } from "react";
 import { useEffect, useMemo, useState } from "react";
-
-type SortMode = "Featured" | "Best rated";
-type ViewMode = "grid" | "list";
-type BuyingMode = "All products" | "Ready to order" | "Needs quote" | "Preorder or low stock";
 
 type ProductCatalogProps = {
   products: ProductItem[];
@@ -21,552 +14,205 @@ type ProductCatalogProps = {
   availability: ProductItem["stockStatus"][];
 };
 
-const productBatchSize = 9;
-const sortModes: SortMode[] = ["Featured", "Best rated"];
-const buyingModes: BuyingMode[] = ["All products", "Ready to order", "Needs quote", "Preorder or low stock"];
-
-export function ProductCatalog({ products, categories, brands, availability }: ProductCatalogProps) {
-  const [hasHydrated, setHasHydrated] = useState(false);
+export function ProductCatalog({ products, categories }: ProductCatalogProps) {
   const [query, setQuery] = useState("");
-  const [category, setCategory] = useState("All categories");
-  const [sort, setSort] = useState<SortMode>("Featured");
-  const [buyingMode, setBuyingMode] = useState<BuyingMode>("All products");
-  const [viewMode, setViewMode] = useState<ViewMode>("grid");
-  const [visibleCount, setVisibleCount] = useState(productBatchSize);
-  const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
-  const [selectedAvailability, setSelectedAvailability] = useState<ProductItem["stockStatus"][]>([]);
-  const [filtersOpen, setFiltersOpen] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [activeQuickViewProduct, setActiveQuickViewProduct] = useState<ProductItem | null>(null);
 
+  // Close Quick View on Escape key
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const categoryParam = params.get("category");
-
-    if (categoryParam && categories.includes(categoryParam)) {
-      setCategory(categoryParam);
-    }
-
-    const queryParam = params.get("q");
-    const sortParam = params.get("sort");
-    const modeParam = params.get("mode");
-    const brandParams = params.getAll("brand").filter((item) => brands.includes(item));
-    const availabilityParams = params
-      .getAll("availability")
-      .filter((item): item is ProductItem["stockStatus"] => availability.includes(item as ProductItem["stockStatus"]));
-
-    if (queryParam) setQuery(queryParam);
-    if (sortParam && sortModes.includes(sortParam as SortMode)) setSort(sortParam as SortMode);
-    if (modeParam && buyingModes.includes(modeParam as BuyingMode)) setBuyingMode(modeParam as BuyingMode);
-    if (brandParams.length > 0) setSelectedBrands(brandParams);
-    if (availabilityParams.length > 0) setSelectedAvailability(availabilityParams);
-    setHasHydrated(true);
-  }, [availability, brands, categories]);
-
-  useEffect(() => {
-    migrateCatalogStorage(products);
-  }, [products]);
-
-  useEffect(() => {
-    if (!filtersOpen) return;
-
-    const previousOverflow = document.body.style.overflow;
-    const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setFiltersOpen(false);
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setActiveQuickViewProduct(null);
     };
-
-    document.body.style.overflow = "hidden";
-    window.addEventListener("keydown", closeOnEscape);
-
+    if (activeQuickViewProduct) {
+      window.addEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "hidden";
+    }
     return () => {
-      document.body.style.overflow = previousOverflow;
-      window.removeEventListener("keydown", closeOnEscape);
+      window.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "";
     };
-  }, [filtersOpen]);
-
-  useEffect(() => {
-    if (!hasHydrated) return;
-
-    const params = new URLSearchParams();
-    const trimmedQuery = query.trim();
-
-    if (trimmedQuery) params.set("q", trimmedQuery);
-    if (category !== "All categories") params.set("category", category);
-    if (sort !== "Featured") params.set("sort", sort);
-    if (buyingMode !== "All products") params.set("mode", buyingMode);
-    selectedBrands.forEach((brand) => params.append("brand", brand));
-    selectedAvailability.forEach((item) => params.append("availability", item));
-
-    const nextUrl = params.toString() ? `${window.location.pathname}?${params.toString()}#catalog` : `${window.location.pathname}#catalog`;
-    window.history.replaceState(null, "", nextUrl);
-  }, [buyingMode, category, hasHydrated, query, selectedAvailability, selectedBrands, sort]);
-
-  const removeFilter = (filter: ActiveFilter) => {
-    if (filter.type === "category") setCategory("All categories");
-    if (filter.type === "brand") setSelectedBrands((current) => current.filter((item) => item !== filter.value));
-    if (filter.type === "availability") {
-      setSelectedAvailability((current) => current.filter((item) => item !== filter.value));
-    }
-    if (filter.type === "query") setQuery("");
-    if (filter.type === "sort") setSort("Featured");
-    if (filter.type === "buyingMode") setBuyingMode("All products");
-  };
-
-  const productCounts = useMemo(() => {
-    const readyToOrder = products.filter((product) => product.stockStatus === "In stock" && !product.quoteRecommended).length;
-    const needsQuote = products.filter((product) => product.quoteRecommended || product.stockStatus !== "In stock").length;
-    const preorderOrLowStock = products.filter((product) => product.stockStatus === "Preorder" || product.stockStatus === "Low stock").length;
-
-    return {
-      all: products.length,
-      readyToOrder,
-      needsQuote,
-      preorderOrLowStock
-    };
-  }, [products]);
+  }, [activeQuickViewProduct]);
 
   const filteredProducts = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
 
-    return products
-      .filter((product) => {
-        const matchesQuery =
-          !normalizedQuery ||
-          [product.name, product.descriptor, product.brand, product.category, product.sku, ...product.specs]
-            .join(" ")
-            .toLowerCase()
-            .includes(normalizedQuery);
-        const matchesCategory = category === "All categories" || product.category === category;
-        const matchesBrand = selectedBrands.length === 0 || selectedBrands.includes(product.brand);
-        const matchesAvailability = selectedAvailability.length === 0 || selectedAvailability.includes(product.stockStatus);
-        const matchesBuyingMode =
-          buyingMode === "All products" ||
-          (buyingMode === "Ready to order" && product.stockStatus === "In stock" && !product.quoteRecommended) ||
-          (buyingMode === "Needs quote" && (product.quoteRecommended || product.stockStatus !== "In stock")) ||
-          (buyingMode === "Preorder or low stock" && (product.stockStatus === "Preorder" || product.stockStatus === "Low stock"));
+    return products.filter((product) => {
+      const matchesCategory = selectedCategory === "All" || product.category === selectedCategory;
+      const matchesQuery =
+        !normalizedQuery ||
+        [product.name, product.descriptor, product.brand, product.category, product.sku, ...product.specs]
+          .join(" ")
+          .toLowerCase()
+          .includes(normalizedQuery);
 
-        return matchesQuery && matchesCategory && matchesBrand && matchesAvailability && matchesBuyingMode;
-      })
-      .sort((a, b) => {
-        if (sort === "Best rated") return b.rating - a.rating;
-        return 0;
-      });
-  }, [buyingMode, category, products, query, selectedAvailability, selectedBrands, sort]);
-
-  useEffect(() => {
-    setVisibleCount(productBatchSize);
-  }, [buyingMode, category, query, selectedAvailability, selectedBrands, sort]);
-
-  const activeFilters: ActiveFilter[] = [
-    category !== "All categories" ? { label: category, type: "category", value: category } : null,
-    ...selectedBrands.map((brand) => ({ label: brand, type: "brand" as const, value: brand })),
-    ...selectedAvailability.map((item) => ({ label: item, type: "availability" as const, value: item })),
-    buyingMode !== "All products" ? { label: buyingMode, type: "buyingMode", value: buyingMode } : null,
-    sort !== "Featured" ? { label: sort, type: "sort", value: sort } : null,
-    query.trim() ? { label: `Search: ${query.trim()}`, type: "query", value: query.trim() } : null
-  ].filter((filter): filter is ActiveFilter => Boolean(filter));
-
-  const resetFilters = () => {
-    setQuery("");
-    setCategory("All categories");
-    setSort("Featured");
-    setBuyingMode("All products");
-    setSelectedBrands([]);
-    setSelectedAvailability([]);
-  };
-
-  const visibleProducts = filteredProducts.slice(0, visibleCount);
-  const hasMoreProducts = visibleCount < filteredProducts.length;
-  const resultSummary =
-    buyingMode === "Ready to order"
-      ? "Ready-stock products can be added to cart now."
-      : buyingMode === "Needs quote"
-        ? "These products should be confirmed with KMD for quantity, stock, or project pricing."
-        : buyingMode === "Preorder or low stock"
-          ? "Check availability before planning delivery or installation."
-          : "Standard items can be ordered online. Project quantities can be quoted.";
-
-  const toggleBrand = (brand: string) => {
-    setSelectedBrands((current) => (current.includes(brand) ? current.filter((item) => item !== brand) : [...current, brand]));
-  };
-
-  const toggleAvailability = (item: ProductItem["stockStatus"]) => {
-    setSelectedAvailability((current) => (current.includes(item) ? current.filter((status) => status !== item) : [...current, item]));
-  };
+      return matchesCategory && matchesQuery;
+    });
+  }, [products, query, selectedCategory]);
 
   return (
-    <section className="section-shell pt-8" id="catalog">
-      <div className="mb-6 overflow-x-auto pb-2">
-        <div className="flex min-w-max gap-2">
-          {["All categories", ...categories].map((item) => (
-            <button
-              key={item}
-              className={`rounded-full border px-4 py-2 text-sm font-semibold transition ${
-                category === item
-                  ? "border-brand-red bg-brand-red text-white"
-                  : "border-sand-400 bg-white text-ink-700 hover:border-brand-red hover:text-brand-red"
-              }`}
-              onClick={() => setCategory(item)}
-              type="button"
-            >
-              {item}
-            </button>
-          ))}
+    <section className="mx-auto max-w-screen-2xl px-4 pt-6 pb-16 md:px-8 md:pt-8 lg:pb-20" id="catalog">
+      {/* Minimal Underline Filter Bar & Quiet Search */}
+      <div className="mb-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4 border-b border-neutral-200">
+        {/* Minimal Underline Category Tabs */}
+        <div className="flex items-center gap-6 overflow-x-auto scrollbar-none pb-0.5">
+          {["All", ...categories].map((catName) => {
+            const isActive = selectedCategory === catName;
+            return (
+              <button
+                key={catName}
+                onClick={() => setSelectedCategory(catName)}
+                type="button"
+                className={`py-3 text-xs sm:text-sm transition-all duration-200 whitespace-nowrap border-b-2 ${
+                  isActive
+                    ? "border-neutral-950 text-neutral-950 font-medium"
+                    : "border-transparent text-neutral-400 hover:text-neutral-950 font-normal"
+                }`}
+              >
+                {catName === "All" ? "All Materials" : catName}
+              </button>
+            );
+          })}
         </div>
-      </div>
 
-      <div className="surface-card mb-6 grid grid-cols-[minmax(0,1fr)_auto] gap-3 p-4 md:grid-cols-[minmax(0,1fr)_220px_auto] md:items-end">
-        <label className="control-label col-span-2 md:col-span-1">
-          Search products
-          <span className="search-group grid-cols-[auto_1fr] items-center px-4">
-            <Search className="h-4 w-4 text-ink-700" />
-            <input
-              className="field"
-              onChange={(event) => setQuery(event.target.value)}
-              placeholder="Product, brand, or SKU..."
-              type="search"
-              value={query}
-            />
-          </span>
-        </label>
-        <label className="control-label">
-          Sort
-          <select className="select-field" onChange={(event) => setSort(event.target.value as SortMode)} value={sort}>
-            {sortModes.map((item) => (
-              <option key={item}>{item}</option>
-            ))}
-          </select>
-        </label>
-        <div className="flex gap-2">
-          <button
-            aria-expanded={filtersOpen}
-            aria-haspopup="dialog"
-            className="action-secondary h-[48px] min-w-[104px] flex-1 lg:hidden"
-            onClick={() => setFiltersOpen(true)}
-            type="button"
-          >
-            <SlidersHorizontal className="mr-2 h-4 w-4" />
-            Filters
-            {selectedBrands.length + selectedAvailability.length > 0 ? ` (${selectedBrands.length + selectedAvailability.length})` : ""}
-          </button>
-          {activeFilters.length > 0 ? (
-            <button aria-label="Reset filters" className="action-secondary h-[46px] px-4" onClick={resetFilters} type="button">
-              <RotateCcw className="h-4 w-4" />
+        {/* Minimal Quiet Search */}
+        <div className="relative pb-3 md:pb-0 min-w-[200px] sm:min-w-[240px]">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-neutral-400" />
+          <input
+            className="w-full rounded-full border border-neutral-200 bg-neutral-50/60 pl-8 pr-7 py-1.5 text-xs text-neutral-900 placeholder:text-neutral-400 focus:border-neutral-400 focus:bg-white focus:outline-none transition"
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search..."
+            type="search"
+            value={query}
+          />
+          {query ? (
+            <button
+              onClick={() => setQuery("")}
+              type="button"
+              className="absolute right-2.5 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-700"
+            >
+              <X className="h-3 w-3" />
             </button>
           ) : null}
         </div>
       </div>
 
-      <div className="-mx-4 mb-6 overflow-x-auto px-4 pb-2 md:mx-0 md:overflow-visible md:px-0">
-        <div className="flex min-w-max gap-2 md:grid md:min-w-0 md:grid-cols-4 md:gap-3">
-          {buyingModes.map((mode) => {
-          const count = mode === "Ready to order"
-            ? productCounts.readyToOrder
-            : mode === "Needs quote"
-              ? productCounts.needsQuote
-              : mode === "Preorder or low stock"
-                ? productCounts.preorderOrLowStock
-                : productCounts.all;
-
-          return (
-            <button
-              key={mode}
-              className={`min-w-[170px] rounded-lg border px-4 py-3 text-left transition md:min-w-0 md:p-4 ${
-                buyingMode === mode
-                  ? "border-brand-red bg-brand-red text-white shadow-panel"
-                  : "border-sand-400 bg-white text-ink-900 hover:border-brand-red hover:bg-sand-50"
-              }`}
-              onClick={() => setBuyingMode(mode)}
-              type="button"
-            >
-              <span className={`text-xs font-semibold uppercase tracking-[0.16em] ${buyingMode === mode ? "text-white/75" : "text-ink-700"}`}>
-                {mode === "All products" ? "Catalog" : "Quick filter"}
-              </span>
-              <strong className="mt-2 block text-lg">{mode}</strong>
-              <small className={buyingMode === mode ? "text-white/75" : "text-ink-700"}>{count} {count === 1 ? "item" : "items"}</small>
-            </button>
-            );
-          })}
+      {/* Spacious Clean Product Grid */}
+      {filteredProducts.length > 0 ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {filteredProducts.map((product) => (
+            <ProductCard 
+              key={product.id} 
+              product={product} 
+              onOpenQuickView={(p) => setActiveQuickViewProduct(p)} 
+            />
+          ))}
         </div>
-      </div>
+      ) : (
+        <div className="rounded-2xl border border-neutral-200 bg-neutral-50 p-12 text-center my-8">
+          <h3 className="font-serif text-xl text-neutral-900 font-normal">No materials match your search.</h3>
+          <p className="mt-2 text-xs text-neutral-500 max-w-md mx-auto font-light">
+            Try selecting another category tab or clearing your search phrase.
+          </p>
+          <button
+            onClick={() => {
+              setSelectedCategory("All");
+              setQuery("");
+            }}
+            type="button"
+            className="mt-5 bg-neutral-900 text-white rounded-full px-5 py-2 text-xs font-semibold uppercase tracking-wider hover:bg-brand-accent transition"
+          >
+            Clear Search
+          </button>
+        </div>
+      )}
 
-      <div className="grid gap-6 lg:grid-cols-[240px_minmax(0,1fr)]">
-        <aside className="hidden gap-4 self-start lg:grid">
-          <FilterGroup title="Brands">
-            {brands.map((brand) => (
-              <label key={brand} className="flex items-center gap-2 text-sm text-ink-700">
-                <input checked={selectedBrands.includes(brand)} className="filter-checkbox" onChange={() => toggleBrand(brand)} type="checkbox" />
-                {brand}
-              </label>
-            ))}
-          </FilterGroup>
+      {/* Quick Material Specification Modal */}
+      {activeQuickViewProduct ? (
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-neutral-950/80 backdrop-blur-md transition-opacity duration-300"
+          onClick={() => setActiveQuickViewProduct(null)}
+        >
+          <div 
+            className="relative w-full max-w-2xl overflow-hidden rounded-3xl bg-white p-6 sm:p-8 shadow-2xl transition-all duration-300 border border-neutral-100 max-h-[90vh] overflow-y-auto"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close Button */}
+            <button
+              onClick={() => setActiveQuickViewProduct(null)}
+              className="absolute top-4 right-4 z-10 grid h-9 w-9 place-items-center rounded-full bg-neutral-100 text-neutral-600 hover:bg-neutral-200 transition"
+              type="button"
+              aria-label="Close details"
+            >
+              <X className="h-4 w-4" />
+            </button>
 
-          <FilterGroup title="Availability">
-            {availability.map((item) => (
-              <label key={item} className="flex items-center gap-2 text-sm text-ink-700">
-                <input
-                  checked={selectedAvailability.includes(item)}
-                  className="filter-checkbox"
-                  onChange={() => toggleAvailability(item)}
-                  type="checkbox"
+            <div className="grid gap-6 sm:grid-cols-[200px_1fr] items-start">
+              {/* Image Preview */}
+              <div className="relative aspect-square w-full overflow-hidden rounded-2xl bg-neutral-100 border border-neutral-200">
+                <Image
+                  alt={activeQuickViewProduct.name}
+                  src={activeQuickViewProduct.imageUrl}
+                  fill
+                  className="object-cover"
                 />
-                {item}
-              </label>
-            ))}
-          </FilterGroup>
+              </div>
 
-          <div className="rounded-lg bg-ink-900 p-5 text-white">
-            <h2 className="font-serif text-2xl">Buying for a project?</h2>
-            <p className="mt-2 text-sm leading-6 text-white/75">Send your quantity or material list for delivery and bulk pricing.</p>
-            <a className="action-commerce mt-4 w-full" href="/contact">
-              Request Pricing
-            </a>
-          </div>
-        </aside>
-
-        <div>
-          <div className="mb-5 border-b border-sand-400 pb-4">
-            <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+              {/* Material Info */}
               <div>
-                <div className="text-sm font-semibold text-ink-900">
-                  {filteredProducts.length} {filteredProducts.length === 1 ? "product" : "products"}
+                <div className="flex flex-wrap items-center gap-2 font-mono text-[10px] uppercase font-bold text-brand-accent mb-2">
+                  <span className="rounded-full bg-neutral-100 px-2.5 py-0.5 border border-neutral-200">{activeQuickViewProduct.category}</span>
+                  <span className="text-neutral-400">SKU: {activeQuickViewProduct.sku}</span>
                 </div>
-                <div className="mt-1 text-sm text-ink-700">{resultSummary}</div>
-              </div>
-              <div className="flex w-fit overflow-hidden rounded-md border border-sand-400 bg-white p-1">
-                <button
-                  className={`inline-flex min-h-9 items-center gap-2 rounded px-3 text-xs font-semibold transition ${
-                    viewMode === "grid" ? "bg-brand-red text-white" : "text-ink-700 hover:bg-sand-100"
-                  }`}
-                  onClick={() => setViewMode("grid")}
-                  type="button"
-                >
-                  <Grid3X3 className="h-4 w-4" />
-                  Grid
-                </button>
-                <button
-                  className={`inline-flex min-h-9 items-center gap-2 rounded px-3 text-xs font-semibold transition ${
-                    viewMode === "list" ? "bg-brand-red text-white" : "text-ink-700 hover:bg-sand-100"
-                  }`}
-                  onClick={() => setViewMode("list")}
-                  type="button"
-                >
-                  <List className="h-4 w-4" />
-                  List
-                </button>
-              </div>
-            </div>
 
-            {activeFilters.length > 0 ? (
-              <div className="mt-4 flex flex-wrap gap-2">
-                {activeFilters.map((filter) => (
-                  <button
-                    key={`${filter.type}-${filter.value}`}
-                    className="inline-flex items-center gap-2 rounded-full border border-sand-400 bg-white px-3 py-1.5 text-xs font-semibold text-ink-700 transition hover:border-brand-red hover:text-brand-red"
-                    onClick={() => removeFilter(filter)}
-                    type="button"
-                  >
-                    {filter.label}
-                    <X className="h-3.5 w-3.5" />
-                  </button>
-                ))}
-              </div>
-            ) : null}
-          </div>
+                <h3 className="font-serif text-2xl font-normal text-neutral-950 leading-tight">
+                  {activeQuickViewProduct.name}
+                </h3>
 
-          {filteredProducts.length > 0 ? (
-            <>
-              {viewMode === "grid" ? (
-                <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-                  {visibleProducts.map((product) => (
-                    <ProductCard key={product.id} product={product} />
-                  ))}
-                </div>
-              ) : (
-                <div className="grid gap-4">
-                  {visibleProducts.map((product) => (
-                    <ProductListRow key={product.id} product={product} />
-                  ))}
-                </div>
-              )}
-              {hasMoreProducts ? (
-                <div className="mt-8 flex justify-center">
-                  <button className="action-secondary" onClick={() => setVisibleCount((count) => count + productBatchSize)} type="button">
-                    Load More Products
-                    <span className="ml-2 text-xs font-normal text-ink-700">
-                      {Math.min(productBatchSize, filteredProducts.length - visibleCount)} more
-                    </span>
-                  </button>
-                </div>
-              ) : null}
-            </>
-          ) : (
-            <div className="surface-card grid min-h-80 place-items-center p-8 text-center">
-              <div>
-                <SlidersHorizontal className="mx-auto h-10 w-10 text-brand-red" />
-                <h2 className="mt-4 font-serif text-3xl text-ink-900">No products match these filters.</h2>
-                <p className="mx-auto mt-3 max-w-md text-sm leading-6 text-ink-700">
-                  Clear filters or send KMD your material list so the team can recommend alternatives.
+                <p className="mt-2 text-xs text-neutral-600 font-light leading-relaxed">
+                  {activeQuickViewProduct.descriptor}
                 </p>
-                <div className="mt-5 flex flex-col justify-center gap-3 sm:flex-row">
-                  <button className="action-secondary" onClick={resetFilters} type="button">
-                    Clear Filters
-                  </button>
-                  <Link className="action-commerce" href="/contact">
-                    Ask KMD for Alternatives
+
+                <div className="mt-4 grid grid-cols-2 gap-2 text-xs font-mono">
+                  <div className="rounded-xl border border-neutral-200 bg-neutral-50 p-2.5">
+                    <span className="block text-[10px] text-neutral-400 uppercase">MOQ</span>
+                    <strong className="text-neutral-900">{activeQuickViewProduct.moq}</strong>
+                  </div>
+                  <div className="rounded-xl border border-neutral-200 bg-neutral-50 p-2.5">
+                    <span className="block text-[10px] text-neutral-400 uppercase">Rate</span>
+                    <strong className="text-neutral-900">{activeQuickViewProduct.price ? `$${activeQuickViewProduct.price.toFixed(2)}` : "Supply Rate"}</strong>
+                  </div>
+                </div>
+
+                {/* Specs List */}
+                <div className="mt-4">
+                  <h4 className="text-[11px] font-mono font-bold uppercase tracking-wider text-neutral-400 mb-2">Key Specifications</h4>
+                  <ul className="grid gap-1.5 text-xs text-neutral-700">
+                    {activeQuickViewProduct.specs.map((spec) => (
+                      <li key={spec} className="flex items-center gap-2">
+                        <CheckCircle2 className="h-3.5 w-3.5 text-brand-accent shrink-0" />
+                        <span>{spec}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Action CTA */}
+                <div className="mt-6 flex items-center gap-3">
+                  <Link
+                    className="flex-1 bg-brand-accent text-white py-3 px-4 text-xs font-semibold uppercase tracking-wider rounded-full hover:bg-brand-accent-hover transition duration-200 flex items-center justify-center gap-1.5 shadow-md text-center"
+                    href={`/contact?product=${encodeURIComponent(activeQuickViewProduct.href.replace("/products/", ""))}`}
+                    onClick={() => setActiveQuickViewProduct(null)}
+                  >
+                    <span>Inquire This Item</span>
+                    <ArrowUpRight className="h-4 w-4" />
                   </Link>
                 </div>
               </div>
-            </div>
-          )}
-        </div>
-      </div>
-
-      {filtersOpen ? (
-        <div
-          className="fixed inset-0 z-50 flex items-end bg-black/40 backdrop-blur-[2px] lg:hidden"
-          onClick={() => setFiltersOpen(false)}
-          role="presentation"
-        >
-          <div
-            aria-label="Product filters"
-            aria-modal="true"
-            className="flex max-h-[88dvh] w-full flex-col overflow-hidden rounded-t-2xl bg-sand-50 shadow-panel"
-            onClick={(event) => event.stopPropagation()}
-            role="dialog"
-          >
-            <div className="mx-auto mt-2 h-1 w-10 rounded-full bg-sand-400" />
-            <div className="flex items-center justify-between border-b border-sand-400 px-5 py-4">
-              <div>
-                <h2 className="font-serif text-2xl text-ink-900">Filter products</h2>
-                <p className="mt-1 text-xs text-ink-700">
-                  {selectedBrands.length + selectedAvailability.length > 0
-                    ? `${selectedBrands.length + selectedAvailability.length} selected`
-                    : "Choose brand or availability"}
-                </p>
-              </div>
-              <button
-                aria-label="Close filters"
-                autoFocus
-                className="grid h-11 w-11 place-items-center rounded-full border border-sand-400 text-ink-900"
-                onClick={() => setFiltersOpen(false)}
-                type="button"
-              >
-                <X className="h-5 w-5" />
-              </button>
-            </div>
-
-            <div className="grid flex-1 gap-6 overflow-y-auto px-5 py-5">
-              <MobileFilterGroup title="Brands">
-                {brands.map((brand) => (
-                  <label key={brand} className="mobile-filter-option">
-                    <input checked={selectedBrands.includes(brand)} className="filter-checkbox" onChange={() => toggleBrand(brand)} type="checkbox" />
-                    <span>{brand}</span>
-                  </label>
-                ))}
-              </MobileFilterGroup>
-
-              <MobileFilterGroup title="Availability">
-                {availability.map((item) => (
-                  <label key={item} className="mobile-filter-option">
-                    <input checked={selectedAvailability.includes(item)} className="filter-checkbox" onChange={() => toggleAvailability(item)} type="checkbox" />
-                    <span>{item}</span>
-                  </label>
-                ))}
-              </MobileFilterGroup>
-            </div>
-
-            <div className="grid grid-cols-[auto_minmax(0,1fr)] gap-3 border-t border-sand-400 bg-white px-5 py-4 pb-[max(1rem,env(safe-area-inset-bottom))]">
-              <button
-                className="action-secondary min-h-12 px-4"
-                disabled={selectedBrands.length + selectedAvailability.length === 0}
-                onClick={() => {
-                  setSelectedBrands([]);
-                  setSelectedAvailability([]);
-                }}
-                type="button"
-              >
-                Clear
-              </button>
-              <button className="action-commerce min-h-12" onClick={() => setFiltersOpen(false)} type="button">
-                Show {filteredProducts.length} {filteredProducts.length === 1 ? "product" : "products"}
-              </button>
             </div>
           </div>
         </div>
       ) : null}
     </section>
-  );
-}
-
-type ActiveFilter =
-  | { label: string; type: "category"; value: string }
-  | { label: string; type: "brand"; value: string }
-  | { label: string; type: "availability"; value: ProductItem["stockStatus"] }
-  | { label: string; type: "buyingMode"; value: BuyingMode }
-  | { label: string; type: "sort"; value: SortMode }
-  | { label: string; type: "query"; value: string };
-
-function FilterGroup({ children, title }: { children: ReactNode; title: string }) {
-  return (
-    <div className="surface-card p-5">
-      <div className="text-sm font-semibold uppercase tracking-[0.16em] text-ink-900">{title}</div>
-      <div className="mt-4 grid gap-2">{children}</div>
-    </div>
-  );
-}
-
-function MobileFilterGroup({ children, title }: { children: ReactNode; title: string }) {
-  return (
-    <fieldset>
-      <legend className="text-sm font-semibold uppercase tracking-[0.16em] text-ink-900">{title}</legend>
-      <div className="mt-3 grid grid-cols-2 gap-2">{children}</div>
-    </fieldset>
-  );
-}
-
-function ProductListRow({ product }: { product: ProductItem }) {
-  const needsQuote = product.quoteRecommended || product.stockStatus !== "In stock";
-  const primaryAction = product.stockStatus === "Low stock" ? "Check Availability" : needsQuote ? "Get Quote" : "Add to Cart";
-  const primaryHref = needsQuote || product.stockStatus === "Low stock" ? "/contact" : "/cart";
-
-  return (
-    <article className="surface-card grid gap-4 p-4 transition hover:-translate-y-0.5 hover:border-bronze-500 hover:shadow-panel lg:grid-cols-[120px_1fr_auto] lg:items-center">
-      <Link href={product.href}>
-        <Image alt={product.name} className="h-28 w-full rounded-lg object-cover lg:h-24" src={product.imageUrl} width={120} height={96} loading="lazy" />
-      </Link>
-      <div>
-        <div className="flex flex-wrap items-center gap-2 text-xs uppercase tracking-[0.16em] text-ink-700">
-          <span>{product.category}</span>
-          <span>{product.sku}</span>
-        </div>
-        <h3 className="mt-2 font-serif text-2xl text-ink-900">
-          <Link className="transition hover:text-brand-red" href={product.href}>
-            {product.name}
-          </Link>
-        </h3>
-        <p className="mt-1 text-sm leading-6 text-ink-700">{product.descriptor}</p>
-        <div className="mt-3 grid gap-2 text-xs text-ink-700 sm:grid-cols-4">
-          <span className="rounded-md bg-sand-100 px-2 py-1">MOQ: {product.moq}</span>
-          <span className="rounded-md bg-sand-100 px-2 py-1">{product.leadTime}</span>
-          <span className="rounded-md bg-sand-100 px-2 py-1">{product.stockStatus}</span>
-          <span className="rounded-md bg-sand-100 px-2 py-1">{product.delivery}</span>
-        </div>
-      </div>
-      <div className="grid gap-2 lg:min-w-40">
-        <div className="text-left lg:text-right">
-          <div className="text-sm font-semibold text-ink-700">Price on request</div>
-          <div className="text-xs text-ink-700">Per {product.unit}</div>
-        </div>
-        {needsQuote || product.stockStatus === "Low stock" ? (
-          <Link className="action-commerce min-h-10 px-3 py-2 text-xs" href={primaryHref}>
-            {primaryAction}
-          </Link>
-        ) : (
-          <AddToCartButton className="action-commerce min-h-10 gap-1.5 px-3 py-2 text-xs" compact product={product} />
-        )}
-        <Link className="action-secondary min-h-10 px-3 py-2 text-xs" href={product.href}>
-          Details
-        </Link>
-      </div>
-    </article>
   );
 }
