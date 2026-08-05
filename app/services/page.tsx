@@ -298,28 +298,39 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* Bottom Consultation CTA Banner */}
-      <section className="bg-brand-primary text-white py-16 lg:py-20 border-t border-white/10">
+      {/* Ultra-Clean Bottom Consultation CTA */}
+      <section className="bg-neutral-50/80 py-16 lg:py-24 border-t border-neutral-200">
         <div className="mx-auto max-w-screen-2xl px-4 md:px-8 text-center max-w-3xl">
-          <span className="text-xs font-mono font-semibold uppercase tracking-widest text-brand-accent">
-            Get Started Today
+          <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-brand-accent">
+            GET STARTED TODAY
           </span>
-          <h2 className="mt-4 font-serif text-3xl font-normal sm:text-4xl md:text-5xl text-white">
-            Start Your Commercial Fit-Out Project
+          <h2 className="mt-3 font-serif text-3xl font-normal text-neutral-950 sm:text-4xl md:text-5xl">
+            Ready to Start Your Commercial Fit-Out?
           </h2>
-          <p className="mt-4 text-base text-neutral-200 font-light leading-relaxed">
-            Tell us about your commercial space, project requirements, and timeline. KMD Décor will help you shape a fit-out solution that is functional, considered, and ready to deliver.
+          <p className="mt-3 text-xs sm:text-sm text-neutral-600 font-light leading-relaxed">
+            Contact KMD Décor in Phnom Penh for transparent BOQ calculations, material specifications, and professional installation engineering.
           </p>
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
-              className="bg-brand-accent text-white px-8 py-4 text-xs font-semibold uppercase tracking-wider rounded-full hover:bg-brand-accent-hover transition-all duration-200 inline-flex items-center gap-2 shadow-lg w-full sm:w-auto justify-center"
+              className="bg-brand-primary text-white px-8 py-4 text-xs font-semibold uppercase tracking-wider rounded-full hover:bg-brand-accent transition-all duration-200 inline-flex items-center gap-2 shadow-sm w-full sm:w-auto justify-center"
               href="/contact"
             >
               <span>Request BOQ Quotation</span>
               <ArrowRight className="h-4 w-4" />
             </Link>
             <a
-              className="border border-white/30 text-white px-6 py-4 text-xs font-semibold uppercase tracking-wider rounded-full hover:bg-white/10 transition-all duration-200 inline-flex items-center gap-2 w-full sm:w-auto justify-center"
+              className="border border-neutral-300 bg-white text-neutral-900 px-6 py-4 text-xs font-semibold uppercase tracking-wider rounded-full hover:border-neutral-400 hover:bg-neutral-50 transition-all duration-200 inline-flex items-center gap-2 w-full sm:w-auto justify-center shadow-sm"
+              href="https://t.me/+85516927683"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <svg className="h-4 w-4 fill-brand-accent" viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.02-1.96 1.25-5.54 3.69-.52.36-1 .54-1.43.53-.47-.01-1.37-.27-2.04-.49-.82-.27-1.47-.42-1.42-.88.03-.24.37-.49 1.02-.75 3.99-1.74 6.66-2.89 8.01-3.45 3.81-1.59 4.6-1.87 5.12-1.88.11 0 .37.03.54.17.14.12.18.28.2.45-.01.07.01.23 0 .37z" />
+              </svg>
+              <span>Telegram Chat</span>
+            </a>
+            <a
+              className="border border-neutral-300 bg-white text-neutral-900 px-6 py-4 text-xs font-semibold uppercase tracking-wider rounded-full hover:border-neutral-400 hover:bg-neutral-50 transition-all duration-200 inline-flex items-center gap-2 w-full sm:w-auto justify-center shadow-sm"
               href="tel:+85516927683"
             >
               <PhoneCall className="h-4 w-4 text-brand-accent" />
