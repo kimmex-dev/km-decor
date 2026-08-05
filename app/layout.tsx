@@ -4,6 +4,7 @@ import { AuthProvider } from "@/lib/auth-context";
 import { ToastProvider } from "@/components/ui/toast";
 import { PwaServiceWorker } from "@/components/pwa-service-worker";
 import { ErrorTracker } from "@/components/error-tracker";
+import { ScrollToTop } from "@/components/scroll-to-top";
 import "./globals.css";
 
 const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || "https://kmdecor.com").replace(/\/$/, "");
@@ -57,6 +58,7 @@ export default function RootLayout({
         <LanguageProvider>
           <AuthProvider>
             <ToastProvider>
+              <ScrollToTop />
               {children}
               <ErrorTracker />
               <PwaServiceWorker />

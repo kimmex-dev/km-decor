@@ -52,53 +52,31 @@ export default function ServicesPage() {
     <main className="min-h-screen bg-white text-neutral-900 selection:bg-brand-accent selection:text-white">
       <SiteHeader />
 
-      {/* Pristine Minimalist Hero Section */}
-      <section className="relative isolate min-h-[480px] overflow-hidden bg-brand-primary text-white md:min-h-[540px] flex items-center border-b border-brand-primary/80">
-
-        {/* Background Architectural Photo */}
-        <img
-          alt="Modern commercial interior fit-out project by KMD Decor"
-          className="absolute inset-0 h-full w-full object-cover object-center"
-          src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=2000&q=85"
-        />
-
-        {/* Subtle Text Contrast Vignette Gradient */}
-        <div className="absolute inset-0 bg-gradient-to-r from-neutral-950/80 via-neutral-950/45 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/80 via-transparent to-transparent" />
-
-        <div className="mx-auto flex max-w-screen-2xl items-center px-4 py-16 text-white md:px-8 relative z-10 w-full">
-          <motion.div
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="max-w-3xl"
-          >
-            {/* Top Eyebrow */}
-            <p className="text-xs font-mono font-semibold uppercase tracking-widest text-brand-accent mb-4">
-              KMD DÉCOR — B2B COMMERCIAL SERVICES
-            </p>
-
-            {/* Headline */}
-            <h1 className="font-serif text-4xl font-normal leading-[1.12] sm:text-5xl md:text-6xl text-white tracking-tight">
-              Interior Fit-Out & Architectural Services
-            </h1>
-
-            {/* Description */}
-            <p className="mt-4 text-base sm:text-lg font-light leading-relaxed text-neutral-300 max-w-2xl">
-              From material supply and installation to complete fit-out work, KMD Décor creates modern, practical, and high-quality commercial interiors across Phnom Penh, Cambodia.
-            </p>
-
-            {/* Clean Single CTA */}
-            <div className="mt-8 flex items-center">
+      {/* Pristine Light Header */}
+      <section className="bg-neutral-50/80 border-b border-neutral-200 py-10 md:py-14">
+        <div className="mx-auto max-w-screen-2xl px-4 md:px-8">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+            <div>
+              <p className="text-[10px] font-mono font-bold uppercase tracking-widest text-brand-accent mb-2">
+                KMD DÉCOR — SERVICES & CAPABILITIES
+              </p>
+              <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-normal text-neutral-950 tracking-tight">
+                Interior Fit-Out & Architectural Services
+              </h1>
+              <p className="mt-2 text-xs sm:text-sm text-neutral-500 font-light max-w-xl leading-relaxed">
+                From material supply and installation to complete fit-out work, KMD Décor creates modern, practical, and high-quality commercial interiors across Phnom Penh.
+              </p>
+            </div>
+            <div>
               <a
-                className="bg-brand-accent text-white px-7 py-3.5 text-xs font-semibold uppercase tracking-wider rounded-full hover:bg-brand-accent-hover transition-all duration-200 inline-flex items-center gap-2 shadow-md"
+                className="bg-neutral-900 text-white px-5 py-2.5 text-xs font-semibold uppercase tracking-wider rounded-full hover:bg-brand-accent transition duration-200 inline-flex items-center gap-1.5 shadow-sm whitespace-nowrap"
                 href="#services-list"
               >
                 <span>Explore Services</span>
-                <ArrowDown className="h-4 w-4" />
+                <ArrowDown className="h-3.5 w-3.5" />
               </a>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 

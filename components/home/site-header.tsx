@@ -169,16 +169,24 @@ export function SiteHeader() {
     return () => window.removeEventListener("mousedown", closeOnOutsideClick);
   }, [accountMenuOpen]);
 
+  const isHomePage = pathname === "/";
+  const isTransparentAtTop = isHomePage && !isScrolled;
+
   return (
     <>
       {/* Pristine Modern Sticky Header */}
-      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-neutral-200/80 shadow-sm text-neutral-900 transition-all duration-300">
+      <header
+        className={`sticky top-0 z-40 transition-all duration-300 border-b ${isTransparentAtTop
+            ? "bg-neutral-950/80 backdrop-blur-md border-white/10 text-white"
+            : "bg-white/95 backdrop-blur-md border-neutral-200/80 shadow-sm text-neutral-900"
+          }`}
+      >
         <div className="mx-auto flex h-16 max-w-screen-2xl items-center justify-between px-4 md:px-8">
-          
+
           {/* Brand Logo */}
           <Link className="group flex items-center gap-3 shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent rounded-lg" href="/" aria-label="KMD Decor Home">
             <Image alt="KMD Decor logo" className="h-8 w-auto object-contain transition group-hover:opacity-80" priority src={kmdLogo} width={32} height={32} />
-            <span className="font-serif text-xl font-bold text-neutral-950 tracking-tight">{text("Decor", "តុបតែង")}</span>
+            <span className={`font-serif text-xl font-bold tracking-tight ${isTransparentAtTop ? "text-white" : "text-neutral-950"}`}>{text("Decor", "តុបតែង")}</span>
           </Link>
 
           {/* Clean Center Navigation Links */}
@@ -190,11 +198,12 @@ export function SiteHeader() {
                 <Link
                   key={item.href}
                   aria-current={isActive ? "page" : undefined}
-                  className={`text-sm font-medium transition relative py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent rounded-sm ${
-                    isActive
+                  className={`text-sm font-medium transition relative py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent rounded-sm ${isActive
                       ? "text-brand-accent font-bold"
-                      : "text-neutral-700 hover:text-neutral-950"
-                  }`}
+                      : isTransparentAtTop
+                        ? "text-neutral-300 hover:text-white"
+                        : "text-neutral-700 hover:text-neutral-950"
+                    }`}
                   href={item.href}
                 >
                   {text(item.label, khmerNav[item.label] || item.label)}
@@ -207,7 +216,7 @@ export function SiteHeader() {
           </nav>
 
           <div className="flex items-center gap-3 shrink-0">
-            <div>
+            <div className="hidden lg:block">
               <LanguageSwitcher />
             </div>
 
@@ -264,9 +273,8 @@ export function SiteHeader() {
                     <Link
                       key={item.href}
                       aria-current={isActive ? "page" : undefined}
-                      className={`flex items-center justify-between py-3 border-b border-neutral-100 text-sm font-semibold transition ${
-                        isActive ? "text-[#111827]" : "text-neutral-600 hover:text-[#111827]"
-                      }`}
+                      className={`flex items-center justify-between py-3 border-b border-neutral-100 text-sm font-semibold transition ${isActive ? "text-[#111827]" : "text-neutral-600 hover:text-[#111827]"
+                        }`}
                       href={item.href}
                       onClick={() => setMobileMenuOpen(false)}
                     >
