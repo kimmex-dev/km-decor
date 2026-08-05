@@ -127,56 +127,82 @@ export default function ServicesPage() {
                 className="scroll-mt-32 grid gap-8 lg:grid-cols-12 lg:items-center"
                 id={service.id}
               >
-                {/* Visual Image Container */}
-                <div className={`relative min-h-[320px] sm:min-h-[400px] lg:min-h-[460px] overflow-hidden rounded-2xl border border-neutral-200 shadow-md group lg:col-span-6 ${isEven ? "lg:order-1" : "lg:order-2"}`}>
+                {/* Visual Image Container — Hover Shows Service Scope */}
+                <Link
+                  href={`/services/${service.id}`}
+                  className={`relative block min-h-[320px] sm:min-h-[400px] lg:min-h-[460px] overflow-hidden rounded-2xl border border-neutral-200 bg-neutral-950 shadow-md group lg:col-span-6 ${isEven ? "lg:order-1" : "lg:order-2"}`}
+                >
                   <img
                     alt={service.title}
-                    className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                     loading="lazy"
                     src={service.imageUrl}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/70 via-transparent to-transparent" />
-                  <span className="absolute bottom-6 left-6 rounded-full bg-brand-primary px-3.5 py-1.5 font-mono text-xs font-bold uppercase tracking-wider text-white shadow-md">
-                    0{index + 1} — SERVICE CATEGORY
-                  </span>
-                </div>
+                  {/* Base Dark Vignette */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/80 via-neutral-950/20 to-transparent transition-opacity duration-300 group-hover:opacity-40" />
 
-                {/* Content Container */}
+                  {/* Clean Translucent Hover Overlay showing Service Scope & Vivid Background */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/90 via-neutral-950/45 to-neutral-950/25 opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6 sm:p-8 flex flex-col justify-between text-white">
+                    <div>
+                      <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-brand-accent">
+                        SCOPE & AVAILABLE SPECIFICATIONS
+                      </span>
+                      <h4 className="mt-1 font-serif text-2xl text-white font-normal">
+                        {service.title.replace(/^\d+\.\s*/, "")}
+                      </h4>
+                      {service.items && service.items.length > 0 && (
+                        <div className="mt-4 space-y-2">
+                          {service.items.slice(0, 4).map((item) => (
+                            <div key={item} className="flex items-start gap-2.5 text-xs text-neutral-200 font-light">
+                              <Check className="h-3.5 w-3.5 shrink-0 text-brand-accent stroke-[2.5] mt-0.5" />
+                              <span>{item}</span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="transform translate-y-3 group-hover:translate-y-0 transition-transform duration-300">
+                      <span className="inline-flex items-center gap-2 rounded-full bg-brand-accent px-5 py-2 text-xs font-semibold uppercase tracking-wider text-white shadow-md">
+                        <span>Explore Full Service Scope</span>
+                        <ArrowRight className="h-3.5 w-3.5" />
+                      </span>
+                    </div>
+                  </div>
+                </Link>
+
+                {/* Content Container — Minimal & Visual B2B Card */}
                 <div className={`flex flex-col justify-center lg:col-span-6 ${isEven ? "lg:order-2" : "lg:order-1"}`}>
-                  <span className="text-xs font-mono font-semibold uppercase tracking-widest text-brand-accent">
-                    Supply & Installation
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-brand-accent mb-1">
+                    0{index + 1} — SUPPLY & INSTALLATION
                   </span>
-                  <h3 className="mt-3 font-serif text-3xl font-normal text-neutral-950 sm:text-4xl leading-tight">
+
+                  <h3 className="font-serif text-3xl font-normal text-neutral-950 sm:text-4xl leading-tight">
                     {service.title.replace(/^\d+\.\s*/, "")}
                   </h3>
-                  <p className="mt-4 text-base text-neutral-600 font-light leading-relaxed">
+
+                  <p className="mt-2 text-xs sm:text-sm text-neutral-600 font-light leading-relaxed">
                     {service.description}
                   </p>
 
-                  {/* List of Specific Items from companyprofile.md */}
-                  {service.items && service.items.length > 0 && (
-                    <div className="mt-6 rounded-xl border border-neutral-200 bg-neutral-50/80 p-5 space-y-3">
-                      <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-neutral-900 mb-2">
-                        Available Specifications & Scope
-                      </h4>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs text-neutral-700">
-                        {service.items.map((item) => (
-                          <div key={item} className="flex items-start gap-2">
-                            <Check className="h-4 w-4 shrink-0 text-brand-accent mt-0.5" strokeWidth={2.5} />
-                            <span className="font-medium text-neutral-800">{item}</span>
-                          </div>
-                        ))}
-                      </div>
+                  {/* 3 Quick Spec Badges */}
+                  {detail?.materials && (
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      {detail.materials.slice(0, 3).map((mat) => (
+                        <span key={mat} className="rounded-full border border-neutral-200 bg-neutral-50 px-3 py-1 font-mono text-[11px] font-medium text-neutral-700">
+                          {mat}
+                        </span>
+                      ))}
                     </div>
                   )}
 
-                  {/* Action Link */}
-                  <div className="mt-8 flex items-center gap-4">
+                  {/* Single Clear Primary Action Link */}
+                  <div className="mt-6">
                     <Link
-                      className="bg-brand-accent text-white px-6 py-3 text-xs font-semibold uppercase tracking-wider rounded-full hover:bg-brand-accent-hover transition-all duration-200 inline-flex items-center gap-2 shadow-sm"
-                      href={`/contact?service=${encodeURIComponent(service.id)}`}
+                      className="bg-brand-primary text-white px-6 py-3 text-xs font-semibold uppercase tracking-wider rounded-full hover:bg-brand-accent transition duration-200 inline-flex items-center gap-2 shadow-sm"
+                      href={`/services/${service.id}`}
                     >
-                      <span>Inquire About {service.id === "ceiling" ? "Ceilings" : service.id === "partition" ? "Partitions" : "Furniture"}</span>
+                      <span>Explore Service Details</span>
                       <ArrowRight className="h-3.5 w-3.5" />
                     </Link>
                   </div>
@@ -187,18 +213,22 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* Why Businesses Choose KMD Décor (7 Strength Highlights) */}
-      <section className="bg-neutral-900 text-white py-16 lg:py-24">
-        <div className="mx-auto max-w-screen-2xl px-4 md:px-8">
+      {/* Why Businesses Choose KMD Décor — KMD Brand Primary Deep Navy */}
+      <section className="bg-brand-primary text-white py-16 lg:py-24 relative overflow-hidden">
+        {/* Subtle Background Glow */}
+        <div className="absolute -top-40 -right-40 h-96 w-96 rounded-full bg-brand-accent/10 blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-40 -left-40 h-96 w-96 rounded-full bg-white/5 blur-3xl pointer-events-none" />
+
+        <div className="relative mx-auto max-w-screen-2xl px-4 md:px-8">
           <div className="mb-14 max-w-3xl">
-            <span className="text-xs font-mono font-semibold uppercase tracking-widest text-brand-accent">
-              B2B Value Advantage
+            <span className="text-xs font-mono font-bold uppercase tracking-widest text-brand-accent">
+              KMD DÉCOR — B2B VALUE ADVANTAGE
             </span>
             <h2 className="mt-3 font-serif text-3xl font-normal text-white sm:text-4xl md:text-5xl">
               Why Businesses Choose KMD Décor
             </h2>
-            <p className="mt-4 text-base text-neutral-300 font-light leading-relaxed">
-              Our B2B approach puts project timelines, cost control, material quality, and dependable delivery at the center of every engagement.
+            <p className="mt-4 text-base text-neutral-200 font-light leading-relaxed">
+              Our B2B approach puts project timelines, cost control, certified material quality, and dependable delivery at the center of every commercial engagement in Phnom Penh.
             </p>
           </div>
 
@@ -209,12 +239,15 @@ export default function ServicesPage() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
-                className="rounded-2xl border border-white/15 bg-white/5 p-6 sm:p-8 backdrop-blur-sm hover:border-white/30 transition duration-300"
+                transition={{ duration: 0.4 }}
+                className="group rounded-2xl border border-white/15 bg-white/5 p-6 sm:p-8 backdrop-blur-md hover:bg-white/10 hover:border-white/30 transition-all duration-300 shadow-lg"
               >
-                <span className="font-mono text-xl font-bold text-brand-accent">{item.num}</span>
-                <h3 className="mt-3 font-serif text-xl text-white font-normal">{item.title}</h3>
-                <p className="mt-2 text-sm text-neutral-300 font-light leading-relaxed">{item.desc}</p>
+                <div className="flex items-center justify-between">
+                  <span className="font-mono text-xl font-bold text-brand-accent">{item.num}</span>
+                  <span className="h-2 w-2 rounded-full bg-brand-accent/60 group-hover:bg-brand-accent transition-colors" />
+                </div>
+                <h3 className="mt-4 font-serif text-xl text-white font-normal leading-snug">{item.title}</h3>
+                <p className="mt-2 text-xs sm:text-sm text-neutral-300 font-light leading-relaxed">{item.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -271,23 +304,44 @@ export default function ServicesPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {projects.map((project) => (
-              <div key={project.id} className="group overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm hover:shadow-md transition duration-300">
-                <div className="relative h-48 overflow-hidden">
-                  <img
-                    alt={project.title}
-                    className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-                    src={project.imageUrl}
-                  />
-                  <span className="absolute top-4 left-4 rounded-full bg-brand-primary/90 backdrop-blur-sm px-3 py-1 text-[11px] font-semibold text-white">
-                    {project.scope}
-                  </span>
+              <Link
+                key={project.id}
+                href="/portfolio"
+                className="group relative overflow-hidden rounded-2xl border border-neutral-200 bg-neutral-950 shadow-md min-h-[320px] cursor-pointer block"
+              >
+                <img
+                  alt={project.title}
+                  className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  src={project.imageUrl}
+                />
+                
+                {/* Default Bottom Vignette & Scope Badge */}
+                <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/85 via-neutral-950/20 to-transparent transition-opacity duration-300 group-hover:opacity-30" />
+                
+                <div className="absolute top-4 left-4 rounded-full bg-brand-primary/90 backdrop-blur-md px-3 py-1 text-[11px] font-mono font-bold uppercase tracking-wider text-white border border-white/10 z-10">
+                  {project.scope}
                 </div>
-                <div className="p-6">
-                  <h3 className="font-serif text-xl text-neutral-950 font-normal">{project.title}</h3>
-                  <p className="mt-1 text-xs text-neutral-500 font-mono">{project.location}</p>
-                  <p className="mt-3 text-xs text-neutral-600 leading-relaxed font-light">{project.caption}</p>
+
+                <div className="absolute inset-x-0 bottom-0 p-6 text-white group-hover:opacity-0 transition-opacity duration-300">
+                  <h3 className="font-serif text-xl text-white font-normal">{project.title}</h3>
+                  <p className="mt-1 text-xs text-neutral-300 font-mono">{project.location}</p>
                 </div>
-              </div>
+
+                {/* Clean Translucent Hover Overlay — Vivid Background Photo */}
+                <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/90 via-neutral-950/45 to-neutral-950/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6 flex flex-col justify-between text-white">
+                  <div>
+                    <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-brand-accent">{project.location}</span>
+                    <h3 className="mt-1 font-serif text-2xl text-white font-normal">{project.title}</h3>
+                    <p className="mt-2 text-xs text-neutral-200 font-light leading-relaxed line-clamp-3">{project.caption}</p>
+                  </div>
+                  <div className="transform translate-y-3 group-hover:translate-y-0 transition-transform duration-300">
+                    <span className="inline-flex items-center gap-2 rounded-full bg-brand-accent px-5 py-2 text-xs font-semibold uppercase tracking-wider text-white shadow-md">
+                      <span>Explore Project Showcase</span>
+                      <ArrowRight className="h-3.5 w-3.5" />
+                    </span>
+                  </div>
+                </div>
+              </Link>
             ))}
           </div>
         </div>

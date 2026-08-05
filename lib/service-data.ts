@@ -21,176 +21,134 @@ export type ServiceDetail = {
 export const serviceDetails: Record<string, ServiceDetail> = {
   ceiling: {
     overview:
-      "Finished ceiling decor brings board, profile, lighting, and feature details into one coordinated plan. The service can support gypsum, eco-block, reflective, and LED ceiling directions for residential or commercial spaces, with material and installation needs reviewed around the room condition and intended finish.",
-    photoCta: "Send ceiling photos",
-    quotePrep: ["Ceiling or room photos", "Approximate room size", "Preferred ceiling style", "Supply-only or install"],
-    scope: ["Finished ceiling layout", "Board and profile selection", "Lighting and detail coordination"],
-    materials: ["Gypsum board", "Eco block ceiling board", "Cline 4M"],
-    cta: "Request Ceiling Quote",
-    bestFor: ["Living rooms and bedrooms", "Commercial ceiling refresh", "Reflective or LED ceiling features"],
+      "KMD Décor specializes in certified stretch ceiling installation (CL-01 Translucent, CL-02 Glossy, CL-03 Satin, CL-04 Matt, CL-05 Perforated, CL-06 Printed) and gypsum ceiling decoration. Supported by C-Line 4M steel framing and integrated LED lighting profiles, our ceiling systems deliver clean lines and high moisture resistance for commercial offices and landmark institutions in Phnom Penh.",
+    photoCta: "Send Ceiling Drawings",
+    quotePrep: ["Ceiling area or floor plan", "Approximate height & ceiling style", "Lighting profile requirements", "Supply-only or complete installation"],
+    scope: ["Stretch ceiling membrane installation (CL-01 to CL-06)", "C-Line 4M steel framing & profile fitting", "Integrated LED channel & acoustic coordination"],
+    materials: ["CL-01 Translucent Ceiling", "CL-02 Glossy Ceiling", "CL-03 Satin & CL-04 Matt", "C-Line 4M Steel Frame", "Gypsum Board"],
+    cta: "Request Ceiling Quotation",
+    bestFor: ["Commercial Offices & Towers", "Government Ministry Halls (MEF & MOJ)", "Corporate Meeting Rooms", "Retail & Hotel Showrooms"],
     visuals: [
       {
-        title: "Finished ceiling mood",
-        caption: "Clean ceiling lines for living and commercial interiors.",
+        title: "Stretch Ceiling Illumination",
+        caption: "CL-01 Translucent membrane with integrated LED backlight profiles.",
         imageUrl: "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1400&q=80"
       },
       {
-        title: "Board and profile planning",
-        caption: "Match ceiling board, cline, and installation accessories.",
+        title: "C-Line Framing & Profile Fitting",
+        caption: "Galvanized C-Line 4M steel framing for acoustic and gypsum ceilings.",
         imageUrl: "https://images.unsplash.com/photo-1517581177682-a085bb7ffb15?auto=format&fit=crop&w=900&q=80"
       },
       {
-        title: "Feature ceiling reference",
-        caption: "Use photo references to explain lighting and feature details.",
+        title: "Commercial Hall Finishing",
+        caption: "Delivered for government ministries and office towers in Phnom Penh.",
         imageUrl: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=900&q=80"
       }
     ],
-    quoteFactors: ["Room size and ceiling height", "Ceiling style and lighting details", "Board/profile choice and installation scope"],
-    timeline: "Most ceiling quotes can be reviewed after photos, size, location, and finish reference are provided.",
-    outcomes: ["Cleaner ceiling lines", "Better material planning", "Coordinated lighting and finish details"],
-    deliverables: ["Ceiling requirement review", "Recommended board/profile list", "Supply or install quote direction"],
+    quoteFactors: ["Ceiling square area & room height", "Stretch membrane type (CL-01 to CL-06)", "Framing, lighting profiles & installation access"],
+    timeline: "Ceiling estimates are provided within 24 hours of receiving floor plans or room dimensions.",
+    outcomes: ["Moisture resistant stretch membranes", "Seamless LED lighting integration", "Certified architectural finish"],
+    deliverables: ["BOQ material calculation", "Framing & membrane supply list", "Full installation engineering team"],
     relatedProductIds: ["gypsum-board", "cline-4m", "eco-block-ceiling-board", "installation-kit"],
     faqs: [
       {
-        question: "What should I send for a ceiling quote?",
-        answer: "Send room photos, approximate size, ceiling reference style, location, and whether you need supply-only or installation."
+        question: "What stretch ceiling options are available?",
+        answer: "We supply and install CL-01 Translucent, CL-02 Glossy, CL-03 Satin, CL-04 Matt, CL-05 Perforated (acoustic), and CL-06 Printed stretch ceiling membranes."
       },
       {
-        question: "Can Decor recommend materials before installation?",
-        answer: "Yes. The team can suggest boards, profiles, and accessories based on the ceiling type and project condition."
+        question: "Do you supply both materials and installation?",
+        answer: "Yes. KMD Décor provides both wholesale material supply (C-Line 4M, boards, profiles) and complete on-site installation by our engineering team."
       }
     ]
   },
   partition: {
     overview:
-      "Partition and wall decor services help divide rooms, improve privacy, and create cleaner interior zones without losing the overall design direction of the space. The planning covers frame systems, board selection, acoustic needs, wall finishing, and delivery requirements for residential, retail, and commercial interiors.",
-    photoCta: "Send wall dimensions",
-    quotePrep: ["Wall area photos", "Length and height", "Sound-control needs", "Delivery or install access"],
-    scope: ["Room division planning", "Wall finish recommendation", "Sound-control options"],
-    materials: ["Partition frame", "Acoustic board", "Gypsum board"],
-    cta: "Request Wall Quote",
-    bestFor: ["Office room division", "Bedroom or rental unit partitions", "Meeting rooms needing sound control"],
+      "Our partition wall and framing service provides room division, acoustic isolation, and custom feature wall backdrops for commercial spaces in Phnom Penh. Utilizing galvanized C-Line steel framing, sound-control acoustic boards, and gypsum boards, we deliver certified wall systems for corporate headquarters and government offices.",
+    photoCta: "Send Partition Layout",
+    quotePrep: ["Wall layout or length & height", "Sound isolation requirement", "Finish & door requirements", "Site location & access"],
+    scope: ["C-Line steel framing structure", "Acoustic & gypsum board mounting", "Feature backdrop & partition finishing"],
+    materials: ["C-Line Steel Frame", "Acoustic Wall Board", "Gypsum Board", "Glass Partition Framing"],
+    cta: "Request Partition Quotation",
+    bestFor: ["Corporate Office Room Division", "Executive Suites & Meeting Rooms", "Government Ministry Partitions", "Commercial Retail Spaces"],
     visuals: [
       {
-        title: "Partition planning",
-        caption: "Frame and board choices depend on wall height and use.",
+        title: "Acoustic Wall Partitions",
+        caption: "Sound-control acoustic framing for office meeting rooms.",
         imageUrl: "https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=1400&q=80"
       },
       {
-        title: "Commercial fit-out",
-        caption: "Partition work can support offices, meeting rooms, and project spaces.",
+        title: "Commercial Office Division",
+        caption: "Clean C-line steel framing and gypsum wall structures.",
         imageUrl: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=80"
       },
       {
-        title: "Frame and site material",
-        caption: "Delivery and handling matter for frame and board quantities.",
+        title: "Feature Backdrop Walls",
+        caption: "Decor wall panels and framing for reception areas.",
         imageUrl: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=900&q=80"
       }
     ],
-    quoteFactors: ["Wall length and height", "Sound-control requirement", "Frame/board type and delivery access"],
-    timeline: "Early advice can start from wall length, photos, and whether the space needs acoustic treatment.",
-    outcomes: ["Clear room separation", "Better acoustic planning", "Coordinated frame and board quantities"],
-    deliverables: ["Partition requirement review", "Frame and board recommendations", "Delivery and quote guidance"],
+    quoteFactors: ["Partition wall length and height", "Acoustic insulation specification", "Framing type and delivery access in Phnom Penh"],
+    timeline: "Partition quotes are calculated after wall dimensions and acoustic requirements are confirmed.",
+    outcomes: ["Acoustic isolation & privacy", "Sturdy C-Line steel structure", "Clean commercial finish"],
+    deliverables: ["Steel framing calculations", "Board & insulation schedule", "On-site installation & finishing"],
     relatedProductIds: ["partition-frame-stick", "acoustic-board", "gypsum-board", "installation-kit"],
     faqs: [
       {
-        question: "Can Decor help with sound-control partitions?",
-        answer: "Yes. Share the room use and wall target so acoustic board and frame options can be reviewed."
+        question: "Can KMD Décor build soundproof meeting room partitions?",
+        answer: "Yes. We combine C-Line steel framing with acoustic board insulation to meet sound isolation requirements."
       },
       {
-        question: "Do I need drawings for partition work?",
-        answer: "Drawings help, but photos, approximate wall length, height, and location are enough for early advice."
+        question: "What information is needed for a partition quote?",
+        answer: "Send wall length, height, floor layout photo/drawing, and site location in Phnom Penh."
       }
     ]
   },
   furniture: {
     overview:
-      "Furniture decor service supports built-in cabinets, counters, shelving, display areas, and custom interior features where material choice has a direct impact on the final look and durability. The review connects finish references with board type, thickness, hardware needs, and installation expectations before defining a quote direction.",
-    photoCta: "Send cabinet reference",
-    quotePrep: ["Reference photo or sketch", "Approximate dimensions", "Board finish preference", "Hardware or install needs"],
-    scope: ["Built-in cabinet planning", "Counter and shelving support", "Decor board selection"],
-    materials: ["MDF / WPC / plywood", "Cabinet decor board", "Smart lock options"],
-    cta: "Request Furniture Quote",
-    bestFor: ["Built-in cabinets", "Counters and display shelves", "Custom storage and feature walls"],
+      "KMD Décor manufactures and fits custom interior furniture, built-in office cabinetry, conference hall tables, reception counters, and executive storage units. We combine high-density MDF/WPC decor boards, durable veneers, and commercial hardware to craft practical, modern office interiors.",
+    photoCta: "Send Cabinet Reference",
+    quotePrep: ["Furniture drawings or reference photo", "Approximate dimensions", "Decor board finish preference", "Hardware specifications"],
+    scope: ["Custom office cabinetry & counters", "Executive desk & conference tables", "Built-in shelving & storage units"],
+    materials: ["MDF / WPC Decor Boards", "Cabinetry Laminate", "Commercial Hardware & Fittings"],
+    cta: "Request Furniture Quotation",
+    bestFor: ["Executive Office Suites", "Conference & Boardrooms", "Reception Counters & Displays", "Government & Corporate Fit-Outs"],
     visuals: [
       {
-        title: "Built-in furniture direction",
-        caption: "Use room photos and measurements to guide board and finish choices.",
+        title: "Executive Office Cabinetry",
+        caption: "Custom built-in storage counters and wall features.",
         imageUrl: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&w=1400&q=80"
       },
       {
-        title: "Cabinet material reference",
-        caption: "Confirm board finish, thickness, edge treatment, and hardware.",
+        title: "Conference Hall Fit-Out",
+        caption: "High-density decor boards and executive table finishes.",
         imageUrl: "https://images.unsplash.com/photo-1616046229478-9901c5536a45?auto=format&fit=crop&w=900&q=80"
       },
       {
-        title: "Counter and shelving work",
-        caption: "Project quotes depend on size, finish, and installation scope.",
+        title: "Reception Counters & Shelving",
+        caption: "Commercial grade cabinetry fitted for high-traffic office spaces.",
         imageUrl: "https://images.unsplash.com/photo-1556909212-d5b604d0c90d?auto=format&fit=crop&w=900&q=80"
       }
     ],
-    quoteFactors: ["Furniture dimensions", "Board finish and thickness", "Hardware, edge treatment, and installation needs"],
-    timeline: "Furniture quotes depend on measurements, finish references, and hardware expectations.",
-    outcomes: ["Better board selection", "Cleaner built-in planning", "Coordinated finish and hardware choices"],
-    deliverables: ["Furniture requirement review", "Recommended board and finish direction", "Quote support for custom scope"],
-    relatedProductIds: ["decor-board", "cabinet-board", "smart-lock", "installation-kit"],
+    quoteFactors: ["Dimensions and quantity", "Board material & finish selection", "Hardware, edge treatment, and installation access"],
+    timeline: "Custom furniture quotations depend on design dimensions, board selection, and finish requirements.",
+    outcomes: ["Durable commercial cabinetry", "Matched corporate aesthetic", "Precision built-in fitting"],
+    deliverables: ["Furniture shop drawings review", "Material samples & board selection", "Fabrication & installation"],
+    relatedProductIds: ["decor-board", "cabinet-board", "installation-kit"],
     faqs: [
       {
-        question: "Can I request a specific board finish?",
-        answer: "Yes. Send the finish reference, color, thickness preference, or sample photo for material matching."
+        question: "Can I choose specific decor board finishes?",
+        answer: "Yes. You can select from our range of high-density MDF/WPC decor boards, wood veneers, and commercial laminates."
       },
       {
-        question: "Is furniture work quoted as standard pricing?",
-        answer: "Custom furniture depends on size, finish, hardware, and installation scope, so quote review is recommended."
-      }
-    ]
-  },
-  "smart-home": {
-    overview:
-      "Smart home control services focus on practical upgrades such as smart locks, access control, and convenience features that need compatibility review before purchase. Door type, lock condition, hardware requirements, and installation needs are checked so the selected products fit the site.",
-    photoCta: "Send door photo",
-    quotePrep: ["Door and lock photos", "Door thickness or type", "Access-control needs", "Installation preference"],
-    scope: ["Smart lock and access planning", "Control point recommendation", "Compatibility check"],
-    materials: ["Smart lock set", "Door hardware", "Control accessories"],
-    cta: "Request Smart Home Quote",
-    bestFor: ["Home entrance upgrades", "Rental units and small offices", "Doors needing access-control review"],
-    visuals: [
-      {
-        title: "Smart access upgrade",
-        caption: "Door photos help confirm smart lock compatibility.",
-        imageUrl: "https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&fit=crop&w=1400&q=80"
-      },
-      {
-        title: "Modern living control",
-        caption: "Smart-home planning works best when usage needs are clear.",
-        imageUrl: "https://images.unsplash.com/photo-1560184897-ae75f418493e?auto=format&fit=crop&w=900&q=80"
-      },
-      {
-        title: "Lock and hardware review",
-        caption: "Door type, lock size, and installation condition affect quote direction.",
-        imageUrl: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=900&q=80"
-      }
-    ],
-    quoteFactors: ["Door type and thickness", "Existing lock condition", "Installation and compatibility requirements"],
-    timeline: "Smart-home advice usually starts with door photos, current lock details, and usage needs.",
-    outcomes: ["Clear compatibility review", "Better door and control planning", "Simpler upgrade path for homes or offices"],
-    deliverables: ["Door or control requirement review", "Recommended smart product direction", "Installation and compatibility notes"],
-    relatedProductIds: ["smart-lock", "cabinet-board", "decor-board", "sanitary"],
-    faqs: [
-      {
-        question: "What should I check before choosing a smart lock?",
-        answer: "Confirm the door type, existing lock size, door thickness, and whether installation support is needed."
-      },
-      {
-        question: "Can smart-home products be bundled with other work?",
-        answer: "Yes. Smart access and controls can be quoted with furniture, doors, or renovation support."
+        question: "Where is KMD Décor's office located?",
+        answer: "Our studio & supply warehouse is located at #54, St. 590, Sangkat Boeung Kak II, Khan Toul Kork, Phnom Penh, Cambodia."
       }
     ]
   }
 };
 
 export function getServiceDetail(serviceId: string) {
-  return serviceDetails[serviceId];
+  return serviceDetails[serviceId] ?? serviceDetails["ceiling"];
 }
 
 function productSlug(product: ProductItem) {
@@ -207,5 +165,5 @@ export function getRelatedServiceProducts(serviceId: string, products: ProductIt
 }
 
 export function getServiceBySlug(slug: string) {
-  return services.find((service) => service.id === slug);
+  return services.find((service) => service.id === slug) ?? services[0];
 }

@@ -188,42 +188,23 @@ type PortfolioProjectListOptions = {
 };
 
 export async function getPortfolioProjects(options: PortfolioProjectListOptions = {}): Promise<ProjectItem[]> {
-  const params = new URLSearchParams({ per_page: "100" });
-
-  if (options.featured !== undefined) {
-    params.set("featured", options.featured ? "1" : "0");
-  }
-
-  try {
-    const response = await fetchJson<ApiCollectionResponse<ApiProject>>(`/portfolio?${params.toString()}`);
-    return response.data.map(adaptToProjectItem);
-  } catch {
-    return options.featured ? fallbackProjects.slice(0, 3) : fallbackProjects;
-  }
+  // External API calls disabled: return local fallback static data directly
+  return options.featured ? fallbackProjects.slice(0, 3) : fallbackProjects;
 }
 
 export async function getPortfolioProject(slug: string): Promise<PortfolioProjectResult | null> {
-  try {
-    const response = await fetchJson<ApiResourceResponse<ApiProject>>(`/portfolio/${encodeURIComponent(slug)}`);
-    const project = adaptToProjectItem(response.data);
-    const detail = adaptToProjectDetail(response.data);
-    const services = response.data.services?.map(adaptToServiceItem) ?? [];
-    const products = response.data.products?.map(adaptToProductItem) ?? [];
-
-    return { project, detail, services, products };
-  } catch {
-    const fallbackItem = fallbackProjects.find((p) => p.id === slug);
-    const fallbackDetail = fallbackDetails[slug];
-    if (!fallbackItem || !fallbackDetail) return null;
-    return {
-      project: fallbackItem,
-      detail: fallbackDetail,
-      services: fallbackDetail.serviceIds
-        .map((id) => fallbackServices.find((service) => service.id === id))
-        .filter((service): service is ServiceItem => Boolean(service)),
-      products: fallbackDetail.productIds
-        .map((id) => fallbackProducts.find((product) => product.id === id))
-        .filter((product): product is ProductItem => Boolean(product)),
-    };
-  }
+  // External API calls disabled: return local fallback static data directly
+  const fallbackItem = fallbackProjects.find((p) => p.id === slug);
+  const fallbackDetail = fallbackDetails[slug];
+  if (!fallbackItem || !fallbackDetail) return null;
+  return {
+    project: fallbackItem,
+    detail: fallbackDetail,
+    services: fallbackDetail.serviceIds
+      .map((id) => fallbackServices.find((service) => service.id === id))
+      .filter((service): service is ServiceItem => Boolean(service)),
+    products: fallbackDetail.productIds
+      .map((id) => fallbackProducts.find((product) => product.id === id))
+      .filter((product): product is ProductItem => Boolean(product)),
+  };
 }

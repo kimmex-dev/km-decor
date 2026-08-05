@@ -1,4 +1,3 @@
-import { fetchJson } from "@/lib/api-client";
 import { services as fallbackServices, type ServiceItem } from "@/lib/homepage-data";
 
 export type ApiService = {
@@ -23,14 +22,6 @@ export type ApiService = {
   structured_data?: Record<string, unknown> | null;
 };
 
-type ApiCollectionResponse<T> = {
-  data: T[];
-};
-
-type ApiResourceResponse<T> = {
-  data: T;
-};
-
 export function adaptService(service: ApiService): ServiceItem {
   return {
     id: service.slug,
@@ -47,12 +38,7 @@ export async function getCatalogServices(): Promise<ServiceItem[]> {
   return fallbackServices;
 }
 
-export async function getCatalogService(slug: string): Promise<ApiService | null> {
-  try {
-    const response = await fetchJson<ApiResourceResponse<ApiService>>(`/services/${encodeURIComponent(slug)}`);
-    return response.data;
-  } catch (error) {
-    console.error(`Failed to fetch service ${slug}:`, error);
-    return null;
-  }
+export async function getCatalogService(_slug: string): Promise<ApiService | null> {
+  // External API calls disabled: return local fallback static data directly
+  return null;
 }

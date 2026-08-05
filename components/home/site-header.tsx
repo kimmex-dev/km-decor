@@ -3,14 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import {
-  ArrowRight,
-  ChevronDown,
-  LogOut,
   Menu,
-  PackageCheck,
-  Search,
-  ShoppingBag,
-  UserRound,
   X
 } from "lucide-react";
 import { usePathname } from "next/navigation";

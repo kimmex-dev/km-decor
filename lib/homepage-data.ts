@@ -101,7 +101,7 @@ export const shopCategories = [
 export const services: ServiceItem[] = [
   {
     id: "ceiling",
-    title: "1. Ceiling Décor (Supply & Install)",
+    title: "1. Ceiling Décor",
     description: "Complete stretch and eco block ceiling systems with integrated LED lighting and moisture protection.",
     items: [
       "CL-01 Stretch ceiling with white paint",
@@ -116,7 +116,7 @@ export const services: ServiceItem[] = [
   },
   {
     id: "partition",
-    title: "2. Partition & Wall Décor (Supply & Install)",
+    title: "2. Partition & Wall Décor",
     description: "Custom doors, windows, feature backdrops, service counters, and heavy-duty commercial floor carpeting.",
     items: [
       "Door & Window installation",
@@ -129,7 +129,7 @@ export const services: ServiceItem[] = [
   },
   {
     id: "furniture",
-    title: "3. Interior Décor & Furniture (Supply & Install)",
+    title: "3. Interior Décor & Furniture",
     description: "Custom cabinetry, modular office materials, and full conference hall interior fit-out solutions.",
     items: [
       "Cabinet & storage solutions",
