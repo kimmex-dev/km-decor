@@ -25,14 +25,16 @@ const mainNav = [
   { label: "Services", href: "/services" },
   { label: "Portfolio", href: "/portfolio" },
   { label: "Products", href: "/products" },
-  { label: "About", href: "/about" }
+  { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" }
 ];
 
 const khmerNav: Record<string, string> = {
   Services: "សេវាកម្ម",
   Portfolio: "ស្នាដៃ",
   Products: "ផលិតផល",
-  About: "អំពីយើង"
+  About: "អំពីយើង",
+  Contact: "ទំនាក់ទំនង"
 };
 
 const searchSuggestions = ["gypsum board", "partition", "ceiling", "smart lock"];
@@ -205,17 +207,9 @@ export function SiteHeader() {
           </nav>
 
           <div className="flex items-center gap-3 shrink-0">
-            <div className="hidden sm:block">
+            <div>
               <LanguageSwitcher />
             </div>
-
-            <Link
-              className="bg-brand-accent text-white px-5 py-2 text-xs font-semibold uppercase tracking-wider rounded-full hover:bg-brand-accent-hover transition-all duration-200 hidden sm:inline-flex items-center gap-1.5 ml-1 shadow-sm"
-              href="/contact"
-            >
-              <span>Request Quote</span>
-              <ArrowRight className="h-3.5 w-3.5" />
-            </Link>
 
             <button
               aria-expanded={mobileMenuOpen}
@@ -284,17 +278,6 @@ export function SiteHeader() {
                   );
                 })}
               </nav>
-
-              <div className="mt-6 pt-4 border-t border-neutral-100">
-                <Link
-                  className="bg-[#111827] text-white px-5 py-3 text-xs font-semibold uppercase tracking-wider rounded-full hover:bg-[#991b1b] transition duration-200 w-full flex items-center justify-center gap-2"
-                  href="#contact"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  <span>Request Quote</span>
-                  <ArrowRight className="h-3.5 w-3.5" />
-                </Link>
-              </div>
             </div>
 
             <div className="border-t border-neutral-100 bg-neutral-50 px-5 py-4">
